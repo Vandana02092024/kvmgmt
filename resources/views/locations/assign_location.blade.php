@@ -1,0 +1,172 @@
+@extends('layouts.layout')
+
+@section('content')
+<section id="dashboard-page" class="wrap">
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-sm-12">
+				<div class="page-heading">
+					<h3 class="heading"> <a class="v-btn v-btn-primary " style="margin-right:8px" href="{{ url('/location') }}"><i class="fa fa-arrow-left " style="margin-right: 5px"> </i>BACK</a> ASSIGN MENU
+
+						<div class="col-md-2">
+							<form class="widget ng-pristine ng-valid" method="POST" id="form" action="{{ url('/asign_loaction') }}">
+									{{ csrf_field() }}
+							<select name="location" class="form-control" onchange="$('#form').submit()">
+									<option value=""> Select location</option>
+									@<?php foreach ($list as $key => $value): ?>
+											<option value="{{$value->id}}" @if(isset($location)&& $location==$value->id) selected @endif> {{$value->location}}</option>
+									<?php endforeach; ?>
+							</select>
+							</form>
+						</div>
+
+					<a class="v-btn v-btn-primary pull-right" href="{{ url('/dashboard') }}">MENU</a>
+					</h3>
+
+	        <br />
+				</div>
+			</div>
+		</div>
+		<div class="row">
+
+			@if(Session::has('message'))
+	            <div class="alert alert-success">
+	                {{ Session::get('message') }}
+	            </div>
+	        @endif
+
+
+			<div class="col-sm-12 ">
+				<div class="widget">
+					<div class="widget-content">
+            <div class="responsive-table">
+              <table id="example" class="table table-striped table-bordered" cellspacing="0" width="100%">
+                    <thead>
+                        <tr>
+                            <th>LOCATION</th>
+                            <th>MENU</th>
+                            <th>STATUS</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach($locations as $location)
+                                <tr>
+                                    <td>{{ $location->location }} </td>
+                                    <td>{{ $location->name }}</td>
+                                    <td>
+                                     <label class="switch" >
+                                     <input type="checkbox" @if($location->status==1)checked @endif onclick="changeStatus({{$location->id}})">
+                                     <span class="slider round"></span>
+                                     </label>
+                                    </td>
+                                </tr>
+                          @endforeach
+                    </tbody>
+                </table>
+            </div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/css/bootstrap-datetimepicker.css">
+<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.css">
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.6/moment.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/js/bootstrap-datetimepicker.min.js"></script>
+<script src="{{  URL::asset('public/js/bootbox.min.js') }}"></script>
+
+
+<script type="text/javascript">
+ $("#weeklyDatePicker").datetimepicker({
+      format: 'YYYY-MM-DD',
+	  maxDate: 'now'
+   });
+
+   	$(document).ready(function() {
+   	    $('#example').DataTable({
+   			"aaSorting": []
+   		});
+   	} );
+    function changeStatus(id){
+      bootbox.confirm('Are you sure want to update it?',
+       function(result) {
+           if(result){
+                   $.ajax({
+                   url : "{{url('asign_loaction_status')}}/"+id,
+                   method : 'get',
+                   success : function(resp){
+                       bootbox.alert('Status updated successfully.');
+                      // location.reload()
+                   },
+                   error : function(){
+                       bootbox.alert('Server error. Please try again.');
+                   }
+               });
+           }
+
+       });
+    }
+</script>
+<style>
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 45px;
+  height: 20px;
+  vertical-align: middle;
+  margin-top: 8px;
+}
+
+.switch input {display:none;}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #A1A6AB;
+  -webkit-transition: .4s;
+  transition: .4s;
+
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+ height: 16px;
+width: 14px;
+left: 2px;
+bottom: 2px;
+  background-color: white;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+input:checked + .slider {
+  background-color: #4f4e8f;
+}
+
+input:focus + .slider {
+  box-shadow: 0 0 1px #2196F3;
+}
+
+input:checked + .slider:before {
+  -webkit-transform: translateX(26px);
+  -ms-transform: translateX(26px);
+  transform: translateX(26px);
+}
+
+/* Rounded sliders */
+.slider.round {
+  border-radius: 34px;
+}
+
+.slider.round:before {
+  border-radius: 50%;
+}
+</style>
+@endsection

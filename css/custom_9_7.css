@@ -1,0 +1,508 @@
+/*=============
+
+    common
+
+==============*/
+
+.page-heading{margin-bottom: 15px;}
+
+.page-heading h3.heading span{margin-top: 5px;}
+
+.amchart {width: 100%; height: 300px;}
+.sub-menu1>li>a {
+    padding-left: 1.2em!important;
+}
+
+
+
+.full-page-loader{position: fixed; width: 100%; height: 100%; top:0; bottom: 0; left: 0; right: 0;}
+
+
+
+.form-layout{border: 1px solid #ddd;}
+
+.form-layout h4{margin-bottom: 5px;
+    font-weight: 600;
+    font-size: 16px;}
+table#custnotify_table textarea{height: 30px;}
+
+.main-detail,
+
+.specific-problem,
+
+.describe-garments,
+
+.Search-result,
+
+.resolution,
+
+.description{margin-bottom: 0em;padding:1em 1em 0em 1em;}
+.description p:first-child{font-size: 12px;margin-top: 55px;}
+.description p{font-size: 12px;margin-top: 10px;}
+.divider{border-bottom: 2px solid #999;}
+
+
+.admin-dropdown{margin-top: 10px;}
+
+
+.no-padding{padding: 0!important;}
+ul.list>li>a {
+    font-size: 13px;
+}
+.checkbox+.checkbox, .radio+.radio{margin-top: 0!important;}
+.specific-problem {
+    padding: 1em 1em 0em 1em;
+}
+
+
+
+.describe-garments,
+
+.main-detail{background-color: #fff;padding: 1em 1em 0em 1em;}
+
+/*=================
+
+	heder
+
+===================*/
+
+header{background-color: #fff; position: fixed; width: 100%; z-index: 10}
+
+header .brand-name{width: 220px; padding: 0 15px; line-height: 50px; color: #fff}
+
+header .toggle-side-bar{cursor: pointer; margin-right: 10px;}
+
+header .quick-links>li>a{margin-left:1em; /*font-size: 18px;*/}
+
+
+
+
+
+/*=================
+
+	sitemap
+
+==================*/	
+
+.sitemap .breadcrumb{padding:0; background-color: transparent;}
+
+.sitemap .breadcrumb>li{font-size: 12px;}
+
+
+
+
+
+/*===================
+
+	side-navbar
+
+===================*/
+
+.side-bar{
+
+    transition: all 0.1s ease-out;
+
+    -moz-transition: all 0.1s ease-out;
+
+    -webkit-transition: all 0.1s ease-out;
+
+    -ms-transition: all 0.1s ease-out;
+
+    -o-transition: all 0.1s ease-out;
+
+    height: 100%; left: -220px; position: fixed; top: 0px; width: 220px; z-index: 1; padding-top: 48px; background-color: #382f2f;}
+
+.side-bar.open{left: 0;}
+
+.side-nav .user-profile{padding: 1em .5em;  display: table; width: 100%; content: ''}
+
+.side-nav .user-profile img{float: left; margin-right: 10px; border: 4px solid rgba(2, 2, 2, 0.08); width: 60px}
+
+.side-nav .user-profile .title{padding-top:.5em;}
+
+.side-nav .user-profile .title small{margin-top: .3em;}
+
+
+
+.side-nav .caret{position: absolute; top: 20px; right: 10px;}
+
+
+
+.side-nav li{position: relative;}
+
+.side-nav li a{display: block; padding:0 1em; color: #ccc; line-height: 45px;}
+
+.side-nav li a>span{width: 30px; text-align: center; display: inline-block; color: #ccc}
+
+
+
+.sub-menu>li>a{padding-left: 3.2em; background-color: #000;}
+
+
+
+.main-content{
+
+	float: left;
+
+    padding: 57px 30px 50px 230px;
+
+    width: 100%;
+
+    -webkit-transition: all 0.1s ease 0s;
+
+    -moz-transition: all 0.1s ease 0s;
+
+    -ms-transition: all 0.1s ease 0s;
+
+    -o-transition: all 0.1s ease 0s;
+
+    transition: all 0.1s ease 0s;
+
+}
+
+.main-content-full{padding-left: 50px;}
+
+
+
+
+
+/*================
+
+	dashboard
+
+=================*/
+
+/*stats*/
+
+.stats{padding: 1em; display: table; width: 100%; margin-bottom: 2em}
+
+.stats-icon{float: left;}
+
+.stats .refresh-btn{position: absolute; top: 10px; right: 10px; color: #d8d8d8;}
+
+.stats 
+
+
+.title{ padding: 12px 0 0 75px; margin-bottom: 0;}
+
+.stats h4.title span{font-size: 12px; margin-bottom: .5em;}
+
+
+
+/*todo task*/
+
+.task-list>li>a{padding: 10px 0; color: #444;}
+
+
+
+/*quick report*/
+
+.quick-report{display: table; float: right; padding-left: 50px;}
+
+.quick-report-infos{float: left; padding-right: 18px;}
+
+.quick-report-infos>h4>span{margin-bottom:  5px;}    
+
+
+
+/*chat list*/
+
+.our-client .form-group{padding: 1em;background-color: #f7f7f7; margin-bottom: 0;}
+
+.chat-list{max-height: 254px; overflow-y: auto; padding-right: 15px;}
+
+.chat-list li a{padding: 1em}
+
+.chat-list li a .chat-icon{position: absolute; top: 20px; right: 20px; color: #ddd;}
+
+.chat-list li a .user-icon{border-radius: 50%; color: #fff; float: left; font-size: 21px; height: 44px; line-height: 44px; position: relative; text-align: center; width: 44px;}
+
+.client-info{display: table-cell; padding-left: 15px; position: relative; vertical-align: middle; width: 100%;}
+
+.client-info h4{color: #666; font-size: 14px;}
+
+.client-info h4>span{margin-top: 3px; font-size: 11px;}
+
+
+
+
+
+/*admin-follow*/
+
+.social.fb{background-color:#336699 ;}
+
+.social.tw{background-color:#00ccff ;}
+
+.social.gp{background-color:#cc3333 ;}
+
+.social.ln{background-color:#0099cc ;}
+
+
+
+.admin-follow{padding:3em;  }
+
+.admin-follow>img{width: 100px; height: 100px; border:4px solid #fff; margin: 0 auto}
+
+.admin-follow>h4{margin: 1em 0;}
+
+.admin-follow>h4>span{margin-top: 3px;}
+
+.admin-follow .follow-icons{margin-top: 2em;}
+
+.admin-follow .follow-icons>li>.social{height: 40px; width: 40px; vertical-align: middle; display: table-cell; border-radius: 50%; color: #fff; text-align: center;}
+
+.admin-follow .follow-icons>li> span{margin-top: 5px;}
+
+
+
+/*total sales info*/
+
+.total-sales .circle-chart{float:  left; margin-right: 20px; position: relative; width: 200px;}
+
+.total-sales .circle-chart .amchart{height: 150px;}
+
+.total-sales .total-sales-info{display: table-cell; vertical-align: middle; width: 100%;}
+
+.total-sales .total-sales-info ul{margin-top: 1em; width: 100%;}
+
+.total-sales .total-sales-info ul>li{width: 33.33333% ;float:left; padding-right: 1em;}
+
+
+
+
+
+/*=====================
+
+    user profile
+
+======================*/
+
+.user-img{position: absolute; bottom: -40px; left: 40px;}
+
+.user-img img{width: 130px; height: 130px; border:5px solid #fff;}
+
+.user-name{position: absolute; bottom: 10px; left: 18%;}
+
+/*.user-profile-bg-img{background-image: url('../img/user-profile-bg-img.jpg'); background-position: fixed; background-size: cover; min-height: 200px;}*/
+
+
+
+.user-profile-bg-img {
+
+    width: 100%;
+
+    height: 200px;
+
+    background: url(../img/3.png);
+
+    background-size: cover;
+
+    background-position: center;
+
+    background-attachment: fixed;
+
+    background-color: #9e9e9e;
+
+}
+
+
+
+.userNav>li>a{padding: 0 1em; color: #202223; font-size: 14px; line-height: 50px;}
+
+.userNav>li>a.active{border-bottom: 3px solid #f44336}    
+
+
+
+.user-basic-info{margin-bottom: 0;}
+
+.user-basic-info tr>td,
+
+.user-basic-info tr>th{color: #555; font-size: 12px; border-color: #eee;}
+
+.user-basic-info tr>th>span{display: inline-block; color: #999; width: 30px;}
+
+
+
+
+
+.admin-details:before {
+
+    background: -moz-linear-gradient(top, rgba(255,255,255,0) 0%, rgba(38,50,56,1) 100%);
+
+    background: -webkit-linear-gradient(top, rgba(255,255,255,0) 0%,rgba(38,50,56,1) 100%);
+
+    background: linear-gradient(to bottom, rgba(255,255,255,0) 0%,rgba(38,50,56,1) 100%);
+
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00ffffff', endColorstr='#263238',GradientType=0 );
+
+    content: "";
+
+    height: 100%;
+
+    left: 0;
+
+    position: absolute;
+
+    top: 0;
+
+    width: 100%;
+
+    z-index: -1;
+
+}
+
+
+
+
+
+
+
+/*=================
+
+    Icons Page
+
+==================*/
+
+.list-of-icons>li{text-align: center; padding: 1em;}
+
+.list-of-icons>li .label{text-align: center; padding: 10px 0; display: block; font-size: 15px; color: #828080; text-shadow: none;font-weight: 100;}
+
+.list-of-icons>li:hover{background-color: #f7f7f7;}
+
+
+
+
+
+/*=================
+
+    Pricing Page
+
+==================*/
+
+.pricing-box .feature-list>li{border-bottom: 1px solid #f7f7f7; color: #888}
+
+.pricing-box .feature-list>li.active{ font-size: 40px; font-weight: 600; color: #444}
+
+.pricing-box .feature-list>li.active .sign{vertical-align: top;}
+
+.pricing-box .feature-list>li.active .per-month,
+
+.pricing-box .feature-list>li.active .sign{display: inline-block; margin-right: 5px; color: #aaa; font-weight: 200}
+
+
+
+
+
+/*=================
+
+    Login Page
+
+==================*/
+
+#loginPage{padding-top: 10em}
+
+#loginPage .brand-logo{margin-bottom: 15px;}
+.specific-problem h4
+{
+    font-size: 13px;
+    margin-top:5px;
+    margin-bottom: 5px;
+}
+.table {
+    margin-bottom: 12px;
+}
+.customer-notification {
+   background: #fff;
+    padding: .1em 1em 0em 1em;
+}
+.manager-action
+{
+    padding: .4em .9em;
+}
+.description {
+    margin-bottom: 0em;
+    padding: .2em .9em;
+}
+.Search-result,.describe-garments {
+    padding: .1em 1em 0 1em;
+}
+
+
+
+
+/*================
+
+   Signup Page
+
+================*/
+
+.pagination>.active>a, .pagination>.active>a:focus, .pagination>.active>a:hover, .pagination>.active>span, .pagination>.active>span:focus, .pagination>.active>span:hover
+{
+background-color: #f6c622!important;
+    border-color: #f6c622!important;
+}
+form.delete a.fa.fa-pencil {
+    color: #f6c622;
+}
+.delete button.fa.fa-close
+{
+    background: none!important;
+    border: none;
+    color: #f6c622;
+}
+form.delete a.fa.fa-sign-in
+{
+ color:#f6c622;
+}
+
+
+.anchor{
+    /*content: "\f00d";*/
+   margin-left: -20px !important;
+   background: #382f2f;
+   color: #f6c622;
+   font-weight: 480px;
+   padding: 2px;
+}
+.selectlist
+{
+  display: inline;
+    width: 202px;
+    height: 28px;
+    border: 1px solid #ccc;
+}
+.csr_container .divider
+{
+  border-bottom: 2px solid #ccc!important;
+    margin-bottom: 14px!important;
+}
+
+
+
+  .stat {
+    background: #272727;
+    opacity: 0.9;
+    text-align: center;
+    padding: 17px 20px;
+    box-shadow: 0 0 9px #000;
+    min-height: 134px;
+    margin-bottom: 25px;
+}
+.desc {
+    color: #f6c622;
+    font-size: 18px;
+}
+.visual>i
+{
+    font-size: 53px;
+    color: #f6c622;
+    margin-bottom: 7px;
+}
+
+.v-btn {
+    margin-left: 5px;
+}
+
+.main-content {
+    padding: 57px 30px 50px 35px; 
+    }

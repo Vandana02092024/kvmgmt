@@ -1,0 +1,7 @@
+# Laravel specific files #
+##########################
+.env
+/logs/*
+/vendor/*
+/public/order_pdf/*
+/public/order_pdf
