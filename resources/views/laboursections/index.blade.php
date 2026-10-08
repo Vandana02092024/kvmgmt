@@ -5,14 +5,12 @@
 	<div class="container-fluid">
 		<div class="row">
 			<div class="col-sm-12">
-				<div class="page-heading">
+				<div class="page-heading kv-page-hero kv-labor-hero">
 					<h3 class="heading">
-						<a class="v-btn v-btn-primary " style="margin-right:8px" href="{{ url('/dashboard') }}"><i class="fa fa-arrow-left " style="margin-right: 5px"> </i>BACK</a>LABOR REPORTS
+						<span class="kv-hero-title"><i class="fa fa-users"></i><span>Labor Reports<small>Review weekly store hours and labor report history.</small></span></span>
 
-						<a class="v-btn v-btn-primary pull-right" href="{{ url('/dashboard') }}">MENU</a>
-						<a class="v-btn v-btn-primary pull-right" href="{{ url('/laboursection/create') }}">NEW LABOR REPORT</a>
+						<a class="v-btn v-btn-primary pull-right" href="{{ url('/laboursection/create') }}"><i class="fa fa-plus"></i> New Labor Report</a>
 					</h3>
-					<br />
 				</div>
 			</div>
 		</div>

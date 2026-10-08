@@ -11,9 +11,8 @@
 <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/css/bootstrap-datetimepicker.css">
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/js/bootstrap-datetimepicker.min.js"></script>
 <!-- <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script> -->
-<link rel="stylesheet" href="https://kvmgmt.com/css/bootstrap-multiselect.css" type="text/css">
-<script type="text/javascript" src="https://kvmgmt.com/js/bootstrap-multiselect.js"></script>
-<link type="text/css" rel="stylesheet" href="https://kvmgmt.com/css/custom.css">
+<link rel="stylesheet" href="{{ asset('css/bootstrap-multiselect.css') }}" type="text/css">
+<script type="text/javascript" src="{{ asset('js/bootstrap-multiselect.js') }}"></script>
 
 <style>
   html, body {
@@ -224,7 +223,15 @@ $("#weeklyDatePicker").datetimepicker({ format: 'MM-DD-YYYY'});
 $("#weeklyDatePicker1").datetimepicker({format: 'MM-DD-YYYY'});
 $('.multi-dropdown').multiselect({
    includeSelectAllOption: true,
-   selectAllText: ' Deselect all'
+   selectAllText: ' Deselect all',
+   enableFiltering: true,
+   enableCaseInsensitiveFiltering: true,
+   maxHeight: 300,
+   buttonWidth: '100%',
+   numberDisplayed: 1,
+   nonSelectedText: 'Choose options',
+   nSelectedText: 'selected',
+   allSelectedText: 'All selected'
 
 });
 	function format ( d ) {

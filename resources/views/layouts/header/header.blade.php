@@ -20,6 +20,7 @@
 {!!Html::style('css/layout.css?v='.time(), array(), true)!!}
 {!!Html::style('css/custom.css?v='.time(), array(), true)!!}
 {!!Html::style('css/responsive.css?v='.time(), array(), true)!!}
+{!!Html::style('css/kv-redesign.css?v='.filemtime(base_path('css/kv-redesign.css')), array(), true)!!}
 
 <!-- js -->	
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>

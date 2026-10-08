@@ -38,6 +38,22 @@ class SetlocationController extends Controller
             ->lists('locations.location', 'locations.id');
 
         Session::set('all_locations', $locations);
+
+		if (!empty($locations)) {
+			$location = Session::get('location_id');
+
+			if (!isset($locations[$location])) {
+				$location = Auth::user()->location;
+			}
+
+			if (!isset($locations[$location])) {
+				reset($locations);
+				$location = key($locations);
+			}
+
+			return $this->activateLocation($location);
+		}
+
 		return view('setlocations.index', compact('locations'));
     }
 
@@ -60,6 +76,27 @@ class SetlocationController extends Controller
     public function store(Request $request)
     {
         $location = $request->get('location');
+		$allowed = DB::table('user_locations')
+			->join('locations', 'locations.id', '=', 'user_locations.location')
+			->where('user_locations.user', Auth::user()->id)
+			->where('locations.status', 1)
+			->where('locations.id', $location)
+			->exists();
+		if (!$allowed) {
+			return \Redirect::back()->withErrors(['location' => 'Select a location assigned to your account.']);
+		}
+		$this->activateLocation($location);
+		return \Redirect::back();
+	}
+
+	/**
+	 * Apply the selected location to the session and load its existing notifications.
+	 *
+	 * @param  int  $location
+	 * @return \Illuminate\Http\RedirectResponse
+	 */
+	private function activateLocation($location)
+	{
         Session::set('location_id', $location);
 
 		$getVendor     = $location.".vendor_id";

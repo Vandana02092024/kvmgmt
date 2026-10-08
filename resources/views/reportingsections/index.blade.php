@@ -10,10 +10,9 @@
 <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/css/bootstrap-datetimepicker.css">
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/js/bootstrap-datetimepicker.min.js"></script>
 <!-- <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script> -->
-<script type="text/javascript" src="https://kvmgmt.com/js/bootstrap-multiselect.js"></script>
+<script type="text/javascript" src="{{ asset('js/bootstrap-multiselect.js') }}"></script>
 <link type="text/css" rel="stylesheet" href="https://cdn.datatables.net/buttons/1.5.6/css/buttons.dataTables.min.css">
-<link rel="stylesheet" href="https://kvmgmt.com/css/bootstrap-multiselect.css" type="text/css">
-<link type="text/css" rel="stylesheet" href="https://kvmgmt.com/css/custom.css">
+<link rel="stylesheet" href="{{ asset('css/bootstrap-multiselect.css') }}" type="text/css">
 <style>
   html, body {
 
@@ -36,6 +35,11 @@ span.multiselect-native-select {
   width: 100%;
   text-align: left;
   overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 42px;
+  white-space: nowrap;
 }
 .btn-group {
     width: 100%;
@@ -219,7 +223,24 @@ table.dataTable thead .sorting_asc, .sorting_desc, .sorting {
 	.filter-list .filter-item{display: inline-block; padding:0 9px; border-right: 1px solid #eee; margin-bottom: 5px;}
 	.filter-list .filter-item:last-child{padding-right: 0; border-right: 0;}
 	.filter-list .filter-item .filter-sm{width: 100px;}
+	/* Keep the filter dropdown menus outside the widget's clipping boundary. */
+	.top-filter { position: relative; z-index: 30; }
+	.top-filter .widget { position: relative; overflow: visible !important; }
+	.top-filter .widget-content { overflow: visible !important; }
+	.top-filter .multiselect-native-select,
+	.top-filter .multiselect-native-select .btn-group { position: relative; }
 	.multiselect{max-width: 130px!important; min-width: 130px!important;}
+	.top-filter .filter-list .filter-item .multiselect-native-select,
+	.top-filter .filter-list .filter-item .multiselect-native-select .btn-group { width: 156px; }
+	.top-filter button.multiselect { width: 156px!important; min-width: 156px!important; max-width: 156px!important; }
+	.top-filter .multiselect-selected-text { display: inline-block; min-width: 0; max-width: calc(100% - 22px); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+	.top-filter button.multiselect .caret { flex: 0 0 auto; margin-left: 8px; }
+	.top-filter .multiselect-container { z-index: 2000; min-width: 100%; max-width: 320px; max-height: 300px; overflow-x: hidden; overflow-y: auto; }
+	@media (max-width: 900px) {
+		.top-filter .filter-list .filter-item .multiselect-native-select,
+		.top-filter .filter-list .filter-item .multiselect-native-select .btn-group { width: 32vw; max-width: 156px; min-width: 110px; }
+		.top-filter button.multiselect { width: 32vw!important; min-width: 110px!important; max-width: 156px!important; }
+	}
 	#chartdiv-pre {width: 100%; height: 300px;}
 	#chartdiv-month {width: 100%;height: 300px;}
 	#linechart-test1 {width: 100%; height: 300px;}
@@ -463,12 +484,27 @@ table.dataTable thead .sorting_asc, .sorting_desc, .sorting {
 <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
 <script src="https://cdn.datatables.net/buttons/1.5.6/js/buttons.html5.min.js"></script>
 <script type="text/javascript">
-$("#weeklyDatePicker").datetimepicker({ format: 'MM-DD-YYYY'});
-$("#weeklyDatePicker1").datetimepicker({format: 'MM-DD-YYYY'});
-$('.multi-dropdown').multiselect({
-   includeSelectAllOption: true,
-   selectAllText: ' Select All'
-
+$(function () {
+    // Initialize the multi-select dropdown independently from optional datepicker
+    // plugins so a missing datepicker CDN cannot leave native list boxes visible.
+    if ($.fn.multiselect) {
+        $('.multi-dropdown').multiselect({
+            includeSelectAllOption: true,
+            selectAllText: ' Select All',
+            enableFiltering: true,
+            enableCaseInsensitiveFiltering: true,
+            maxHeight: 300,
+            buttonWidth: '100%',
+            numberDisplayed: 1,
+            nonSelectedText: 'Choose options',
+            nSelectedText: 'selected',
+            allSelectedText: 'All selected'
+        });
+    }
+    if ($.fn.datetimepicker) {
+        $('#weeklyDatePicker').datetimepicker({ format: 'MM-DD-YYYY' });
+        $('#weeklyDatePicker1').datetimepicker({ format: 'MM-DD-YYYY' });
+    }
 });
 // function fetch_data(fetchLink){
 // }

@@ -15,15 +15,12 @@
 	<div class="container-fluid">
 		<div class="row">
 			<div class="col-sm-12">
-				<div class="page-heading">
+				<div class="page-heading kv-page-hero kv-sales-hero">
 					<h3 class="heading">
-						<a class="v-btn v-btn-primary " style="margin-right:8px" href="{{ url('/dashboard') }}"><i class="fa fa-arrow-left " style="margin-right: 5px"> </i>BACK</a>
-						WEEKLY SALES REPORT
+						<span class="kv-hero-title"><i class="fa fa-usd"></i><span>Weekly Sales Reports<small>Review store-week revenue, net sales, labor ratios, and report history.</small></span></span>
 
-					<a class="v-btn v-btn-primary pull-right" href="{{ url('/dashboard') }}">MENU</a>
-                	<a class="v-btn v-btn-primary pull-right" href="{{ url('/salesection/create') }}">NEW WEEK REPORT</a>
+					<a class="v-btn v-btn-primary pull-right" href="{{ url('/salesection/create') }}"><i class="fa fa-plus"></i> New Week Report</a>
 					</h3>
-	                <br />
 				</div>
 			</div>
 		</div>
@@ -70,13 +67,13 @@
 						        <thead>
 						            <tr>
 						                <th>CALENDAR WEEK</th>
-														<th>WEEK #</th>
-														<th>START DATE</th>
-														<th>END DATE</th>
-														<th>Gross Sales</th>
-														<th>Net Sales</th>
-														<th>Labor %</th>
-														<th>ACTION</th>
+										<th>WEEK #</th>
+										<th>START DATE</th>
+										<th>END DATE</th>
+										<th>Gross Sales</th>
+										<th>Net Sales</th>
+										<th>Labor %</th>
+										<th>ACTION</th>
 						            </tr>
 						        </thead>
 						        <tbody>
@@ -91,9 +88,9 @@
 
 												<?php
 												$tot_sale = getLaberRate($dat->location_id,$dat->storeNo);
-												$range = $dat->storeNo;  $gsale = number_format($dat->amount,2);
-												$sale_tax = getSaleTax($dat->location_id,$weekdate['start_date'],$weekdate['end_date']);
-												$netsale= getNetSale($dat->location_id,$weekdate['start_date'],$weekdate['end_date'])-$sale_tax
+								$range = $dat->storeNo;  $gsale = number_format($dat->amount,2);
+								$sale_tax = getSaleTax($dat->location_id,$weekdate['start_date'],$weekdate['end_date']);
+								$netsale= getNetSale($dat->location_id,$weekdate['start_date'],$weekdate['end_date'])-$sale_tax
 
 												?>
 
@@ -114,7 +111,7 @@
 														<td>{{  number_format($netsale,2) }}</td>
 														<td> @if(($netsale >0) && ($tot_sale) > 0)  {{ number_format(($tot_sale/$netsale)*100,2)}} @else 0.00 @endif </td>
 														<td>
-														{{ link_to_route('salesection.edit','',[$range ],['class' => 'fa fa-pencil','data-toggle'=>"tooltip", 'data-placement'=>"left", 'title'=>"edit"]) }}
+													{{ link_to_route('salesection.edit','',['record-'.$dat->id],['class' => 'fa fa-pencil','data-toggle'=>"tooltip", 'data-placement'=>"left", 'title'=>"edit"]) }}
 														&nbsp;
 														{{ link_to_route('salesection.printData','',[$dat->storeNo],['class' => 'fa fa-print','data-toggle'=>"tooltip", 'data-placement'=>"left", 'title'=>"Print"]) }}
 														&nbsp;

@@ -39,15 +39,21 @@ class SalesectionController extends Controller
     	$locationId = Session::get('location_id');
       DB::connection()->enableQueryLog();
 
-    	 $query = DB::table('salesections')
-        ->select(['location_id', 'storeNo', 'weekNo', 'dataDate', DB::raw('sum(amount) as amount')])
+	     $weekStartSql = 'DATE_SUB(dataDate, INTERVAL MOD(DAYOFWEEK(dataDate), 7) DAY)';
+	     $query = DB::table('salesections')
+	        ->select(['location_id', DB::raw('MAX(id) as id'), DB::raw('MAX(dataDate) as dataDate'), DB::raw('SUM(amount) as amount'), DB::raw($weekStartSql.' as periodStart')])
         ->where('location_id', '=', $locationId)
         ->where('nameDep', '=', 'sale')
-        ->groupBy('storeNo')
-        ->orderBy('storeNo', 'DESC')
-        ->orderBy('dataDate', 'DESC');
+	        ->groupBy('location_id', DB::raw($weekStartSql))
+	        ->orderBy('periodStart', 'DESC')
+	        ->orderBy('dataDate', 'DESC');
 
 	    $data = $query->paginate(10);
+	    foreach ($data as $weeklyReport) {
+	        $weekValues = explode('|', $this->weekDataValue($weeklyReport->periodStart));
+	        $weeklyReport->storeNo = isset($weekValues[1]) ? $weekValues[1] : 0;
+	        $weeklyReport->calendarWeek = getWeekByDate($weeklyReport->periodStart);
+	    }
       $queries = DB::getQueryLog();
       $last_query = end($queries);
 //dd($last_query);
@@ -68,21 +74,28 @@ class SalesectionController extends Controller
     	$count = empty($count) ? 10 : $count;
     	$locationId = Session::get('location_id');
 
-    	 $query = DB::table('salesections')
-        ->select(['location_id', 'storeNo', 'weekNo', 'dataDate', DB::raw('sum(amount) as amount')])
+	     $weekStartSql = 'DATE_SUB(dataDate, INTERVAL MOD(DAYOFWEEK(dataDate), 7) DAY)';
+	     $query = DB::table('salesections')
+	        ->select(['location_id', DB::raw('MAX(id) as id'), DB::raw('MAX(dataDate) as dataDate'), DB::raw('SUM(amount) as amount'), DB::raw($weekStartSql.' as periodStart')])
         ->where('location_id', '=', $locationId)
         ->where('nameDep', '=', 'sale')
-        ->groupBy('storeNo')
-        ->orderBy('storeNo', 'DESC')
+	        ->groupBy('location_id', DB::raw($weekStartSql))
+	        ->orderBy('periodStart', 'DESC')
         ->orderBy('dataDate', 'DESC');
 
          if (!empty($search)) {
-	        $query->where('storeNo', '=', $search);
+	        $locationStartDate = DB::table('locations')->where('id', $locationId)->value('startdate');
+	        $query->whereRaw('FLOOR(DATEDIFF('.$weekStartSql.', ?)/7)+1 = ?', [$locationStartDate, $search]);
 	    }
 	    if (!empty($from_date) && !empty($to_date)) {
-	        $query->whereBetween('dataDate', [$from_date, $to_date]);
+	        $query->whereRaw($weekStartSql.' between ? and ?', [$from_date, $to_date]);
 	    }
 	    $data = $query->paginate($count);
+	    foreach ($data as $weeklyReport) {
+	        $weekValues = explode('|', $this->weekDataValue($weeklyReport->periodStart));
+	        $weeklyReport->storeNo = isset($weekValues[1]) ? $weekValues[1] : 0;
+	        $weeklyReport->calendarWeek = getWeekByDate($weeklyReport->periodStart);
+	    }
 
 
       	$startDate = DB::table('locations')->select('startdate')->where('id', '=', $locationId)->where('status','=',1)->get();
@@ -302,8 +315,32 @@ function findDuplicateObjects($array) {
      */
     public function edit($id)
     {
+		// Search/preview data is stored in session by the new-report form. Never
+		// let that temporary date range override the persisted store-week being edited.
+		foreach (['fetchData', 'disData', 'adjustData', 'recData', 'saleSum', 'disSum', 'adjSum', 'recSum', 'sDate', 'eDate', 'checkType'] as $sessionKey) {
+			Session::forget($sessionKey);
+		}
 
 		$locationId 	= Session::get('location_id');
+		// New list links use an explicit record- prefix so row IDs can never be
+		// confused with numeric store-week numbers (which frequently overlap).
+		$recordLink = strpos((string) $id, 'record-') === 0;
+		$selectedSaleQuery = DB::table('salesections')->where('location_id', $locationId)->where('nameDep', 'sale');
+		if ($recordLink) {
+			$selectedSaleQuery->where('id', (int) substr($id, 7));
+		} else {
+			// Legacy numeric links continue to mean store-week, scoped to location.
+			$selectedSaleQuery->where('storeNo', $id)->orderBy('dataDate', 'desc');
+		}
+		$selectedSale = $selectedSaleQuery->first();
+		if (!$selectedSale) {
+			return \Redirect::route('salesection.index')->with('message', 'Weekly sales report not found for the selected location.');
+		}
+		$selectedPeriod = getStartAndEndDatebyweek(getWeekByDate($selectedSale->dataDate), $selectedSale->dataDate);
+		$salesection = DB::table('salesections')->where('location_id', $locationId)
+			->where('nameDep', 'sale')
+			->whereBetween('dataDate', [$selectedPeriod['start_date'], $selectedPeriod['end_date']])
+			->orderBy('dataDate', 'desc')->get();
 		$startDate 		= DB::table('locations')->select('startdate','entity_name')->where('id', '=', $locationId)->where('status','=',1)->get();
 
 		$entity 		= $startDate[0]->entity_name;
@@ -363,7 +400,6 @@ function findDuplicateObjects($array) {
 		} else
 		{
 			$week = $id;
-			$salesection = DB::select("select *  from `salesections` WHERE `storeNo` = '".$id."' group by `weekNo` order by id desc");
 			/*$year = date("Y",strtotime($salesection[0]->dataDate));
 			$time = strtotime("1 January $year", time());
 			$day = date('w', $time);
@@ -377,7 +413,10 @@ function findDuplicateObjects($array) {
 			$eDate = date ( 'Y-m-d' , $endWeek ); */
 
 
-			$dayWeek =  date('w', $sDateStore);
+			$period = getStartAndEndDatebyweek(getWeekByDate($salesection[0]->dataDate), $salesection[0]->dataDate);
+			$sDate = $period['start_date'];
+			$eDate = $period['end_date'];
+			/*$dayWeek =  date('w', $sDateStore);
 	     	$addWeek = $week;
 			$lastSatFormat =  date("Y-m-d", $sDateStore);
 		    if($dayWeek != 6)
@@ -402,11 +441,11 @@ function findDuplicateObjects($array) {
           	}
 
 			$sDate = date ( 'Y-m-d' , strtotime($new_date));
-		 	$eDate = date ( 'Y-m-d' , strtotime("$sDate + 6 day"));
+			$eDate = date ( 'Y-m-d' , strtotime("$sDate + 6 day"));*/
 
 			//$sDate = date('Y-m-d',strtotime('last Saturday'));
 			//$eDate = date('Y-m-d',strtotime('Friday'));
-			$weekData = DB::table('salesections')->join('sales', 'salesections.nameId', '=', 'sales.id')->select('salesections.*','sales.name')->whereBetween('salesections.dataDate',[$sDate,$eDate])->where('salesections.location_id', '=', $locationId)->where('salesections.nameDep', '=', 'sale')->orderBy('sorting_order','asc')->get();
+		$weekData = DB::table('salesections')->join('sales', 'salesections.nameId', '=', 'sales.id')->select('salesections.*','sales.name')->whereBetween('salesections.dataDate',[$sDate,$eDate])->where('salesections.location_id', '=', $locationId)->where('salesections.nameDep', '=', 'sale')->orderBy('sorting_order','asc')->get();
 
 			$disData = DB::table('salesections')->join('discounts', 'salesections.nameId', '=', 'discounts.id')->select('salesections.*','discounts.name')->whereBetween('salesections.dataDate', [$sDate,$eDate])->where('salesections.location_id', '=', $locationId)->where('salesections.nameDep', '=', 'dis')->orderBy('sorting_order','asc')->get();
 
@@ -430,8 +469,9 @@ function findDuplicateObjects($array) {
 
 		$queryMatch 		= $this->weekDataValue($sDate);
 		$queryMatchData 	= explode('|',$queryMatch);
-		$calendarWeekMatch 	= $queryMatchData[0];
+		$calendarWeekMatch 	= getWeekByDate($sDate);
 		$storeWeekMatch 	= $queryMatchData[1];
+		$id = $storeWeekMatch;
 
 
 		$editWkNo = getWeekByDate($salesection[0]->dataDate) ;
