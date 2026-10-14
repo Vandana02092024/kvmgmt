@@ -89,7 +89,7 @@
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.6/moment.min.js"></script>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/js/bootstrap-datetimepicker.min.js"></script>
 
-<section id="dashboard-page" class="wrap">
+<section id="dashboard-page" class="wrap kv-labor-report">
    <div class="container-fluid">
    <div class="row">
       <div class="col-sm-12">
@@ -128,7 +128,7 @@
 
                         <input type="hidden" id="weekstart" value="{{ $weeksStoreOne }}">
                         <input type="hidden" id="weekend" value="{{ $weeksStoreTwo }}">
-                        <table class="table table-bordered basic-table table-style">
+                        <table class="table table-bordered basic-table table-style kv-labor-table">
                            <tr>
                               <th></th>
                               <th></th>
@@ -290,7 +290,7 @@
       </div>
    </div>
 </section>
-<div class="modal fade" id="createNewEmp" role="dialog">
+<div class="modal fade kv-labor-create-employee-modal" id="createNewEmp" role="dialog">
    <div class="modal-dialog">
       <!-- Modal content-->
          {!! Form::model(null, array('route' => ['laboursection.store'], 'method' => 'POST', 'id' => 'pmt_frm')) !!}
@@ -309,37 +309,37 @@
             </div>
             <div class="modal-body">
 
-               <div class="container-fluid">
+               <div class="container-fluid kv-create-employee-grid">
 
-                  <div class="row form-group">
-                     <label class="col-md-4">Department</label>
-                     <div class="col-md-8" id="depnamehead">&nbsp;</div>
+                  <div class="kv-create-employee-field kv-create-employee-department">
+                     <label>Department</label>
+                     <div id="createEmpDepartmentName">&nbsp;</div>
                   </div>
 
-                  <div class="row form-group">
-                     <label class="col-md-4">Employee Name: </label>
-                     <div class="col-md-8">
+                  <div class="kv-create-employee-field">
+                     <label for="name">Employee Name</label>
+                     <div>
                         <input type="text" autocomplete="off" name="inputname" id="name" class="form-control">
                      </div>
                   </div>
 
-                  <div class="row form-group">
-                     <label class="col-md-4">Employee Rate: </label>
-                     <div class="col-md-8">
+                  <div class="kv-create-employee-field">
+                     <label for="rate">Employee Rate</label>
+                     <div>
                         <input type="text" autocomplete="off" name="inputrate" id="rate" value="{{ $default_rate }}" class="form-control" onkeypress="return validateFloatKeyPress(this,event);">
                      </div>
                   </div>
 
-                  <div class="row form-group">
-                     <label class="col-md-4">Employee Salary: </label>
-                     <div class="col-md-8">
+                  <div class="kv-create-employee-field">
+                     <label for="salary">Employee Salary</label>
+                     <div>
                         <input type="text" autocomplete="off" name="inputsalary" id="salary" class="form-control" onkeypress="return validateFloatKeyPress(this,event);">
                      </div>
                   </div>
 
-                  <div class="row form-group">
-                     <label class="col-md-4">Employee Default Hours: </label>
-                     <div class="col-md-8">
+                  <div class="kv-create-employee-field">
+                     <label for="workinghour">Employee Default Hours</label>
+                     <div>
                         <input type="text" autocomplete="off" name="inputworkinghour" id="workinghour" class="form-control" onkeypress="return validateFloatKeyPress(this,event);">
                      </div>
                   </div>
@@ -362,7 +362,7 @@
    </div>
 </div>
 
-<div class="modal fade" id="addExistingEmp" role="dialog">
+<div class="modal fade kv-labor-employee-modal" id="addExistingEmp" role="dialog">
    <div class="modal-dialog" id="editEmpbox">
       <!-- Modal content-->
       {!! Form::model(null, array('route' => ['laboursection.store'], 'method' => 'POST')) !!}
@@ -373,31 +373,37 @@
       <input type="hidden" name="weeknum" value="{{ $weeksStoreOne }}">
       <?php } ?>
       <div class="modal-content">
-         <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal">&times;</button>
-            <h4 class="modal-title">Add Existing Employee</h4>
+         <div class="modal-header kv-employee-modal-header">
+            <div class="kv-employee-modal-title">
+               <span class="kv-employee-modal-icon"><i class="fa fa-user-plus"></i></span>
+               <div>
+                  <h4 class="modal-title">Add Existing Employee</h4>
+                  <small>Add a team member to this department</small>
+               </div>
+            </div>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">&times;</button>
          </div>
          <div class="modal-body">
-            <div class="container-fluid">
-               <div class="row form-group">
-               <button type="button" class="btn btn-primary submitBtn pull-right"  id="submitDep" data-toggle="modal" data-target="#createNewEmp" data-dismiss="modal">Create New Employee</button>
+            <div class="kv-employee-modal-toolbar">
+               <div class="kv-employee-modal-copy">
+                  <strong>Department</strong>
+                  <span id="existingEmpDepartmentName">Select the employee’s department</span>
                </div>
-               <div class="row form-group">
-                  <label class="col-md-4">Employee: </label>
-                  <div class="col-md-8">
-                     <input type="hidden" name="department" class="selectEmpDep">
-                     <select class="form-control" name="selectEmp">
-                        @foreach($allPayrollEmps as $emp)
-                           <option value="{{ $emp->id }}">{{ $emp->name }}</option>
-                        @endforeach
-                     </select>
-                  </div>
-               </div>
+               <button type="button" class="btn btn-primary submitBtn kv-create-employee" id="openCreateNewEmployee"><i class="fa fa-user-plus"></i> Create New Employee</button>
+            </div>
+            <div class="kv-employee-select-row">
+               <label for="kvSelectEmployee">Employee</label>
+               <input type="hidden" name="department" class="selectEmpDep">
+               <select class="form-control" id="kvSelectEmployee" name="selectEmp">
+                  @foreach($allPayrollEmps as $emp)
+                     <option value="{{ $emp->id }}">{{ $emp->name }}</option>
+                  @endforeach
+               </select>
             </div>
          </div>
          <div class="modal-footer">
-            <input type="submit" name="Add" value="Add" class="btn btn-primary submitBtn">
-            <button type="button" class="btn btn-primary submitBtn pull-right" data-dismiss="modal">Close</button>
+            <button type="button" class="btn kv-employee-cancel" data-dismiss="modal">Cancel</button>
+            <input type="submit" name="Add" value="Add Employee" class="btn btn-primary submitBtn kv-employee-add">
          </div>
       </div>
       </form>
@@ -785,8 +791,15 @@ function getWeekRangeList(year){
       var depId = button.attr('depId'); // alert(title);
 
       $(".selectEmpDep").val(depId);
-      $("#depnamehead").html(title)
+      $("#existingEmpDepartmentName, #createEmpDepartmentName").html(title)
       // modal.find('.modal-title').text(title)
+   });
+
+   $('#openCreateNewEmployee').on('click', function () {
+      $('#addExistingEmp').one('hidden.bs.modal', function () {
+         $('#createNewEmp').modal('show');
+      });
+      $('#addExistingEmp').modal('hide');
    });
 
    function editEmp(id)

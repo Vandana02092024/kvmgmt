@@ -1,89 +1,82 @@
 @extends('layouts.layout')
 
 @section('content')
-<section id="loginPage" class="wrap">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-10 col-md-offset-1">
-                <div class="login-container">
-        <div class="row">
-            <div class="col-md-5">
-               <img src="{{ url('resources/views/Logo.png')}}" style="max-width: 100%;height: 80%;margin-top: 23%;">
+<main id="kv-login-page" class="kv-login-page">
+    <div class="kv-login-shell">
+        <section class="kv-login-story" aria-label="KV Management sign-in information">
+            <a class="kv-login-brand" href="{{ url('/') }}" aria-label="KV Management home">
+                <span class="kv-login-brand-mark"><b>KV</b></span>
+                <span class="kv-login-brand-name">KV MANAGEMENT <small>LLC</small><i></i></span>
+            </a>
+
+            <div class="kv-login-story-copy">
+                <h1>Welcome Back!</h1>
+                <p>Sign in to access store operations<br>and analytics.</p>
+                <ul class="kv-login-features">
+                    <li><i class="fa fa-bar-chart"></i><span>Track Sales &amp; Performance</span></li>
+                    <li><i class="fa fa-building-o"></i><span>Manage Stores</span></li>
+                    <li><i class="fa fa-users"></i><span>Access Reports</span></li>
+                    <li><i class="fa fa-shield"></i><span>Secure &amp; Reliable</span></li>
+                </ul>
             </div>
-            <div class="col-md-7">
-                <div class="login-form-container">
-                <div class="brand-logo">
-                    <h2 class="text-center uppercase bold">KV Management LLC</h2>
-                    <h4 class="text-center" style="font-weight: bold;color: #fff">LOGIN</h4>
+
+            <div class="kv-login-laptop" aria-hidden="true">
+                <div class="kv-laptop-screen">
+                    <div class="kv-laptop-toolbar"><span>KV</span><i></i><i></i><i></i></div>
+                    <div class="kv-laptop-kpis"><b></b><b></b><b></b></div>
+                    <div class="kv-laptop-chart"><span style="height:40%"></span><span style="height:62%"></span><span style="height:48%"></span><span style="height:76%"></span><span style="height:57%"></span><span style="height:88%"></span></div>
+                    <div class="kv-laptop-panels"><i></i><i></i><i></i></div>
                 </div>
-                <form class="widget" style="background: #073776;margin-bottom: 0" role="form" method="POST" action="{{ url('/login') }}">
-                        {{ csrf_field() }}
-                   
+                <div class="kv-laptop-base"></div>
+            </div>
+            <p class="kv-login-tagline">Your Business<br>Our Priority<span></span></p>
+        </section>
 
-                    <div class="widget-content">
-                                                   
+        <section class="kv-login-panel" aria-labelledby="kv-login-title">
+            <div class="kv-login-decoration" aria-hidden="true"></div>
+            <div class="kv-login-panel-content">
+                <h2 id="kv-login-title">KV Management</h2>
+                <p class="kv-login-subtitle">Sign in to your account</p>
 
-                            <div style="margin-bottom: 20px;" class="row  form-group{{ $errors->has('email') ? ' has-error' : '' }}">
-                                <div class="col-sm-12">
-                                    <input id="email" type="email" class="form-control" name="email" value="{{ old('email') }}" placeholder="username" style="font-size: 16px;
-    font-weight: bold;">
-
-                                    @if ($errors->has('email'))
-                                        <span class="help-block">
-                                            <strong>{{ $errors->first('email') }}</strong>
-                                        </span>
-                                    @endif
-
-                                </div>
-                            </div>
-                            <div class="row form-group{{ $errors->has('password') ? ' has-error' : '' }}">
-                                <div class="col-sm-12">
-                                    <input id="password" type="password" class="form-control" name="password" placeholder="********" style="font-size: 16px;
-    font-weight: bold;">
-
-                                    @if ($errors->has('password'))
-                                        <span class="help-block">
-                                            <strong>{{ $errors->first('password') }}</strong>
-                                        </span>
-                                    @endif
-
-                                </div>
-                            </div>
-                        </div>
-                    
-                    <div class="widget-footer">
-                        <div class="checkbox inline">
-                            <!-- <label><input type="checkbox" value="">Remember me</label> -->
-                            <a class="text-xs text-center link-txt block" style="color:#dbe1e9;" href="{{ url('/password/reset') }}">Forgot Password?</a>
-                        </div>
-                        <button type="submit" class="v-btn v-btn-primary pull-right">
-                            SUBMIT
-                        </button>
+                @if (count($errors) > 0)
+                    <div class="alert alert-danger kv-login-errors" role="alert">
+                        <strong>We couldn’t sign you in.</strong>
+                        <ul>@foreach ($errors->all() as $error)<li>{{ $error }}</li>@endforeach</ul>
                     </div>
+                @endif
+
+                <form class="kv-login-form" role="form" method="POST" action="{{ url('/login') }}">
+                    {{ csrf_field() }}
+                    <div class="form-group">
+                        <label for="email">Email or Username</label>
+                        <div class="kv-login-input"><i class="fa fa-envelope-o" aria-hidden="true"></i><input id="email" type="text" class="form-control" name="email" value="{{ old('email') }}" placeholder="Enter your email or username" autocomplete="username" required autofocus></div>
+                    </div>
+                    <div class="form-group">
+                        <label for="password">Password</label>
+                        <div class="kv-login-input kv-password-input"><i class="fa fa-lock" aria-hidden="true"></i><input id="password" type="password" class="form-control" name="password" placeholder="Enter your password" autocomplete="current-password" required><button type="button" class="kv-password-toggle" aria-label="Show password" aria-pressed="false"><i class="fa fa-eye" aria-hidden="true"></i></button></div>
+                    </div>
+                    <div class="kv-login-options">
+                        <label class="kv-remember"><input type="checkbox" name="remember" {{ old('remember') ? 'checked' : '' }}> <span>Remember me</span></label>
+                        <a href="{{ url('/password/reset') }}">Forgot password?</a>
+                    </div>
+                    <button type="submit" class="kv-login-submit">Sign In <i class="fa fa-arrow-right" aria-hidden="true"></i></button>
                 </form>
             </div>
-            </div>
-                
-            </div>
-        </div>
-            </div>
-        </div>
-        
+        </section>
     </div>
-    </div>
-</section>  
-<style type="text/css">
-    .login-container {
-    background: #dbe1e9;
-    box-shadow: 5px 10px 5px #000;
-}
-.login-form-container{
-   padding: 7.3rem 2rem;
-    border-radius: 0px;
-    background: #073776;
-}
-body{
-        background: url(http://actiknowdemo.com/bg1.png);
-}
-</style>
+</main>
+<script>
+(function () {
+    var toggle = document.querySelector('.kv-password-toggle');
+    var password = document.getElementById('password');
+    if (!toggle || !password) return;
+    toggle.addEventListener('click', function () {
+        var show = password.type === 'password';
+        password.type = show ? 'text' : 'password';
+        toggle.setAttribute('aria-pressed', show ? 'true' : 'false');
+        toggle.setAttribute('aria-label', show ? 'Hide password' : 'Show password');
+        toggle.innerHTML = '<i class="fa ' + (show ? 'fa-eye-slash' : 'fa-eye') + '" aria-hidden="true"></i>';
+    });
+}());
+</script>
 @endsection

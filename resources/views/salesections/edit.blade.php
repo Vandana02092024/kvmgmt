@@ -56,14 +56,13 @@ foreach($recData as $k){
 }
 $dates = getDatesFromRange($sDate, $eDate);
 ?>
-<link rel="stylesheet" type="text/css" href="http://actiknowdemo.com/timesheet-view/plugins/datepicker/bootstrap-datetimepicker.css">
+<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/css/bootstrap-datetimepicker.css">
 <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.css">
 
-<script type="text/javascript" src="http://actiknowdemo.com/timesheet-view/js/jquery-3.2.1.min.js"></script>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.js"></script>
-<script type="text/javascript" src="http://actiknowdemo.com/timesheet-view/plugins/datepicker/moment.min.js"></script>
-<script type="text/javascript" src="http://actiknowdemo.com/timesheet-view/plugins/datepicker/bootstrap-datetimepicker.min.js"></script>
-<section id="dashboard-page" class="wrap">
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.6/moment.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/js/bootstrap-datetimepicker.min.js"></script>
+<section id="dashboard-page" class="wrap kv-weekly-ledger">
 	<div class="container-fluid">
 
 
@@ -73,7 +72,7 @@ $dates = getDatesFromRange($sDate, $eDate);
                 {{ Session::get('message') }}
             </div>
         @endif
-	<section id="dashboard-page" class="wrap">
+	<section id="dashboard-page" class="wrap kv-weekly-ledger">
 		<div class="container-fluid">
 		<div class="row">
 			<div class="col-sm-12">

@@ -19,12 +19,12 @@
       margin: 2px 0 0 0;
    }
    table.fixed-tbody>tbody {
-      display: block;
-      height: 150px;
-      overflow: auto;
+      display:block;
+      height:86px;
+      overflow:auto;
    }
    table.fixed-tbody>thead, table.fixed-tbody>tfoot {
-      display: block;
+      display:block;
    }
    .custom-table>tbody>tr>th, .custom-table>tbody>tr>td, .custom-table>thead>tr>th,.custom-table>tfoot>tr>th {
    padding: 1px 2px!important;
@@ -100,14 +100,14 @@
 <style>
    i.fa.fa-comment{cursor:pointer;}
 </style>
-<section id="dashboard-page" class="wrap">
+<section id="dashboard-page" class="wrap kv-weekly-ledger">
 <div class="container-fluid">
 @if(Session::has('message'))
 <div class="alert alert-success">
    {{ Session::get('message') }}
 </div>
 @endif
-<section id="dashboard-page" class="wrap">
+<section id="dashboard-page" class="wrap kv-weekly-ledger">
    <div class="container-fluid">
       <div class="row">
          <div class="col-sm-12">
@@ -164,7 +164,7 @@
          <div class="col-sm-12">
             <div class="widget form-layout  summary-bx">
                <div class="widget-content padding" style="padding:0;">
-                  <div class="row">
+                  <div class="row kv-summary-grid">
                      <div class= "col-md-2">
                         <table class="table  custom-table fixed-tbody">
                            <thead>
@@ -302,26 +302,9 @@
                                  <td width="250">Net Sales</td>
                                  <td id="netsale" style="text-align: right;">${{ number_format(($netsale-$sale_tax),2) }}  </td>
                               </tr>
-                              <!-- <tr>
-                                 <td width="250">Laber</td>
-                                 <td id="lebtotal">@if($netsale>0 && $grasstot >0){{ number_format($grasstot/$netsale,2)}}% @else 0% @endif  </td>
-                              </tr> -->
-
-
-                           </tbody>
-
-                        </table>
-                     </div>
-                     <div class="col-md-2">
-                        <table class="table custom-table fixed-tbody">
-                           <thead>
-                              <tr>
-                                 <th width="450" colspan="2" style="text-align:center">LABOR </th>
-                              </tr>
-                           </thead>
-                           <tbody>
+                              <tr class="kv-summary-subhead"><th colspan="2">LABOR</th></tr>
                              <tr>
-                                <td width="250">Labor %</td>
+                                <td>Labor %</td>
                                 <?php
                                  $tot_sale = 0;
                                  if(isset($id) && $id>0){
@@ -339,6 +322,34 @@
             </div>
          </div>
       </div>
+      <div class="kv-ledger-viewbar" role="group" aria-label="Weekly sales entry view">
+         <div class="kv-ledger-view-switch">
+            <button type="button" class="is-active" data-ledger-view="daily"><i class="fa fa-calendar-check-o"></i> Daily Focus Entry <small>Recommended</small></button>
+            <button type="button" data-ledger-view="week"><i class="fa fa-table"></i> Full Week Matrix</button>
+         </div>
+         <div class="kv-ledger-day-strip" aria-label="Choose a day"></div>
+      </div>
+      <div id="kv-daily-focus-panel" class="kv-daily-focus-panel" hidden>
+         <div class="kv-daily-focus-heading">
+            <span class="kv-daily-focus-date-icon"><i class="fa fa-calendar"></i></span>
+            <div><h2 id="kv-daily-focus-title">Daily Ledger</h2><p>Enter and review this day’s store activity.</p></div>
+            <span class="kv-daily-focus-status"><i class="fa fa-circle"></i> Daily entry</span>
+         </div>
+         <div class="kv-daily-focus-layout">
+            <div class="kv-daily-focus-sections">
+               <section class="kv-focus-section kv-focus-sales" data-focus-group="sale"><h3><span>1</span> Sales &amp; Garment Services</h3><div class="kv-focus-card-grid"></div></section>
+               <section class="kv-focus-section kv-focus-adjustments" data-focus-group="adj"><h3><span>3</span> Adjustments &amp; Tax</h3><div class="kv-focus-card-grid"></div></section>
+            </div>
+            <aside class="kv-daily-focus-side">
+               <section class="kv-daily-reconciliation"><h3><i class="fa fa-calculator"></i> Day Reconciliation</h3>
+                  <dl><div><dt>Gross sales</dt><dd data-day-total="sales">$0.00</dd></div><div><dt>Total receipts</dt><dd data-day-total="receipts">$0.00</dd></div><div><dt>Over / short</dt><dd data-day-total="over">$0.00</dd></div></dl>
+               </section>
+               <section class="kv-focus-section kv-focus-discounts" data-focus-group="dis"><h3><span>2</span> Discounts &amp; Credits</h3><div class="kv-focus-card-grid"></div></section>
+               <section class="kv-focus-section kv-focus-receipts" data-focus-group="rec"><h3><span>4</span> Drawer &amp; Tender Receipts</h3><div class="kv-focus-card-grid"></div></section>
+            </aside>
+         </div>
+         <p class="kv-daily-focus-footnote"><i class="fa fa-info-circle"></i> Use Full Week Matrix to compare or edit multiple days together.</p>
+      </div>
       <!--  <div class="filter-container">
          <div class="row">
             <div class="col-md-2">
@@ -355,7 +366,7 @@
                <div class="widget-content" style="padding: 0;">
                   <div class="row">
                      <div class="col-md-12">
-                        <table class="table custom-table" id="popover-viewport" nowrap>
+                        <table class="table custom-table kv-ledger-matrix" id="popover-viewport" nowrap>
                            <colgroup>
                               <col span="1" style="background-color:#fff">
                               <col span="2" style="background-color:#eee">
@@ -452,7 +463,7 @@
 
                               ?>
                            <tbody>
-                              <tr class="thead-Dark">
+                              <tr class="thead-Dark ledger-section-sales">
                                  <th colspan="15" align="center" style="padding: 0;text-align: center;font-size: 13px;">SALES<input type="submit" name="" value="Add New" class="v-btn v-btn-primary btn-xs pull-right" style="font-size:10px;font-weight:200px;" onClick="addNewCol('saleColumn','sale')"></th>
                               </tr>
                               <?php
@@ -564,7 +575,7 @@
                                     $<input type="text" readonly name="" id="sumamtsunday" class=" form-control" placeholder="" style="width:65px;display:inline-block;font-weight:bold;font-size:10px;">
                                  </td>
                               </tr>
-                              <tr class="thead-Dark">
+                              <tr class="thead-Dark ledger-section-discounts">
                                  <th colspan="15" style="padding:0;text-align:center;font-size:13px;">DISCOUNTS & CREDITS<input type="submit" name="" value="Add New" class="v-btn v-btn-primary btn-xs pull-right" style="font-size:10px;font-weight:200px;" onClick="addNewCol('disColumn','dis')"></th>
                               </tr>
                               <?php
@@ -677,7 +688,7 @@
                                     $<input type="text" readonly name="" id="disamtsunday" class=" form-control" placeholder="" style="width:65px;display:inline-block;color:red;font-weight:bold;font-size:10px;">
                                  </td>
                               </tr>
-                              <tr class="thead-Dark">
+                              <tr class="thead-Dark ledger-section-adjustments">
                                  <th colspan="15" style="padding:0;text-align:center;font-size:13px;">ADJUSTMENTS<input type="submit" name="" value="Add New" class="v-btn v-btn-primary btn-xs pull-right" style="font-size:10px;font-weight:200px;" onClick="addNewCol('adjColumn','adj')"></th>
                               </tr>
                               <?php
@@ -796,7 +807,7 @@
                                     $<input type="text" readonly name="" id="adjamtsunday" class=" form-control" placeholder="" style="width:65px;display:inline-block;font-weight:bold;font-size:10px;">
                                  </td>
                               </tr>
-                              <tr class="thead-Dark">
+                              <tr class="thead-Dark ledger-section-receipts">
                                  <th colspan="15" style="padding:0;text-align:center;font-size:13px;">RECEIPTS<input type="submit" name="" value="Add New" class="v-btn v-btn-primary btn-xs pull-right" style="font-size:10px;font-weight:200px;" onClick="addNewCol('recColumn','rec')"></th>
                               </tr>
 							  <pre>
@@ -1659,14 +1670,14 @@
                $('#popupStorNo').val($('#storeNoData').text());
 
               var popOverSettings = {
-                  container: '#popover-viewport',
+                  container: 'body',
                   title: 'Submit Your Comment <a href="#" class="close" data-dismiss="alert" >×</a>',
                   content: function() {
                      return $('#modalData').html();
                   },
                   trigger:'click',
                   placement:'auto',
-                  viewport:{selector: '#popover-viewport'},
+                  viewport:{selector: 'body'},
                   html:true
                }
                $(".getlist").popover(popOverSettings).on("show.bs.popover", function(e) {
@@ -2717,5 +2728,190 @@
       weekStore = ((weekStore % 2) == 0)?weekStore-1:weekStore;
       window.open('{{ url("/labor_report") }}/'+weekStore);
    }
+</script>
+<script type="text/javascript">
+(function () {
+   var table = document.getElementById('popover-viewport');
+   var viewbar = document.querySelector('.kv-ledger-viewbar');
+   var focusPanel = document.getElementById('kv-daily-focus-panel');
+   if (!table || !viewbar || !focusPanel) return;
+   var dayStrip = viewbar.querySelector('.kv-ledger-day-strip');
+   var modeButtons = viewbar.querySelectorAll('[data-ledger-view]');
+   var dayHeaders = Array.prototype.slice.call(table.querySelectorAll('thead tr:first-child th[id^="day"]'));
+   var selectedStart = dayHeaders.length ? dayHeaders[0].cellIndex : 1;
+   var focused = true;
+   var movedNodes = [];
+   var selectedDate = '';
+   var selectedDayName = '';
+   var totalSuffixes = {1:'saturday', 3:'monday', 5:'tuesday', 7:'wednesday', 9:'thrusday', 11:'friday'};
+   var dayNumbers = {1:'day1', 3:'day3', 5:'day4', 7:'day5', 9:'day6', 11:'day7'};
+
+   function updateDayStatuses() {
+      Array.prototype.forEach.call(dayStrip.querySelectorAll('[data-start-column]'), function (button) {
+         var start = parseInt(button.getAttribute('data-start-column'), 10);
+         var hasValues = false;
+         var dayNo = dayNumbers[start];
+         var suffix = totalSuffixes[start];
+         var amountSource = suffix ? document.getElementById('sumamt' + suffix) : null;
+         var amount = button.querySelector('.kv-ledger-day-amount');
+         if (amount && amountSource) amount.textContent = amountSource.value || '$0.00';
+         var dayInputs = dayNo ? document.querySelectorAll('#popover-viewport input[dayno="' + dayNo + '"], #kv-daily-focus-panel input[dayno="' + dayNo + '"]') : [];
+         Array.prototype.forEach.call(dayInputs, function (input) {
+            if (input.type !== 'hidden' && input.value.trim() !== '') hasValues = true;
+         });
+         var status = button.querySelector('.kv-ledger-day-state');
+         if (status) status.textContent = hasValues ? 'Recorded' : 'Ready';
+      });
+   }
+
+   function selectDay(start, button) {
+      selectedStart = start;
+      Array.prototype.forEach.call(dayStrip.querySelectorAll('.kv-ledger-day'), function (dayButton) {
+         dayButton.classList.toggle('is-selected', dayButton === button);
+         dayButton.setAttribute('aria-pressed', dayButton === button ? 'true' : 'false');
+      });
+      selectedDayName = button.querySelector('.kv-ledger-day-name').textContent;
+      selectedDate = button.querySelector('.kv-ledger-day-date').textContent;
+      if (focused) renderDailyFocus();
+   }
+
+   var nextColumn = 1;
+   dayHeaders.forEach(function (header) {
+      var startColumn = nextColumn;
+      nextColumn += parseInt(header.colSpan, 10) || 2;
+      var parts = header.textContent.trim().split(/\s+/);
+      var button = document.createElement('button');
+      button.type = 'button';
+      button.className = 'kv-ledger-day';
+      button.setAttribute('data-start-column', startColumn);
+      header.setAttribute('data-start-column', startColumn);
+      button.setAttribute('aria-pressed', 'false');
+      button.innerHTML = '<strong class="kv-ledger-day-name"></strong><span class="kv-ledger-day-date"></span><span class="kv-ledger-day-meta"><small class="kv-ledger-day-state">Ready</small><b class="kv-ledger-day-amount">$0.00</b></span>';
+      button.querySelector('.kv-ledger-day-name').textContent = parts.shift() || 'Day';
+      button.querySelector('.kv-ledger-day-date').textContent = parts.join(' ');
+      button.addEventListener('click', function () { selectDay(startColumn, button); });
+      dayStrip.appendChild(button);
+   });
+
+   function restoreMovedNodes() {
+      movedNodes.forEach(function (entry) {
+         if (entry.marker.parentNode) {
+            entry.marker.parentNode.insertBefore(entry.node, entry.marker);
+            entry.marker.parentNode.removeChild(entry.marker);
+         }
+      });
+      movedNodes = [];
+   }
+
+   function moveCellContent(cell, target) {
+      Array.prototype.slice.call(cell.childNodes).forEach(function (node) {
+         if (node.nodeType === 1 && node.tagName === 'INPUT' && node.type === 'hidden') return;
+         var marker = document.createComment('daily-focus-position');
+         cell.insertBefore(marker, node);
+         target.appendChild(node);
+         movedNodes.push({node:node, marker:marker});
+      });
+   }
+
+   function updateReconciliation() {
+      var suffix = totalSuffixes[selectedStart];
+      if (!suffix) return;
+      var ids = {sales:'sumamt' + suffix, receipts:'recamt' + suffix, over:'over' + suffix};
+      Object.keys(ids).forEach(function (key) {
+         var source = document.getElementById(ids[key]);
+         var target = focusPanel.querySelector('[data-day-total="' + key + '"]');
+         if (source && target) target.textContent = source.value || '$0.00';
+      });
+   }
+
+   function renderDailyFocus() {
+      restoreMovedNodes();
+      focusPanel.querySelector('#kv-daily-focus-title').textContent = selectedDayName + ' Ledger';
+      focusPanel.querySelector('.kv-daily-focus-date-icon').textContent = selectedDayName.slice(0, 3);
+      focusPanel.querySelector('.kv-daily-focus-heading p').textContent = 'Daily Operational Input Matrix · ' + selectedDate;
+
+      var groups = [
+         {key:'sale', rowClass:'saleColumn'},
+         {key:'dis', rowClass:'disColumn'},
+         {key:'adj', rowClass:'adjColumn'},
+         {key:'rec', rowClass:'recColumn'}
+      ];
+      groups.forEach(function (group) {
+         var section = focusPanel.querySelector('[data-focus-group="' + group.key + '"] .kv-focus-card-grid');
+         section.innerHTML = '';
+         Array.prototype.forEach.call(table.tBodies[0].querySelectorAll('tr.' + group.rowClass), function (row) {
+            if (row.cells.length <= selectedStart + 1) return;
+            var controls = [];
+            [selectedStart, selectedStart + 1].forEach(function (index) {
+               var cell = row.cells[index];
+               if (!cell) return;
+               var input = cell.querySelector('input:not([type="hidden"])');
+               if (input) controls.push({cell:cell, input:input});
+            });
+            if (!controls.length) return;
+
+            var card = document.createElement('article');
+            card.className = 'kv-daily-entry-card';
+            var title = document.createElement('h4');
+            title.textContent = row.cells[0].textContent.trim();
+            card.appendChild(title);
+            var fields = document.createElement('div');
+            fields.className = 'kv-daily-entry-fields';
+            if (controls.length === 1) fields.classList.add('is-single-field');
+            controls.forEach(function (control) {
+               var field = document.createElement('label');
+               field.className = 'kv-daily-entry-field';
+               var fieldTitle = document.createElement('small');
+               var unit = control.input.getAttribute('unit');
+               fieldTitle.textContent = unit === 'units' ? 'Units' : 'Amount';
+               var inputWrap = document.createElement('span');
+               inputWrap.className = 'kv-daily-entry-input';
+               moveCellContent(control.cell, inputWrap);
+               field.appendChild(fieldTitle);
+               field.appendChild(inputWrap);
+               fields.appendChild(field);
+            });
+            card.appendChild(fields);
+            section.appendChild(card);
+         });
+      });
+      updateReconciliation();
+   }
+
+   function applyMode() {
+      restoreMovedNodes();
+      table.closest('.widget-content').classList.toggle('is-daily-focus', focused);
+      table.classList.toggle('is-daily-focus', focused);
+      focusPanel.hidden = !focused;
+      table.closest('.widget.form-layout').classList.toggle('is-matrix-hidden', focused);
+      dayStrip.hidden = !focused;
+      Array.prototype.forEach.call(modeButtons, function (button) {
+         var active = (button.getAttribute('data-ledger-view') === 'daily') === focused;
+         button.classList.toggle('is-active', active);
+         button.setAttribute('aria-pressed', active ? 'true' : 'false');
+      });
+      if (focused) renderDailyFocus();
+   }
+
+   Array.prototype.forEach.call(modeButtons, function (button) {
+      button.addEventListener('click', function () {
+         focused = button.getAttribute('data-ledger-view') === 'daily';
+         applyMode();
+      });
+   });
+
+   updateDayStatuses();
+   var firstDay = dayStrip.querySelector('[data-start-column]');
+   if (firstDay) selectDay(parseInt(firstDay.getAttribute('data-start-column'), 10), firstDay);
+   applyMode();
+   table.addEventListener('input', updateDayStatuses);
+   table.closest('.widget-content').addEventListener('input', function () {
+      window.setTimeout(updateReconciliation, 50);
+   });
+   focusPanel.addEventListener('input', function () {
+      updateDayStatuses();
+      window.setTimeout(updateReconciliation, 50);
+   });
+}());
 </script>
 @endsection

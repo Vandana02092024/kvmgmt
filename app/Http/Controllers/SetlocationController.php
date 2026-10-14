@@ -86,6 +86,9 @@ class SetlocationController extends Controller
 			return \Redirect::back()->withErrors(['location' => 'Select a location assigned to your account.']);
 		}
 		$this->activateLocation($location);
+		if ($request->query('dashboard')) {
+			return \Redirect::to('dashboard?location_scope='.$location);
+		}
 		return \Redirect::back();
 	}
 

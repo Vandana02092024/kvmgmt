@@ -7,32 +7,32 @@
 
 <!-- fonts -->
 <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
-{!!Html::style('css/font-awesome.min.css?v='.time(), array(), true)!!}
+{!! Html::style('css/font-awesome.min.css?v='.time()) !!}
 
 <!-- css -->
-{!!Html::style('css/bootstrap.min.css?v='.time(), array(), true)!!}
+{!! Html::style('css/bootstrap.min.css?v='.time()) !!}
 
 <!-- plugins css-->
-{!!Html::style('plugins/datatable/dataTables.bootstrap.min.css?v='.time(), array(), true)!!}
-{!!Html::style('plugins/datepicker/jquery-ui.css?v='.time(), array(), true)!!}
+{!! Html::style('plugins/datatable/dataTables.bootstrap.min.css?v='.time()) !!}
+{!! Html::style('plugins/datepicker/jquery-ui.css?v='.time()) !!}
 
 <!-- custom css-->
-{!!Html::style('css/layout.css?v='.time(), array(), true)!!}
-{!!Html::style('css/custom.css?v='.time(), array(), true)!!}
-{!!Html::style('css/responsive.css?v='.time(), array(), true)!!}
-{!!Html::style('css/kv-redesign.css?v='.filemtime(base_path('css/kv-redesign.css')), array(), true)!!}
+{!! Html::style('css/layout.css?v='.time()) !!}
+{!! Html::style('css/custom.css?v='.time()) !!}
+{!! Html::style('css/responsive.css?v='.time()) !!}
+{!! Html::style('css/kv-redesign.css?v='.filemtime(base_path('css/kv-redesign.css'))) !!}
 
 <!-- js -->	
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-{!!Html::script('js/bootstrap.min.js', array(), true)!!}
+{!! Html::script('js/bootstrap.min.js') !!}
 
 
 <!-- plugins Js-->
-{!!Html::script('plugins/datatable/jquery.dataTables.min.js', array(), true)!!}
-{!!Html::script('plugins/datatable/dataTables.bootstrap.min.js', array(), true)!!}
-{!!Html::script('plugins/datepicker/jquery-ui.js', array(), true)!!}
-{!!Html::script('js/custom.js', array(), true)!!}
-{!!Html::script('js/jquery.inputmask.min.js', array(), true)!!}
+{!! Html::script('plugins/datatable/jquery.dataTables.min.js') !!}
+{!! Html::script('plugins/datatable/dataTables.bootstrap.min.js') !!}
+{!! Html::script('plugins/datepicker/jquery-ui.js') !!}
+{!! Html::script('js/custom.js') !!}
+{!! Html::script('js/jquery.inputmask.min.js') !!}
 
 
 
