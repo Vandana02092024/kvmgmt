@@ -5,13 +5,11 @@
 	<div class="container-fluid">
 		<div class="row">
 			<div class="col-sm-12">
-				<div class="page-heading">
-					<h3 class="heading"><a class="v-btn v-btn-primary " style="margin-right:8px" href="{{ url('/dashboard') }}"><i class="fa fa-arrow-left " style="margin-right: 5px"> </i>BACK</a>REIMBURSEMENT
-					
-					<a class="v-btn v-btn-primary pull-right" href="{{ url('/dashboard') }}">MENU</a>
-                	<a class="v-btn v-btn-primary pull-right" href="{{ url('/reimbursement/create') }}">NEW REIMBURSEMENT</a>
+				<div class="page-heading kv-page-hero kv-claims-hero">
+					<h3 class="heading">
+						<span class="kv-hero-title"><i class="fa fa-file-text-o"></i><span>Claim Forms<small>Review, add, and manage customer reimbursement claims.</small></span></span>
+						<a class="v-btn v-btn-primary kv-claim-primary-action" href="{{ url('/reimbursement/create') }}"><i class="fa fa-plus"></i> New Claim</a>
 					</h3>
-	                <br /> 
 				</div>
 			</div>
 		</div>
@@ -28,7 +26,7 @@
         <form class="widget ng-pristine ng-valid" id="vendorSelForm" method="POST" action="{{ url('/reimbursement/filter') }}">
 		{{ csrf_field() }}
 		
-		<div class="row" style="margin-top:35px">
+		<div class="row kv-claims-filter">
 
 			<div class="col-sm-12">
 				<div class="widget-content">
@@ -41,8 +39,8 @@
 						</div>
 
 						<div class="col-sm-8">
-							<a href="{{ url('reimbursement') }}" class="v-btn v-btn-primary pull-right">Clear</a>
 							<input type="submit" name="" value="Filter" class="v-btn v-btn-primary pull-right">
+							<a href="{{ url('reimbursement') }}" class="v-btn v-btn-primary pull-right">Clear</a>
 						</div>
 					</div>
 					

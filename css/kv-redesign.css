@@ -335,6 +335,128 @@ label { margin-bottom: 5px; color: #475c75; font-size: 12px; }
 .kv-dashboard .kv-kpi-problems { border-top-color: #f2bd3b; }
 .kv-dashboard .kv-kpi-claims { border-top-color: #e75b78; }
 
+/* Compact shared heading for operational lists and analytics pages. */
+.kv-page-hero {
+    min-height: 86px;
+    margin-bottom: 14px;
+    padding: 15px 22px;
+}
+.kv-page-hero .kv-hero-title { gap: 11px; }
+.kv-page-hero .kv-hero-title > i { width: 40px; height: 40px; font-size: 18px; }
+.kv-page-hero .kv-hero-title > span { gap: 2px; font-size: 18px; line-height: 1.25; }
+.kv-page-hero .kv-hero-title small { font-size: 11px; line-height: 1.4; }
+.kv-page-hero .v-btn { padding: 9px 14px; }
+.kv-reports-hero .inline { display: flex; align-items: center; gap: 8px; margin: 0; padding: 0; list-style: none; }
+.kv-reports-hero .inline li { margin: 0; }
+.kv-reports-hero .inline .v-btn { display: inline-block; }
+.kv-claims-filter { margin-bottom: 14px; }
+.kv-claims-filter .widget { margin-bottom: 0; }
+.kv-claims-filter .widget-content { padding: 14px 16px; }
+#vendorSelForm + .row .widget-content { padding: 18px 20px; }
+.kv-claims-hero { min-height: 76px !important; padding: 11px 20px !important; }
+.kv-claims-hero h3.heading { display: flex !important; flex-direction: row !important; align-items: center !important; justify-content: space-between !important; gap: 16px; width: 100%; }
+.kv-claims-hero .kv-hero-title { flex: 1 1 auto; min-width: 0; }
+.kv-claims-hero h3.heading > .v-btn,
+.kv-claims-hero .kv-claim-header-actions { flex: 0 0 auto; margin: 0 0 0 auto !important; align-self: center; }
+.kv-claims-hero h3.heading > .kv-claim-primary-action { border-color: #f2bd3b !important; color: #17263b !important; background: #f2bd3b !important; }
+.kv-claims-hero h3.heading > .kv-claim-primary-action:hover { border-color: #ffd15e !important; background: #ffd15e !important; }
+.kv-claims-hero h3.heading > .kv-claim-back { border-color: rgba(255,255,255,.3) !important; color: #fff !important; background: rgba(255,255,255,.1) !important; }
+#vendorSelForm { margin: 0 0 12px; }
+#vendorSelForm .kv-claims-filter { margin: 0; }
+#vendorSelForm .kv-claims-filter > .col-sm-12 { padding: 0; }
+#vendorSelForm .kv-claims-filter .widget-content { padding: 8px 14px !important; }
+#vendorSelForm .kv-claims-filter .form-group { display: flex; align-items: center; justify-content: flex-end; flex-wrap: nowrap; gap: 8px; margin: 0 !important; }
+#vendorSelForm .kv-claims-filter .form-group > label { flex: 0 0 auto; width: auto; margin: 0; padding: 0; color: #526780; font-size: 10px; }
+#vendorSelForm .kv-claims-filter .form-group > .col-sm-3 { flex: 0 1 220px; width: 220px; padding: 0; }
+#vendorSelForm .kv-claims-filter .form-group > .col-sm-3 .form-control { height: 34px; min-height: 34px; }
+#vendorSelForm .kv-claims-filter .form-group > .col-sm-8 { display: flex; flex: 0 0 auto; align-items: center; justify-content: flex-end; gap: 6px; width: auto; padding: 0; }
+#vendorSelForm .kv-claims-filter .form-group > .col-sm-8 .v-btn { float: none; margin: 0; padding: 7px 12px; }
+.kv-sales-toolbar { display: flex; align-items: center; margin: 0 0 8px; }
+.kv-sales-toolbar > .col-sm-2 { display: flex; justify-content: flex-end; }
+.kv-sales-toolbar > .col-sm-2 > div { float: none !important; width: auto !important; }
+.kv-sales-toolbar #example_filter1 { align-items: center; gap: 5px; }
+.kv-sales-toolbar #search { width: 150px; min-height: 34px; }
+.kv-sales-toolbar #searchButton { color: #254466; cursor: pointer; }
+/* Shared compact list-table treatment for module index screens. */
+.main-content .widget:not(.kv-claim-form) table.table,
+.main-content .widget:not(.kv-claim-form) table.display { border: 1px solid #dce5ef; border-collapse: separate; border-spacing: 0; font-size: 12px; }
+.main-content .widget:not(.kv-claim-form) table.table > thead > tr > th,
+.main-content .widget:not(.kv-claim-form) table.display > thead > tr > th { padding: 8px 10px; border-right: 1px solid #e0e7f0; border-bottom: 1px solid #dce5ef; color: #29415e; background: #f0f4f9; font-size: 10px; font-weight: 700; line-height: 1.25; vertical-align: middle; }
+.main-content .widget:not(.kv-claim-form) table.table > tbody > tr > td,
+.main-content .widget:not(.kv-claim-form) table.display > tbody > tr > td { padding: 7px 10px; border-right: 1px solid #e8edf4; border-bottom: 1px solid #e8edf4; color: #324a66; font-size: 12px; line-height: 1.35; vertical-align: middle; }
+.main-content .widget:not(.kv-claim-form) table.table > tbody > tr:last-child > td,
+.main-content .widget:not(.kv-claim-form) table.display > tbody > tr:last-child > td { border-bottom: 0; }
+.main-content .widget:not(.kv-claim-form) table.table > thead > tr > th:last-child,
+.main-content .widget:not(.kv-claim-form) table.table > tbody > tr > td:last-child,
+.main-content .widget:not(.kv-claim-form) table.display > thead > tr > th:last-child,
+.main-content .widget:not(.kv-claim-form) table.display > tbody > tr > td:last-child { border-right: 0; }
+.main-content .widget:not(.kv-claim-form) table.table > tbody > tr:nth-child(even),
+.main-content .widget:not(.kv-claim-form) table.display > tbody > tr:nth-child(even) { background: #fafbfd; }
+.main-content .widget:not(.kv-claim-form) table.table > tbody > tr:hover,
+.main-content .widget:not(.kv-claim-form) table.display > tbody > tr:hover { background: #f3f7fc; }
+.main-content .widget:not(.kv-claim-form) .dataTables_wrapper { font-size: 11px; }
+.main-content .widget:not(.kv-claim-form) .dataTables_wrapper .dataTables_length,
+.main-content .widget:not(.kv-claim-form) .dataTables_wrapper .dataTables_filter,
+.main-content .widget:not(.kv-claim-form) .dataTables_wrapper .dataTables_info,
+.main-content .widget:not(.kv-claim-form) .dataTables_wrapper .dataTables_paginate { padding: 8px 0; font-size: 11px; }
+.kv-claim-form-page .page-heading { margin-top: 8px; }
+.kv-claim-form-page .kv-claim-header-actions { display: inline-flex; align-items: center; gap: 8px; }
+.kv-claim-form-page .kv-claim-header-actions .v-btn-secondary { padding: 9px 14px; border: 1px solid rgba(255,255,255,.25); border-radius: 7px; color: #fff; background: rgba(255,255,255,.1); font-size: 12px; text-transform: none; }
+.kv-claim-form-page .kv-claim-form { margin-bottom: 22px; border: 1px solid #dfe6ef; border-radius: 12px; background: #fff; box-shadow: 0 3px 12px rgba(22,43,73,.06); overflow: visible; }
+.kv-claim-form-page .kv-claim-form > .widget-content { padding: 0 !important; overflow: visible; }
+.kv-claim-form-page .kv-claim-form form { margin: 0; padding: 0; background: transparent; }
+.kv-claim-form-page .kv-claim-form .main-detail { padding: 18px 20px 22px; border-radius: 12px; background: #fff; }
+.kv-claim-form-page .kv-claim-form .main-detail > .row { display: flex; flex-wrap: wrap; align-items: flex-start; margin-right: -10px; margin-left: -10px; }
+.kv-claim-form-page .kv-claim-form .main-detail > .row > [class*="col-"] { float: none; min-width: 0; padding-right: 10px; padding-left: 10px; margin-top: 0 !important; }
+.kv-claim-form-page .kv-claim-form label:not(.radio-inline) { display: block; margin: 0 0 5px; color: #526780; font-size: 11px; font-weight: 600; }
+.kv-claim-form-page .kv-claim-form .form-control { width: 100% !important; min-height: 38px; height: 38px; padding: 8px 10px; border: 1px solid #d4deea; border-radius: 7px; color: #1d3552; background: #fff; box-shadow: none; font-size: 12px; }
+.kv-claim-form-page .kv-claim-form textarea.form-control { height: auto; min-height: 42px; resize: vertical; }
+.kv-claim-form-page .kv-claim-form #claimDetail { margin: 0 !important; }
+.kv-claim-form-page .kv-claim-form #claimDetail input { margin: 0 !important; }
+.kv-claim-form-page .kv-claim-form .form-group.row { display: flex; flex-wrap: wrap; align-items: center; margin: 0 -10px 15px; }
+.kv-claim-form-page .kv-claim-form .radio-inline { display: inline-flex; align-items: center; gap: 5px; min-height: 30px; padding: 5px 10px 5px 0; color: #405773; font-size: 11px; white-space: nowrap; }
+.kv-claim-form-page .kv-claim-form .radio-inline input[type="radio"] { position: static; width: 15px; height: 15px; margin: 0; }
+.kv-claim-form-page .kv-claim-form .bigger_radio { width: 15px !important; height: 15px !important; margin: 0 !important; }
+.kv-claim-form-page .kv-claim-form .bigger_radio_label { padding: 5px 10px 5px 0 !important; }
+.kv-claim-form-page .kv-claim-form .describe-garments { margin: 16px 0 12px; padding: 14px; border: 1px solid #e2e8f0; border-radius: 9px; background: #f8fafc; overflow-x: auto; }
+.kv-claim-form-page .kv-claim-form .describe-garments .row { display: flex; align-items: center; margin: 0 0 8px; }
+.kv-claim-form-page .kv-claim-form .describe-garments h4 { margin: 0 0 7px; color: #193655; font-size: 14px; font-weight: 700; }
+.kv-claim-form-page .kv-claim-form .add_decription { border: 1px solid #f2bd3b; border-radius: 7px; color: #17263b; background: #f2bd3b; font-weight: 700; text-transform: none; }
+.kv-claim-form-page .kv-claim-form #search_table { min-width: 920px; margin: 0; background: #fff; }
+.kv-claim-form-page .kv-claim-form #search_table thead th { padding: 10px 8px; border-color: #dfe6ef; color: #29415e; background: #eef3f8; font-size: 10px; white-space: nowrap; }
+.kv-claim-form-page .kv-claim-form #search_table tbody td { padding: 8px; border-color: #e6ebf2; vertical-align: middle; }
+.kv-claim-form-page .kv-claim-form #search_table .form-control { min-width: 90px; }
+.kv-claim-form-page .kv-claim-form .office-use-section { margin: 18px 0 0; padding: 16px; border: 1px solid #e2e8f0; border-radius: 9px; background: #f8fafc; }
+.kv-claim-form-page .kv-claim-form .office-use-section h5 { margin: 0 0 13px; color: #193655; font-size: 13px; }
+.kv-claim-form-page .kv-claim-form .office-use-section .row { display: flex; flex-wrap: wrap; }
+.kv-claim-form-page .kv-claim-form #total_desc { max-width: 240px; }
+.kv-claim-form-page .kv-claim-form .add-btn { min-height: 36px; padding: 8px 16px; border-radius: 7px; }
+.kv-claim-form-page .kv-claim-form .text-center .add-btn { margin: 14px 0 4px; }
+.kv-claim-form-page .kv-claim-form .resolution { margin-top: 18px; padding: 16px; border: 1px solid #e2e8f0; border-radius: 9px; background: #f8fafc; }
+.kv-claim-form-page .kv-claim-form .row_blank { height: 8px !important; }
+@media (max-width: 767px) {
+    .kv-page-hero { min-height: 0; padding: 14px 16px; }
+    .kv-page-hero h3.heading { gap: 12px; }
+    .kv-page-hero .kv-hero-title > span { font-size: 16px; }
+    .kv-reports-hero .inline { flex-wrap: wrap; }
+    .kv-claim-form-page .kv-claim-form .main-detail { padding: 14px 12px; }
+    .kv-claim-form-page .kv-claim-form .main-detail > .row > [class*="col-"] { width: 100%; }
+    .kv-claim-form-page .kv-claim-form .form-group.row > [class*="col-"] { width: 100%; }
+    .kv-claim-form-page .kv-claim-form .office-use-section .row > [class*="col-"] { width: 100%; }
+    .kv-claim-form-page .kv-claim-header-actions { flex-wrap: wrap; }
+    .kv-claims-hero h3.heading { align-items: flex-start !important; flex-direction: column !important; gap: 9px; }
+    .kv-claims-hero h3.heading > .v-btn,
+    .kv-claims-hero .kv-claim-header-actions { margin-left: 51px !important; }
+    #vendorSelForm .kv-claims-filter .form-group { flex-wrap: wrap; }
+    #vendorSelForm .kv-claims-filter .form-group > .col-sm-3 { flex: 1 1 160px; width: auto; }
+    #vendorSelForm .kv-claims-filter .form-group > .col-sm-8 { flex-basis: 100%; justify-content: flex-end; }
+    .kv-sales-toolbar { flex-wrap: wrap; }
+    .kv-sales-toolbar > [class*="col-"] { width: 100%; margin-bottom: 7px; }
+    .kv-sales-toolbar > .col-sm-4 > div { position: static !important; }
+    .kv-sales-toolbar > .col-sm-6 > div { float: none !important; width: 100% !important; }
+    .kv-sales-toolbar > .col-sm-6 #example_filter1 { justify-content: flex-end; }
+}
+
 /* Match the supplied two-panel KV sign-in artwork and form. */
 .kv-login-page { display: flex; box-sizing: border-box; width: 100%; height: 100vh; min-height: 0; align-items: center; justify-content: center; padding: 22px 28px; overflow-y: auto; background: #f2f6fc; }
 .kv-login-shell { display: grid; grid-template-columns: 1fr 1fr; width: min(1240px, 80%); height: min(740px, calc(100vh - 44px)); min-height: 600px; border: 1px solid #d8e3f1; border-radius: 14px; overflow: hidden; background: #fff; box-shadow: 0 16px 50px rgba(21,53,94,.13); }
@@ -1295,3 +1417,33 @@ html, body { overflow-x: clip; }
     .kv-labor-create-employee-modal .kv-create-employee-field { gap: 6px; }
     .kv-labor-create-employee-modal .modal-header, .kv-labor-create-employee-modal .modal-footer { padding-right: 16px; padding-left: 16px; }
 }
+
+/* Compact both employee popups so their controls do not dominate the screen. */
+.kv-labor-employee-modal .modal-dialog { box-sizing: border-box; width: 480px !important; max-width: calc(100vw - 24px); }
+.kv-labor-employee-modal .kv-employee-modal-header { min-height: 60px; padding: 11px 15px; }
+.kv-labor-employee-modal .kv-employee-modal-icon { width: 32px; height: 32px; flex-basis: 32px; font-size: 13px; }
+.kv-labor-employee-modal .kv-employee-modal-title { gap: 9px; }
+.kv-labor-employee-modal .modal-title { font-size: 15px; }
+.kv-labor-employee-modal .kv-employee-modal-title small { font-size: 10px; }
+.kv-labor-employee-modal .modal-body { padding: 13px 15px; }
+.kv-labor-employee-modal .kv-employee-modal-toolbar { margin-bottom: 12px; padding: 8px 10px; }
+.kv-labor-employee-modal .kv-employee-modal-copy strong,
+.kv-labor-employee-modal .kv-employee-select-row label { font-size: 11px; }
+.kv-labor-employee-modal .kv-employee-modal-copy span { font-size: 10px; }
+.kv-labor-employee-modal .kv-create-employee { min-height: 31px; padding: 6px 9px; font-size: 10px; }
+.kv-labor-employee-modal .kv-employee-select-row { grid-template-columns: 78px minmax(0,1fr); gap: 8px; }
+.kv-labor-employee-modal select.form-control { height: 34px; padding: 5px 8px; font-size: 11px; }
+.kv-labor-employee-modal .modal-footer { padding: 10px 15px; }
+.kv-labor-employee-modal .modal-footer .btn { min-height: 31px; padding: 6px 12px; font-size: 10px; }
+.kv-labor-create-employee-modal .modal-dialog { width: 520px !important; max-width: calc(100vw - 24px); }
+.kv-labor-create-employee-modal .modal-header { min-height: 58px; padding: 11px 16px; }
+.kv-labor-create-employee-modal .modal-title { font-size: 15px; }
+.kv-labor-create-employee-modal .modal-body { padding: 14px 16px 8px; }
+.kv-labor-create-employee-modal .modal-body .container-fluid { gap: 10px 13px; }
+.kv-labor-create-employee-modal .kv-create-employee-field { gap: 4px; }
+.kv-labor-create-employee-modal .kv-create-employee-field > label { font-size: 10px; }
+.kv-labor-create-employee-modal .kv-create-employee-field > div { font-size: 11px; }
+.kv-labor-create-employee-modal .kv-create-employee-department > div { padding: 7px 9px; font-size: 11px; }
+.kv-labor-create-employee-modal .modal-body input.form-control { height: 33px; padding: 5px 8px; font-size: 11px; }
+.kv-labor-create-employee-modal .modal-footer { padding: 10px 16px; }
+.kv-labor-create-employee-modal .modal-footer .btn { min-height: 32px; padding: 6px 14px; font-size: 10px; }

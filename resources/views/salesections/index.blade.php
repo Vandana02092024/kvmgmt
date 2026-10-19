@@ -35,7 +35,7 @@
 				<div class="widget">
 					<div class="widget-content">
 						<div class="responsive-table">
-							<div class="row">
+							<div class="row kv-sales-toolbar">
 							    <div class="col-sm-4">
 							        <div class="" id="" style="position: absolute; width: fit-content;">
 							                <select name="example_length" aria-controls="example" class="form-control input-sm">
