@@ -1,12 +1,12 @@
 @extends('layouts.layout')
 
 @section('content')
-<section id="dashboard-page" class="wrap">
+<section id="dashboard-page" class="wrap kv-vendor-form-page">
 	<div class="container-fluid">
 		<div class="row">
 			<div class="col-sm-12">
 				<div class="page-heading">
-					<h3 class="heading"> <a class="v-btn v-btn-primary " style="margin-right:8px" href="{{ url('/seller') }}"><i class="fa fa-arrow-left " style="margin-right: 5px"> </i>BACK</a>EDIT VENDOR
+					<h3 class="heading"> <a class="v-btn v-btn-primary pull-right" style="margin-right:8px" href="{{ url('/seller') }}"><i class="fa fa-arrow-left " style="margin-right: 5px"> </i>BACK</a>EDIT VENDOR
 					<a class="v-btn v-btn-primary pull-right" href="{{ url('/dashboard') }}">MENU</a>
                 	<a class="v-btn v-btn-primary pull-right" href="{{ url('/seller/create') }}">NEW VENDOR</a>
 					</h3>
@@ -22,12 +22,12 @@
 	            </div>
 	        @endif
 
-			{!! Form::model($seller, array('route' => ['seller.update', $seller->id], 'method' => 'PUT')) !!}
+			{!! Form::model($seller, array('route' => ['seller.update', $seller->id], 'method' => 'PUT', 'class' => 'kv-vendor-form')) !!}
         	{{ csrf_field() }}
-			<div class="col-sm-8 col-sm-offset-2">
-				<div class="widget">
-					<div class="widget-content">
-						
+			<div class="col-sm-5">
+				<div class="widget kv-vendor-details">
+					<div class="widget-content kv-vendor-fields">
+						<div class="kv-vendor-section-title"><strong>Vendor details</strong><span>Contact information and delivery schedule</span></div>
 							<div class="">
 								<div class="row form-group{{ $errors->has('name') ? ' has-error' : '' }}">
 									<div class="col-sm-12">
@@ -102,9 +102,10 @@
 				</div>
 			</div>
 			
-			<div class="col-sm-4">
-				<div class="widget">
+			<div class="col-sm-7">
+				<div class="widget kv-vendor-delivery">
 					<div class="widget-content">
+						<div class="kv-vendor-section-title"><strong>Delivery days</strong><span>Choose a delivery day for each location</span></div>
 						 <div class="widget-content">
 								@foreach($locations as $key => $val)
 								<div class="row form-group">
@@ -129,6 +130,7 @@
 						</div>
 				</div>
 			</div>
+			{!! Form::close() !!}
 			
 		</div>
 	</div>

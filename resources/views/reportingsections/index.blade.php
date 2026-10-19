@@ -76,14 +76,10 @@ table.dataTable thead .sorting_asc, .sorting_desc, .sorting {
 				<div class="page-heading kv-page-hero kv-reports-hero">
 					<h3 class="heading">
 						<span class="kv-hero-title"><i class="fa fa-bar-chart"></i><span>Reports &amp; Analytics<small>Explore sales, discounts, adjustments, and store performance across a date range.</small></span></span>
-						<ul class="inline">
-							<!-- <li><label>Start Date:</label></li>
-							<li><input type="text" name="" class="form-control" value="<?php echo date('m-d-Y');?>" autocomplete="off" id="weeklyDatePicker2" name="datepick" placeholder=" To "></li>
-							<li><label>End Date:</label></li>
-							<li><input type="text" name="" class="form-control" value="<?php echo date('m-d-Y',strtotime('-30 days'));?>" autocomplete="off" id="weeklyDatePicker3" name="datepick" placeholder=" From "></li> -->
-							<li><a class="v-btn v-btn-primary" id="print_data" href="{{'#'}}">PDF REPORT</a></li>
-							<li><a class="v-btn v-btn-primary" href="{{ url('/dashboard') }}">MENU</a></li>
-						</ul>
+						<span class="kv-report-actions">
+							<a class="v-btn v-btn-primary kv-report-primary-action" id="print_data" href="{{'#'}}">PDF REPORT</a>
+							<a class="v-btn v-btn-primary kv-report-secondary-action" href="{{ url('/dashboard') }}">MENU</a>
+						</span>
 					</h3>
 			</div>
 			</div>
