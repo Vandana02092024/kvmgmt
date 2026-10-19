@@ -34,7 +34,8 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        return view('categories.create');
+        $categories = Category::orderBy('rank')->get();
+        return view('categories.index', compact('categories'))->with('openAddCategoryModal', true);
     }
 
     /**
@@ -68,7 +69,8 @@ class CategoryController extends Controller
      */
     public function edit(Category $category)
     {
-        return view('categories.edit',compact(['category']));
+        $categories = Category::orderBy('rank')->get();
+        return view('categories.index', compact('categories'))->with('openEditCategoryId', $category->id);
     }
 
     /**

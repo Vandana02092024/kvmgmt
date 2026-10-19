@@ -5,25 +5,21 @@
 	<div class="container-fluid">
 		<div class="row">
 			<div class="col-sm-12">
-				<div class="page-heading">
-					<h3 class="heading"> <a class="v-btn v-btn-primary " style="margin-right:8px" href="{{ url('/location') }}"><i class="fa fa-arrow-left " style="margin-right: 5px"> </i>BACK</a> ASSIGN MENU
-
-						<div class="col-md-2">
-							<form class="widget ng-pristine ng-valid" method="POST" id="form" action="{{ url('/asign_loaction') }}">
-									{{ csrf_field() }}
-							<select name="location" class="form-control" onchange="$('#form').submit()">
-									<option value=""> Select location</option>
-									@<?php foreach ($list as $key => $value): ?>
-											<option value="{{$value->id}}" @if(isset($location)&& $location==$value->id) selected @endif> {{$value->location}}</option>
-									<?php endforeach; ?>
+				<div class="page-heading kv-assign-menu-heading">
+					<h3 class="heading kv-assign-menu-title">ASSIGN MENU</h3>
+					<div class="kv-assign-menu-actions">
+						<form class="widget ng-pristine ng-valid" method="POST" id="form" action="{{ url('/asign_loaction') }}">
+							{{ csrf_field() }}
+							<select name="location" class="form-control" aria-label="Select location" onchange="$('#form').submit()">
+								<option value="">Select location</option>
+							@foreach ($list as $value)
+								<option value="{{ $value->id }}" @if(isset($location) && $location == $value->id) selected @endif>{{ $value->location }}</option>
+							@endforeach
 							</select>
-							</form>
-						</div>
-
-					<a class="v-btn v-btn-primary pull-right" href="{{ url('/dashboard') }}">MENU</a>
-					</h3>
-
-	        <br />
+						</form>
+						<a class="v-btn v-btn-primary kv-assign-menu" href="{{ url('/dashboard') }}">Menu</a>
+            <a class="v-btn v-btn-primary kv-assign-back" href="{{ url('/location') }}"><i class="fa fa-arrow-left"></i> Back</a>
+					</div>
 				</div>
 			</div>
 		</div>
@@ -37,7 +33,7 @@
 
 
 			<div class="col-sm-12 ">
-				<div class="widget">
+				<div class="widget kv-assign-menu-table">
 					<div class="widget-content">
             <div class="responsive-table">
               <table id="example" class="table table-striped table-bordered" cellspacing="0" width="100%">

@@ -48,7 +48,7 @@ class SellerController extends Controller
     {
         $days = $this->days;
         $locations = Location::orderBy('rank')->get();
-		return view('sellers.create',compact('roles','locations','days'));
+		return view('sellers.create', compact('locations', 'days'));
     }
 
     /**

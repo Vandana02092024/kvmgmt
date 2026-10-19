@@ -147,6 +147,7 @@ $(function() {
 
 							   	  </div>
 							   </div>
+					<div class="kv-claim-section-heading"><span>Claim and customer details</span><small>Start with the claim reference, then enter the customer’s contact information.</small></div>
 								
                             	<div class="row">
 									<div class="col-md-3 {{ $errors->has('today_date') ? ' has-error' : '' }}" >
@@ -210,7 +211,7 @@ $(function() {
 		                                </div>
 									
                                 </div>
-                                <div class="row">
+								<div class="row kv-claim-fields-wide">
                             		<div class="col-md-3 {{ $errors->has('claim_check_date') ? ' has-error' : '' }}">
                             			<label>Claim Check Date</label>
 	                                     <div>
@@ -266,7 +267,7 @@ $(function() {
 			                                    @endif
 	                                </div>
                                 </div>
-                                <div class="row">
+								<div class="row kv-claim-fields-wide">
                                 	<div class="col-md-3 {{ $errors->has('first_name') ? ' has-error' : '' }}">
                                 		<label>First Name</label>
 	                                    <div>
@@ -321,7 +322,7 @@ $(function() {
 			                                    @endif
 	                                </div>
 	                            </div>
-	                            <div class="row">
+	                            <div class="row kv-claim-fields-wide">
                             		<div class="col-md-3 {{ $errors->has('address') ? ' has-error' : '' }}">
                             			<label>Address</label>
 	                                    <div>
@@ -362,7 +363,7 @@ $(function() {
 	                                    </div>	
 	                                </div>
                                 </div>
-                                <div class="row">
+								<div class="row kv-claim-fields-wide">
                    
 	                                <div class="col-md-3 {{ $errors->has('state') ? ' has-error' : '' }}">
 	                                    <label>State</label>
@@ -468,7 +469,7 @@ $(function() {
 									</div>	
 								</div>	
 
-								<table class="table table-striped" id="search_table">
+								<table class="table table-striped kv-claim-items-table" id="search_table">
 
 									<thead>
 
@@ -483,7 +484,7 @@ $(function() {
                                 		 	
                                 		 	
 
-											<th class="hide">Action</th>
+											<th>ACTION</th>
 
 										</tr>
 
@@ -537,7 +538,7 @@ $(function() {
 							</div>
 							
 							
-							<div class="col-md-4 {{ $errors->has('total_desc') ? ' has-error' : '' }}">
+							<div class="row kv-claim-total-row"><div class="col-md-4 {{ $errors->has('total_desc') ? ' has-error' : '' }}">
 	                                    <label>Total</label>
 	                                    <div style="position:relative;">
 										<span class="dolor">$</span>
@@ -549,16 +550,17 @@ $(function() {
 			                                        </span>
 			                                    @endif
 										</div>
-	                                </div>
+	                                </div></div>
 							
+							 <div class="kv-claim-section-heading"><span>Claim total and proof of purchase</span><small>Enter the total item value and the customer’s settlement offer.</small></div>
 							 <div class="row_blank" style="height:5px;"></div>
-                                 <div class="row">
+                                 <div class="row kv-claim-terms">
                                 	<div class="col-md-12">
                                        <p style="font-size:13px"><b>PROOF OF PURCHASE (one of the following):</b> 1) Original or duplicate receipt from store, 2) Itemized credit card receipt, or 3) Monthly statement from store where purchased</p>
                                 	 </div>
                                  </div>
                                  <div class="row_blank" style="height:5px;"></div>
-                                 <div class="row"><div class="col-md-12"><p style="font-size:13px">After allowing for depreciation from age and wear, I would be willing to accept $
+                                 <div class="row kv-claim-terms"><div class="col-md-12"><p style="font-size:13px">After allowing for depreciation from age and wear, I would be willing to accept $
 								 
 								 {!! Form::text('proof_purchase', null, ['style' => 'border:none!important;border-bottom:2px solid #777!important;' , 'class' => 'currency']) !!}
 								 @if ($errors->has('proof_purchase'))
@@ -569,7 +571,7 @@ $(function() {
 								 as full settlement of this claim. I acknowledge that this listed amount is an offer made
 by me to be considered by ZIPS. Please note that once the claim is resolved, the item(s), for which you received compensation will remain in our possession.</p></div></div>
                                 <div class="row_blank" style="height:5px;"></div>
-                                 <div class="row"><div class="col-md-12"><p style="font-size:13px">Customer is responsible to ensure this form is filled out completely and legibly. Store Credit will be added to Customer account or check is mailed to the home address listed above
+                                 <div class="row kv-claim-terms"><div class="col-md-12"><p style="font-size:13px">Customer is responsible to ensure this form is filled out completely and legibly. Store Credit will be added to Customer account or check is mailed to the home address listed above
 within ten (10) business days of final resolution. Copies of this document are not provided.</p></div></div>
 <div class="row_blank" style="height:5px;"></div>
                                  <div class="row"><div class="col-md-12"><p style="font-size:13px">The statements I made above are true and correct.</p></div></div>

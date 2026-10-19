@@ -26,8 +26,7 @@ class LocationController extends Controller
      */
     public function index()
     {
-		$locations = Location::orderBy('rank')->get();
-        return view('locations.index', compact('locations'));
+		return $this->locationIndexView();
     }
 
     /**
@@ -37,7 +36,7 @@ class LocationController extends Controller
      */
     public function create()
     {
-        return view('locations.create');
+		return $this->locationIndexView(['openAddLocationModal' => true]);
     }
 
     /**
@@ -72,11 +71,20 @@ class LocationController extends Controller
      */
     public function edit(Location $location)
     {
-        $locationId = $location->id;
-        $salesectionsReport  = DB::table('salesections')->select(DB::raw('COUNT(id) as count'))->where('nameDep', '=', 'sale')->where('location_id', '=', $locationId)->first();
-        $salesectionsReportCount = $salesectionsReport->count;
-        return view('locations.edit',compact(['location','salesectionsReportCount']));
+		return $this->locationIndexView(['openEditLocationId' => $location->id]);
     }
+
+	private function locationIndexView(array $modalState = [])
+	{
+		$locations = Location::orderBy('rank')->get();
+		$salesReportCounts = DB::table('salesections')
+			->select('location_id', DB::raw('COUNT(id) as count'))
+			->where('nameDep', '=', 'sale')
+			->groupBy('location_id')
+			->pluck('count', 'location_id');
+
+		return view('locations.index', array_merge(compact('locations', 'salesReportCounts'), $modalState));
+	}
 
     /**
      * Update the specified resource in storage.

@@ -30,14 +30,7 @@ class ProductController extends Controller
 
     public function index($id=null)
     {
-        $products = \DB::table('products')
-            ->leftJoin('categories', 'products.category', '=', 'categories.id')
-            ->leftJoin('sellers', 'products.vendor', '=', 'sellers.id')
-            ->select('products.code', 'products.rank', 'sellers.name as vname', 'products.id', 'products.name', 'products.unit', 'products.price','products.status', 'categories.category')
-            ->orderBy('products.updated_at','desc')
-			->get();
-
-        return view('products.index', compact('products','id'));
+        return $this->productIndexView(['id' => $id]);
     }
 
     /**
@@ -48,9 +41,7 @@ class ProductController extends Controller
 
     public function create()
     {
-        $category   = $this->category;
-        $seller     = $this->seller;
-        return view('products.create',compact('category','seller'));
+        return $this->productIndexView(['openAddProductModal' => true]);
     }
 
     /**
@@ -105,9 +96,22 @@ class ProductController extends Controller
      */
     public function edit(Product $product)
     {
+        return $this->productIndexView(['openEditProductId' => $product->id]);
+    }
+
+    private function productIndexView(array $modalState = [])
+    {
+        $products = \DB::table('products')
+            ->leftJoin('categories', 'products.category', '=', 'categories.id')
+            ->leftJoin('sellers', 'products.vendor', '=', 'sellers.id')
+            ->select('products.code', 'products.rank', 'products.category as product_category_id', 'products.vendor as product_vendor_id', 'sellers.name as vname', 'products.id', 'products.name', 'products.unit', 'products.price', 'products.status', 'categories.category')
+            ->orderBy('products.updated_at', 'desc')
+            ->get();
+
+		$id = isset($modalState['id']) ? $modalState['id'] : null;
         $category = $this->category;
-        $seller   = $this->seller;
-        return view('products.edit',compact(['category','product','seller']));
+        $seller = $this->seller;
+        return view('products.index', array_merge(compact('products', 'id', 'category', 'seller'), $modalState));
     }
 
     /**
