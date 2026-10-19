@@ -105,6 +105,9 @@ class MenuController extends Controller
         ->where('user_locations.user', \Auth::user()->id)
         ->where('locations.status', 1)->lists('locations.id');
       if (empty($locationIds) && $locationId) $locationIds = [$locationId];
+      $requestedLocation = request()->query('location_scope');
+      $dashboardIsCompany = !$requestedLocation || !in_array($requestedLocation, $locationIds);
+      if (!$dashboardIsCompany) $locationIds = [$requestedLocation];
       $today = new \DateTimeImmutable('today');
       $daysSinceSaturday = ((int) $today->format('w') + 1) % 7;
       $weekStart = $today->modify('-'.$daysSinceSaturday.' days')->format('Y-m-d');
@@ -200,6 +203,7 @@ class MenuController extends Controller
         ->orderBy('dataDate', 'desc')->limit(4)->get();
 
       $data['dashboardLocationCount'] = count($locationIds);
+      $data['dashboardIsCompany'] = $dashboardIsCompany;
       $data['dashboardLocations'] = DB::table('locations')->whereIn('id', $locationIds)->orderBy('location')->get();
 
 

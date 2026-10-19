@@ -4,6 +4,9 @@
 @php
     $user = Auth::user();
     $moduleData = explode(',', (string) $user->module_access);
+    $dashboardStoreCode = (string) session()->get('locationCode');
+    $dashboardStoreDigits = preg_replace('/\D+/', '', $dashboardStoreCode);
+    $dashboardStoreBadge = $dashboardIsCompany ? 'ALL' : (strlen($dashboardStoreDigits) >= 3 ? substr($dashboardStoreDigits, -3) : ($dashboardStoreCode ?: 'KV'));
     $maxDailySales = 0;
     foreach ($dashboardDailySales as $daySales) $maxDailySales = max($maxDailySales, $daySales['amount']);
     $maxCategoryRevenue = 0;
@@ -16,15 +19,15 @@
     <div class="container">
         <div class="kv-dashboard-context">
             <div class="kv-store-identity">
-                <span class="kv-store-badge">{{ $dashboardLocationCount > 1 ? 'ALL' : (session()->get('locationCode') ?: 'KV') }}</span>
+                <span class="kv-store-badge">{{ $dashboardStoreBadge }}</span>
                 <div>
-                    <h1>{{ $dashboardLocationCount > 1 ? 'All Locations' : (session()->get('locationName') ?: 'Store Dashboard') }} @if($dashboardLocationCount == 1)<small>{{ session()->get('locationCode') }}</small>@endif</h1>
-                    <p>Franchise operations overview <span>·</span> {{ $dashboardLocationCount }} assigned location{{ $dashboardLocationCount == 1 ? '' : 's' }}</p>
+                    <h1>{{ $dashboardIsCompany ? 'Company Dashboard' : (session()->get('locationName') ?: 'Store Dashboard') }} @if($dashboardIsCompany)<small>ALL LOCATIONS</small>@elseif($dashboardLocationCount == 1)<small>{{ $dashboardStoreCode }}</small><span class="kv-store-active"><i class="fa fa-check-circle"></i>Active Store</span>@endif</h1>
+                    <p>{{ $dashboardIsCompany ? 'Company-wide sales pace, labor, and store operations' : 'Franchise Entity: '.(session()->get('entityName') ?: 'KV Management LLC') }} <span>·</span> {{ $dashboardLocationCount }} location{{ $dashboardLocationCount == 1 ? '' : 's' }}</p>
                 </div>
             </div>
             <div class="kv-dashboard-tools">
                 <span class="kv-period-chip"><i class="fa fa-calendar"></i> Calendar Week <strong>{{ $dashboardCalendarWeek }}</strong></span>
-                @if($dashboardLocationCount == 1 && $dashboardStoreWeek)
+                @if(!$dashboardIsCompany && $dashboardLocationCount == 1 && $dashboardStoreWeek)
                     <span class="kv-period-chip kv-period-store"><i class="fa fa-calendar-check-o"></i> Store Week <strong>{{ $dashboardStoreWeek }}</strong></span>
                 @endif
                 <span class="kv-period-date">{{ date('m-d-Y', strtotime($dashboardWeekStart)) }} – {{ date('m-d-Y', strtotime($dashboardWeekEnd)) }}</span>
@@ -101,6 +104,31 @@
             </article>
         </div>
 
+        @if($dashboardIsCompany)
+            <article class="kv-dashboard-panel kv-location-directory">
+                <div class="kv-panel-heading">
+                    <div><h2>Franchise Locations</h2><p>Select a store to switch the workspace to that location.</p></div>
+                    <span class="kv-live-tag">{{ $dashboardLocationCount }} LOCATIONS</span>
+                </div>
+                <div class="table-responsive">
+                    <table class="table kv-location-table">
+                        <thead><tr><th>RANK</th><th>LOCATION</th><th>LOCATION CODE</th><th>WORKSPACE</th></tr></thead>
+                        <tbody>
+                        @foreach($dashboardLocations as $location)
+                            <tr>
+                                <td><span class="kv-location-rank">{{ $location->rank ?: $loop->iteration }}</span></td>
+                                <td><strong>{{ $location->location }}</strong></td>
+                                <td><span class="kv-location-code">{{ $location->location_code }}</span></td>
+                                <td><form method="POST" action="{{ url('/setlocation') }}?dashboard=1">{{ csrf_field() }}<input type="hidden" name="location" value="{{ $location->id }}"><button type="submit" class="kv-location-open">Open Dashboard <i class="fa fa-arrow-right"></i></button></form></td>
+                            </tr>
+                        @endforeach
+                        </tbody>
+                    </table>
+                </div>
+            </article>
+        @endif
+
+        @unless($dashboardIsCompany)
         <div class="kv-operations-heading">
             <div><h2>Store Operations Menu</h2><p>Direct access to workflows. Use the location selector above to choose a store.</p></div>
             @if(in_array('1', $moduleData))<a class="v-btn v-btn-primary" href="{{ url('/salesection/create') }}"><i class="fa fa-plus"></i> Enter Weekly Sales</a>@endif
@@ -128,7 +156,9 @@
                 @endif
             @endforeach
         </div>
+        @endunless
 
+        @unless($dashboardIsCompany)
         <div class="kv-dashboard-lower-grid">
             <article class="kv-dashboard-panel kv-list-panel">
                 <div class="kv-panel-heading"><div><h2>Recent Customer Problem Reports</h2><p>Latest store reports and customer follow-up.</p></div><a href="{{ url('/report') }}">View all</a></div>
@@ -166,6 +196,7 @@
                 @endif
             </article>
         </div>
+        @endunless
 
         <footer class="kv-dashboard-footer"><span>KV MANAGEMENT LLC · Dry Cleaning Franchise Operations</span><span>Saturday to Friday reporting · {{ $dashboardLocationCount }} assigned locations</span></footer>
     </div>

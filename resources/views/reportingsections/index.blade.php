@@ -72,14 +72,10 @@ table.dataTable thead .sorting_asc, .sorting_desc, .sorting {
 <section id="dashboard-page" class="wrap">
 	<div class="container-fluid">
 		<div class="row">
-			<div class="col-sm-4">
-				<div class="page-heading">
-					<h3 class="heading"> <a class="v-btn v-btn-primary " style="margin-right:8px" href="{{ url('/service') }}"><i class="fa fa-arrow-left " style="margin-right: 5px"> </i>BACK</a>SALES REPORTING</h3>
-				</div>
-			</div>
-			<div class="col-sm-8">
-				<div class="row">
-					<div class="col-md-12 text-right">
+			<div class="col-sm-12">
+				<div class="page-heading kv-page-hero kv-reports-hero">
+					<h3 class="heading">
+						<span class="kv-hero-title"><i class="fa fa-bar-chart"></i><span>Reports &amp; Analytics<small>Explore sales, discounts, adjustments, and store performance across a date range.</small></span></span>
 						<ul class="inline">
 							<!-- <li><label>Start Date:</label></li>
 							<li><input type="text" name="" class="form-control" value="<?php echo date('m-d-Y');?>" autocomplete="off" id="weeklyDatePicker2" name="datepick" placeholder=" To "></li>
@@ -88,7 +84,7 @@ table.dataTable thead .sorting_asc, .sorting_desc, .sorting {
 							<li><a class="v-btn v-btn-primary" id="print_data" href="{{'#'}}">PDF REPORT</a></li>
 							<li><a class="v-btn v-btn-primary" href="{{ url('/dashboard') }}">MENU</a></li>
 						</ul>
-					</div>
+					</h3>
 			</div>
 			</div>
 		</div>

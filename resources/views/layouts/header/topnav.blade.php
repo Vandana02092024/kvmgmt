@@ -1,17 +1,98 @@
+<!-- @php
+    $currentSection = Request::segment(1);
+    $activeLocationName = collect(session()->get('all_locations', []))->get(session()->get('location_id'), 'Current Store');
+    $companyOverview = $currentSection == 'dashboard' && !request()->query('location_scope');
+    $navigation = [
+        ['key' => 'dashboard', 'label' => 'Store Dashboard', 'icon' => 'fa-th-large', 'url' => url('/dashboard?location_scope='.session()->get('location_id')), 'sections' => ['dashboard']],
+        ['key' => 'sales', 'label' => 'Weekly Sales', 'icon' => 'fa-usd', 'url' => url('/salesection'), 'sections' => ['salesection']],
+        ['key' => 'labor', 'label' => 'Labor Reports', 'icon' => 'fa-users', 'url' => url('/laboursection'), 'sections' => ['laboursection', 'history']],
+        ['key' => 'orders', 'label' => 'Supply Orders', 'icon' => 'fa-shopping-bag', 'url' => url('/order'), 'sections' => ['order']],
+        ['key' => 'problems', 'label' => 'Problem Reports', 'icon' => 'fa-exclamation-triangle', 'url' => url('/report'), 'sections' => ['report']],
+        ['key' => 'claims', 'label' => 'Claim Forms', 'icon' => 'fa-file-text-o', 'url' => url('/reimbursement'), 'sections' => ['reimbursement']],
+        ['key' => 'communications', 'label' => 'Communications', 'icon' => 'fa-comment-o', 'url' => url('/service'), 'sections' => ['service']],
+        ['key' => 'payroll', 'label' => 'Payroll History', 'icon' => 'fa-history', 'url' => url('/payrollemployee'), 'sections' => ['payrollemployee']],
+        ['key' => 'reports', 'label' => 'Reports & Analytics', 'icon' => 'fa-bar-chart', 'url' => url('/reportingsection'), 'sections' => ['reportingsection']],
+    ];
+@endphp -->
+
 @php
     $currentSection = Request::segment(1);
-    $user = Auth::user();
-    $moduleAccess = explode(',', (string) $user->module_access);
+
+    $companyOverview = $currentSection == 'dashboard'
+        && !request()->query('location_scope');
+
     $navigation = [
-        ['label' => 'Dashboard', 'icon' => 'fa-th-large', 'url' => url('/dashboard'), 'sections' => ['dashboard']],
-        ['label' => 'Weekly Sales', 'icon' => 'fa-usd', 'url' => url('/salesection'), 'sections' => ['salesection']],
-        ['label' => 'Labor Reports', 'icon' => 'fa-users', 'url' => url('/laboursection'), 'sections' => ['laboursection', 'history']],
-        ['label' => 'Supply Orders', 'icon' => 'fa-shopping-bag', 'url' => url('/order'), 'sections' => ['order']],
-        ['label' => 'Problem Reports', 'icon' => 'fa-exclamation-triangle', 'url' => url('/report'), 'sections' => ['report']],
-        ['label' => 'Claim Forms', 'icon' => 'fa-file-text-o', 'url' => url('/reimbursement'), 'sections' => ['reimbursement']],
-        ['label' => 'Communications', 'icon' => 'fa-comment-o', 'url' => url('/service'), 'sections' => ['service']],
-        ['label' => 'Payroll History', 'icon' => 'fa-history', 'url' => url('/payrollemployee'), 'sections' => ['payrollemployee']],
-        ['label' => 'Reports & Analytics', 'icon' => 'fa-bar-chart', 'url' => url('/reportingsection'), 'sections' => ['reportingsection']],
+        [
+            'key' => 'dashboard',
+            'label' => 'Store Dashboard',
+            'icon' => 'fa-th-large',
+            'url' => url('/dashboard?location_scope=' . session()->get('location_id')),
+            'sections' => ['dashboard']
+        ],
+        [
+            'key' => 'sales',
+            'label' => 'Weekly Sales',
+            'icon' => 'fa-usd',
+            'url' => url('/salesection'),
+            'sections' => ['salesection']
+        ],
+        [
+            'key' => 'labor',
+            'label' => 'Labor Reports',
+            'icon' => 'fa-users',
+            'url' => url('/laboursection'),
+            'sections' => ['laboursection', 'history']
+        ],
+
+        /*
+        [
+            'key' => 'orders',
+            'label' => 'Supply Orders',
+            'icon' => 'fa-shopping-bag',
+            'url' => url('/order'),
+            'sections' => ['order']
+        ],
+        [
+            'key' => 'problems',
+            'label' => 'Problem Reports',
+            'icon' => 'fa-exclamation-triangle',
+            'url' => url('/report'),
+            'sections' => ['report']
+        ],
+        */
+
+        [
+            'key' => 'claims',
+            'label' => 'Claim Forms',
+            'icon' => 'fa-file-text-o',
+            'url' => url('/reimbursement'),
+            'sections' => ['reimbursement']
+        ],
+
+        /*
+        [
+            'key' => 'communications',
+            'label' => 'Communications',
+            'icon' => 'fa-comment-o',
+            'url' => url('/service'),
+            'sections' => ['service']
+        ],
+        [
+            'key' => 'payroll',
+            'label' => 'Payroll History',
+            'icon' => 'fa-history',
+            'url' => url('/payrollemployee'),
+            'sections' => ['payrollemployee']
+        ],
+        */
+
+        [
+            'key' => 'reports',
+            'label' => 'Reports & Analytics',
+            'icon' => 'fa-bar-chart',
+            'url' => url('/reportingsection'),
+            'sections' => ['reportingsection']
+        ],
     ];
 @endphp
 
@@ -30,7 +111,13 @@
                 {{ csrf_field() }}
                 <i class="fa fa-building-o"></i>
                 <label class="sr-only" for="kvCurrentLocation">Current location</label>
-                {{ Form::select('location', session()->get('all_locations', []), session()->get('location_id'), ['class' => 'kv-location-select', 'id' => 'kvCurrentLocation', 'onchange' => 'this.form.submit()']) }}
+                <span class="kv-location-label">LOCATION:</span>
+                <select class="kv-location-select" id="kvCurrentLocation" name="location" onchange="if (this.value === 'all') { window.location.href = '{{ url('/dashboard') }}'; } else { if ('{{ Request::segment(1) }}' === 'dashboard') { this.form.action = '{{ url('/setlocation') }}?dashboard=1'; } this.form.submit(); }">
+                    <option value="all" {{ $companyOverview ? 'selected' : '' }}>All Locations (Company Overview)</option>
+                    @foreach(session()->get('all_locations', []) as $locationId => $locationName)
+                        <option value="{{ $locationId }}" {{ request()->query('location_scope') == $locationId || (!$companyOverview && (string) session()->get('location_id') === (string) $locationId) ? 'selected' : '' }}>{{ $locationName }}</option>
+                    @endforeach
+                </select>
             </form>
             <div class="dropdown kv-notifications">
                 <button class="kv-icon-button dropdown-toggle" type="button" id="kvNotifications" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" aria-label="Notifications">
@@ -60,24 +147,19 @@
     </div>
 </header>
 
+@unless($companyOverview)
 <nav class="kv-tabbar" aria-label="Main navigation">
     <div class="kv-tabbar-inner">
+        <div class="kv-tab-links">
         @foreach($navigation as $item)
-            @php
-                $visible = true;
-                if ($item['label'] == 'Weekly Sales') $visible = in_array('1', $moduleAccess);
-                if ($item['label'] == 'Labor Reports' || $item['label'] == 'Reports & Analytics') $visible = in_array('2', $moduleAccess);
-            @endphp
-            @if($visible)
-                <a class="kv-tab {{ in_array($currentSection, $item['sections']) ? 'is-active' : '' }}" href="{{ $item['url'] }}">
-                    <i class="fa {{ $item['icon'] }}"></i><span>{{ $item['label'] }}</span>
-                </a>
-            @endif
+            <a class="kv-tab kv-tab-{{ $item['key'] }} {{ in_array($currentSection, $item['sections']) ? 'is-active' : '' }}" href="{{ $item['url'] }}">
+                <i class="fa {{ $item['icon'] }}"></i><span>{{ $item['label'] }}</span>
+            </a>
         @endforeach
         @if(Auth::user()->role == 'Owner')
             @php $settingsSections = ['location', 'user', 'menu', 'category', 'product', 'seller', 'vendor', 'salessetting', 'sale', 'discount', 'adjustment', 'receipt', 'payrollsetting', 'payrollcategory', 'payrolldepartment', 'asign_loaction']; @endphp
             <div class="dropdown kv-settings-nav {{ in_array($currentSection, $settingsSections) ? 'is-active' : '' }}">
-                <button class="kv-tab dropdown-toggle {{ in_array($currentSection, $settingsSections) ? 'is-active' : '' }}" type="button" id="kvSettingsMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <button class="kv-tab dropdown-toggle {{ in_array($currentSection, $settingsSections) ? 'is-active' : '' }}" type="button" id="kvSettingsMenu" aria-haspopup="true" aria-expanded="false">
                     <i class="fa fa-cog"></i><span>Settings</span><i class="fa fa-chevron-down kv-settings-caret"></i>
                 </button>
                 <ul class="dropdown-menu dropdown-menu-right kv-settings-menu" aria-labelledby="kvSettingsMenu">
@@ -99,5 +181,32 @@
                 </ul>
             </div>
         @endif
+        </div>
+        <div class="kv-nav-context-wrap">
+            <div class="kv-nav-context" aria-label="Current store">
+                <i class="fa fa-map-marker"></i>
+                <span>{{ $activeLocationName }}</span>
+            </div>
+        </div>
     </div>
 </nav>
+@endunless
+<script>
+(function () {
+    var settings = document.querySelector('.kv-settings-nav');
+    var toggle = document.getElementById('kvSettingsMenu');
+    if (!settings || !toggle) return;
+    toggle.addEventListener('click', function (event) {
+        event.preventDefault();
+        event.stopPropagation();
+        var open = settings.classList.toggle('open');
+        toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+    });
+    document.addEventListener('click', function (event) {
+        if (!settings.contains(event.target)) {
+            settings.classList.remove('open');
+            toggle.setAttribute('aria-expanded', 'false');
+        }
+    });
+}());
+</script>

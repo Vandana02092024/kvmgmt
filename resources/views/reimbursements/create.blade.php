@@ -64,7 +64,7 @@ $(function() {
 </style>
 
 
-<section id="dashboard-page" class="wrap">
+<section id="dashboard-page" class="wrap kv-claim-form-page">
 
 	<div class="container-fluid">
 		
@@ -72,13 +72,11 @@ $(function() {
 
 			<div class="col-sm-12">
 
-				<div class="page-heading">
-
-					<h3 class="heading"><a class="v-btn v-btn-primary " style="margin-right:8px" href="{{ url('/reimbursement') }}"><i class="fa fa-arrow-left " style="margin-right: 5px"> </i>BACK</a>ZIPS REIMBURSEMENT FORM
-					<a class="v-btn v-btn-primary pull-right" href="{{ url('/dashboard') }}">MENU</a>
+				<div class="page-heading kv-page-hero kv-claims-hero">
+					<h3 class="heading">
+						<span class="kv-hero-title"><i class="fa fa-file-text-o"></i><span>New Claim Form<small>Enter customer details, item information, and claim resolution.</small></span></span>
+						<a class="v-btn v-btn-primary kv-claim-back" href="{{ url('/reimbursement') }}"><i class="fa fa-arrow-left"></i> Back to Claims</a>
 					</h3>
-					
-	                <br /> 
 				</div>
 
 			</div>
@@ -91,7 +89,7 @@ $(function() {
 
 			<div class="col-sm-12">
 
-				<div class="widget form-layout">
+				<div class="widget form-layout kv-claim-form">
 
 					<div class="widget-content no-padding">
 
