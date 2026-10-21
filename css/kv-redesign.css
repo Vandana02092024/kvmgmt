@@ -91,7 +91,7 @@ body > header.kv-topbar { display: block; }
 .page-heading { margin: 2px 0 18px; }
 h1, h2, h3, h4, h5, h6, h3.heading { color: var(--kv-ink); }
 h3.heading { font-size: 22px; font-weight: 700; }
-.page-heading h3.heading { padding-bottom: 12px; border-bottom: 1px solid var(--kv-line); }
+/* .page-heading h3.heading { padding-bottom: 12px; border-bottom: 1px solid var(--kv-line); } */
 .page-heading h3.heading span { color: var(--kv-muted); }
 .widget, .stat, .login-container { border: 1px solid var(--kv-line); border-radius: 10px; background: #fff; box-shadow: 0 2px 8px rgba(27, 48, 74, .045); }
 .widget { overflow: hidden; }
@@ -396,7 +396,7 @@ label { margin-bottom: 5px; color: #475c75; font-size: 12px; }
 .kv-claims-filter .widget { margin-bottom: 0; }
 .kv-claims-filter .widget-content { padding: 14px 16px; }
 #vendorSelForm + .row .widget-content { padding: 18px 20px; }
-.kv-claims-hero { min-height: 70px !important; padding: 9px 22px !important; }
+.kv-claims-hero { min-height: 50px !important; padding: 9px 22px !important; }
 .kv-claims-hero h3.heading { display: flex !important; flex-direction: row !important; align-items: center !important; justify-content: space-between !important; gap: 16px; width: 100%; }
 .kv-claims-hero .kv-hero-title { flex: 1 1 auto; min-width: 0; }
 .kv-claims-hero h3.heading > .v-btn,
@@ -677,12 +677,12 @@ body .main-content .kv-page-hero.kv-claims-hero h3.heading > a.v-btn.kv-claim-pr
 .kv-weekly-ledger > .container-fluid > .row:first-child .page-heading h3.heading { font-size: 17px; line-height: 1.45; }
 .kv-weekly-ledger > .container-fluid > .row:first-child > .col-sm-12 > form { display: flex; align-items: center; float: none !important; margin: 0; }
 .kv-weekly-ledger > .container-fluid > .row:first-child .quick-info { margin: 0; }
-.kv-weekly-ledger > .container-fluid > .row:first-child .quick-info .v-btn, .kv-weekly-ledger > .container-fluid > .row:first-child > .col-sm-12 > .v-btn { margin: 0; border: 0; border-radius: 8px; padding: 10px 14px; color: #fff; background: #1d5ff0; font-weight: 700; }
+.kv-weekly-ledger > .container-fluid > .row:first-child .quick-info .v-btn, .kv-weekly-ledger > .container-fluid > .row:first-child > .col-sm-12 > .v-btn { margin: 0; border: 0; border-radius: 8px; padding: 4px 12px; color: #fff; background: #1d5ff0; font-weight: 500; font-size: 11px; }
 .kv-weekly-ledger > .container-fluid > .row:first-child > .col-sm-12 > .v-btn.bg-light { background: #24334a; }
 .kv-weekly-ledger .quick-info { display: flex; align-items: center; gap: 9px; margin: 9px 0 0; padding: 0; list-style: none; }
 .kv-weekly-ledger .quick-info li { color: #f4c531; font-size: 11px; font-weight: 700; }
 .kv-weekly-ledger .quick-info li span { display: inline-block; margin: 0; padding: 3px 8px; border-radius: 5px; color: #ffd347; background: rgba(255,255,255,.08); font-size: 12px; }
-.kv-weekly-ledger .quick-info .form-control { min-height: 34px; color: #18314f; font-size: 11px; }
+.kv-weekly-ledger .quick-info .form-control { min-height: 24px; color: #18314f; font-size: 10px; }
 .kv-weekly-ledger .summary-bx { margin-bottom: 18px; padding: 0; overflow: hidden; border: 0; background: transparent; box-shadow: none; }
 .kv-weekly-ledger .summary-bx > .widget-content { padding: 0 !important; }
 .kv-weekly-ledger .summary-bx > .widget-content > .row { display: flex; flex-wrap: wrap; gap: 12px; margin: 0; }
@@ -774,18 +774,33 @@ body .main-content .kv-page-hero.kv-claims-hero h3.heading > a.v-btn.kv-claim-pr
     }
     .kv-login-shell {
         width: min(1240px, 80%);
-        height: min(560px, calc(100svh - 32px));
+        height: min(390px, calc(100svh - 32px));
         min-height: 0;
     }
-    .kv-login-story, .kv-login-panel { min-height: 0; }
+    .kv-login-story { min-height: 0; padding: 22px 8% 18px; }
+    .kv-login-story-copy { margin-top: 28px; }
+    .kv-login-story-copy h1 { font-size: 25px; }
+    .kv-login-story-copy > p { font-size: 12px; }
+    .kv-login-features { gap: 6px; margin-top: 12px; }
+    .kv-login-features li { gap: 9px; font-size: 11px; }
+    .kv-login-features li i { width: 25px; height: 25px; }
+    .kv-login-panel { min-height: 0; padding: 18px clamp(30px, 4vw, 50px); }
+    .kv-login-panel-content h2 { font-size: 28px; }
+    .kv-login-subtitle { margin-bottom: 14px; font-size: 14px; }
+    .kv-login-form .form-group { margin-bottom: 10px; }
+    .kv-login-form label { margin-bottom: 4px; }
+    .kv-login-input .form-control { height: 42px; }
+    .kv-login-options { margin-bottom: 10px; }
+    .kv-login-submit { min-height: 43px; }
 }
 @media (min-width: 768px) and (max-height: 700px) {
-    .kv-login-page { height: auto; min-height: 100svh; align-items: center; overflow-y: auto; }
-    .kv-login-story { padding-top: 24px; padding-bottom: 20px; }
-    .kv-login-story-copy { margin-top: 32px; }
-    .kv-login-laptop { bottom: 30px; width: 36%; }
+    .kv-login-page { height: 100svh; min-height: 0; align-items: center; overflow-y: auto; }
+    .kv-login-shell { height: min(390px, calc(100svh - 32px)); min-height: 0; }
+    .kv-login-story { min-height: 0; padding-top: 20px; padding-bottom: 18px; }
+    .kv-login-story-copy { margin-top: 24px; }
+    .kv-login-laptop { bottom: 22px; width: 32%; }
     .kv-login-tagline { bottom: 16px; }
-    .kv-login-panel { padding-top: 20px; padding-bottom: 20px; }
+    .kv-login-panel { min-height: 0; padding-top: 18px; padding-bottom: 18px; }
     .kv-login-subtitle { margin-bottom: 18px; }
     .kv-login-form .form-group { margin-bottom: 12px; }
 }
