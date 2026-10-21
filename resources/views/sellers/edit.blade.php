@@ -5,13 +5,13 @@
 	<div class="container-fluid">
 		<div class="row">
 			<div class="col-sm-12">
-				<div class="page-heading">
+				<div class= "page-heading kv-page-hero">
 					<h3 class="heading"> <a class="v-btn v-btn-primary pull-right" style="margin-right:8px" href="{{ url('/seller') }}"><i class="fa fa-arrow-left " style="margin-right: 5px"> </i>BACK</a>EDIT VENDOR
 					<a class="v-btn v-btn-primary pull-right" href="{{ url('/dashboard') }}">MENU</a>
                 	<a class="v-btn v-btn-primary pull-right" href="{{ url('/seller/create') }}">NEW VENDOR</a>
 					</h3>
-	                <br />
 				</div>
+				<br />
 			</div>
 		</div>
 		<div class="row">

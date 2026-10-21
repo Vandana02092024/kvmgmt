@@ -285,7 +285,7 @@ label { margin-bottom: 5px; color: #475c75; font-size: 12px; }
 
 /* Vendor create/edit forms: keep contact fields compact and delivery settings aligned. */
 .kv-vendor-form-page .page-heading { margin-bottom: 14px; }
-.kv-vendor-form-page .kv-vendor-form { display: flex; flex-wrap: wrap; align-items: flex-start; margin: 0 -10px; }
+.kv-vendor-form-page .kv-vendor-form { display: flex; flex-wrap: wrap; align-items: flex-start; margin: 0 -10px;padding: 0px 15px; }
 .kv-vendor-form-page .kv-vendor-form > .col-sm-5,
 .kv-vendor-form-page .kv-vendor-form > .col-sm-7 { float: none; min-width: 0; padding-right: 10px; padding-left: 10px; }
 .kv-vendor-form-page .kv-vendor-details,
@@ -1012,6 +1012,7 @@ body .main-content .kv-page-hero.kv-claims-hero h3.heading > a.v-btn.kv-claim-pr
     .kv-tab { flex: 0 1 auto; min-width: 0; padding: 7px 8px; font-size: 11px; }
 }
 .kv-settings-nav { position: relative; }
+.kv-settings-nav-company .kv-settings-menu { right: auto !important; left: 0 !important; }
 .kv-settings-menu {
     right: 0 !important;
     left: auto !important;
@@ -1628,7 +1629,7 @@ html, body { overflow-x: clip; }
 }
 
 /* Compact Add User form: paired controls and scannable location permissions. */
-.kv-user-form-page .kv-user-create-card { max-width: 1120px; margin: 0 auto; border: 1px solid #dce5ef; border-radius: 10px; background: #fff; box-shadow: 0 4px 14px rgba(24,48,78,.06); }
+.kv-user-form-page .kv-user-create-card {  border: 1px solid #dce5ef; border-radius: 10px; background: #fff; box-shadow: 0 4px 14px rgba(24,48,78,.06); }
 .kv-user-form-page .kv-user-create-card > .widget-content { padding: 18px 20px; }
 .kv-user-form-page .kv-user-fields { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 13px 18px; }
 .kv-user-form-page .kv-user-field { min-width: 0; margin: 0; }
@@ -1661,7 +1662,7 @@ html, body { overflow-x: clip; }
 .kv-user-form-page .kv-user-location-reset:hover { color: #17263b; background: #f2bd3b; text-decoration: none; }
 .kv-user-form-page .kv-user-field .help-block { margin: 4px 0 0; font-size: 11px; }
 .kv-user-form-page .kv-user-form-actions { display: flex; justify-content: flex-end; margin: 16px -20px -18px; padding: 12px 20px; border-top: 1px solid #e6edf4; border-radius: 0 0 10px 10px; background: #f8fafc; }
-.kv-user-form-page .kv-user-form-actions .v-btn { min-height: 36px; padding: 8px 16px; border-radius: 6px; font-size: 11px; font-weight: 700; }
+.kv-user-form-page .kv-user-form-actions .v-btn { min-height: 30px; padding: 8px 16px; border-radius: 6px; font-size: 11px; font-weight: 700; }
 @media (max-width: 767px) {
     .kv-user-form-page .kv-user-create-card > .widget-content { padding: 14px; }
     .kv-user-form-page .kv-user-fields { grid-template-columns: 1fr; gap: 12px; }
@@ -1686,7 +1687,7 @@ html, body { overflow-x: clip; }
 .kv-location-fields .help-block { margin: 4px 0 0; color: #b42318; font-size: 11px; }
 .kv-location-note { display: block; margin-top: 5px; color: #76879b; font-size: 10px; line-height: 1.4; }
 .kv-location-modal .modal-footer { display: flex; justify-content: flex-end; gap: 8px; padding: 13px 22px; border-top: 1px solid #e6edf4; background: #f8fafc; }
-.kv-location-modal .modal-footer .btn { min-height: 36px; margin: 0; padding: 8px 14px; border-radius: 7px; font-size: 11px; font-weight: 700; }
+.kv-location-modal .modal-footer .btn { min-height: 30px; margin: 0; padding: 8px 14px; border-radius: 7px; font-size: 11px; font-weight: 700; }
 .kv-location-modal .kv-location-cancel { border: 1px solid #d4dfeb; color: #405770; background: #fff; }
 .kv-location-modal .kv-location-submit { border: 1px solid #f2bd3b; color: #17263b; background: #f2bd3b; }
 .kv-location-modal .kv-location-submit:hover { border-color: #ffd15e; background: #ffd15e; }

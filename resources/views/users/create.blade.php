@@ -6,7 +6,7 @@
 	<div class="container-fluid">
 		<div class="row">
 			<div class="col-sm-12">
-				<div class="page-heading">
+				<div class= "page-heading kv-page-hero">
 					<h3 class="heading">
 						<a class="v-btn v-btn-primary pull-right" style="margin-right:8px" href="{{ url('/user') }}">
 							<i class="fa fa-arrow-left " style="margin-right: 5px"> </i>
@@ -15,8 +15,8 @@
 						ADD USER
 					<a class="v-btn v-btn-primary pull-right" href="{{ url('/dashboard') }}">MENU</a>
 					</h3>
-					 <br />
 				</div>
+				<br />
 			</div>
 		</div>
 		<div class="row">
