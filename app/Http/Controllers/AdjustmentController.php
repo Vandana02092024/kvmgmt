@@ -27,15 +27,20 @@ class AdjustmentController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index($openAddModal = false, $openEditId = null)
     {
         $adjustments = \DB::table('adjustments')->select('adjustments.*')->orderBy('sorting_order', 'asc')->get();
+		$locations = $this->locations;
+		$locationSelections = [];
+		foreach (\DB::table('adjustment_locations')->select('adjustment', 'location')->distinct()->get() as $link) {
+			$locationSelections[$link->adjustment][] = (string) $link->location;
+		}
         // $users = \DB::table('users')
         //     ->leftJoin('user_locations', 'users.id', '=', 'user_locations.user')
         //     ->leftJoin('locations', 'locations.id', '=', 'user_locations.location')
         //     ->select('users.*', 'locations.location')
         //     ->get();
-        return view('adjustments.index',compact('adjustments'));
+        return view('adjustments.index', compact('adjustments', 'locations', 'locationSelections', 'openAddModal', 'openEditId'));
     }
 
     /**
@@ -44,9 +49,8 @@ class AdjustmentController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function create()
-	{        
-        $locations = $this->locations;
-        return view('adjustments.create',compact('locations'));
+	{
+        return $this->index(true);
     }
 
     /**
@@ -100,10 +104,8 @@ class AdjustmentController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function edit(Adjustment $adjustment)
-    {       
-        $locations = $this->locations;
-        $selLocations = Adjustment_location::where('adjustment', '=', $adjustment->id)->lists('location', 'id')->toArray();		
-        return view('adjustments.edit',compact(['adjustment','locations','selLocations']));
+	{
+		return $this->index(false, $adjustment->id);
     }
 
     /**
@@ -122,26 +124,17 @@ class AdjustmentController extends Controller
 			'sorting_order' => $request['sorting_order'],
         ]);
 
-		$locVal = $request['location'];
-		
-		
-        if($locVal != '')
-        {
-            if(is_array($locVal))
-            {
-                foreach ($locVal as $locValue) {
-                   Adjustment_location::create([
-                        'adjustment' => $adjustment->id,
-                        'location' => $locValue,
-                    ]);
-                }
-            }else{
-                Adjsutment_location::create([
-                    'adjustment' => $adjustment->id,
-                    'location' => $locVal,
-                ]);
-            }
-        }
+		$locVal = $request->input('location', []);
+		if (!is_array($locVal)) $locVal = [$locVal];
+		$existingLocations = [];
+		foreach (Adjustment_location::where('adjustment', $adjustment->id)->get(['location']) as $link) {
+			$existingLocations[] = (string) $link->location;
+		}
+		foreach (array_unique($locVal) as $locValue) {
+			if ($locValue !== '' && !in_array((string) $locValue, $existingLocations, true)) {
+				Adjustment_location::create(['adjustment' => $adjustment->id, 'location' => $locValue]);
+			}
+		}
 		
 		
 		

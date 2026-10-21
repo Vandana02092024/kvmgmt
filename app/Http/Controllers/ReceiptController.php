@@ -26,16 +26,20 @@ class ReceiptController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index($openAddModal = false, $openEditId = null)
     {
         $receipts =  \DB::table('receipts')->select('receipts.*')->orderBy('sorting_order', 'asc')->get();
-		
+		$locations = $this->locations;
+		$locationSelections = [];
+		foreach (\DB::table('receipt_locations')->select('receipt', 'location')->distinct()->get() as $link) {
+			$locationSelections[$link->receipt][] = (string) $link->location;
+		}
         // $users = \DB::table('users')
         //     ->leftJoin('user_locations', 'users.id', '=', 'user_locations.user')
         //     ->leftJoin('locations', 'locations.id', '=', 'user_locations.location')
         //     ->select('users.*', 'locations.location')
         //     ->get();
-        return view('receipts.index',compact('receipts'));
+        return view('receipts.index', compact('receipts', 'locations', 'locationSelections', 'openAddModal', 'openEditId'));
     }
 
     /**
@@ -44,9 +48,8 @@ class ReceiptController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function create()
-	{        
-        $locations = $this->locations;
-        return view('receipts.create',compact('locations'));
+	{
+        return $this->index(true);
     }
 
     /**
@@ -100,10 +103,8 @@ class ReceiptController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function edit(Receipt $receipt)
-    {       
-        $locations = $this->locations;
-        $selLocations = Receipt_location::where('receipt', '=', $receipt->id)->lists('location', 'id')->toArray();		
-        return view('receipts.edit',compact(['receipt','locations','selLocations']));
+	{
+		return $this->index(false, $receipt->id);
     }
 
     /**
@@ -122,26 +123,17 @@ class ReceiptController extends Controller
 			'sorting_order' => $request['sorting_order'],
         ]);
 
-		$locVal = $request['location'];
-		
-		
-        if($locVal != '')
-        {
-            if(is_array($locVal))
-            {
-                foreach ($locVal as $locValue) {
-                    Receipt_location::create([
-                        'receipt' => $receipt->id,
-                        'location' => $locValue,
-                    ]);
-                }
-            }else{
-                Receipt_location::create([
-                    'receipt' => $receipt->id,
-                    'location' => $locVal,
-                ]);
-            }
-        }
+		$locVal = $request->input('location', []);
+		if (!is_array($locVal)) $locVal = [$locVal];
+		$existingLocations = [];
+		foreach (Receipt_location::where('receipt', $receipt->id)->get(['location']) as $link) {
+			$existingLocations[] = (string) $link->location;
+		}
+		foreach (array_unique($locVal) as $locValue) {
+			if ($locValue !== '' && !in_array((string) $locValue, $existingLocations, true)) {
+				Receipt_location::create(['receipt' => $receipt->id, 'location' => $locValue]);
+			}
+		}
 		
 		
 		

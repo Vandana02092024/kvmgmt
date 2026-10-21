@@ -1,18 +1,19 @@
 @extends('layouts.layout')
 
 @section('content')
+@php $settingsItemType = 'sale'; $settingsItemLabel = 'Sale'; $settingsItems = $sales; @endphp
 <section id="dashboard-page" class="wrap">
 	<div class="container-fluid">
 		<div class="row">
 			<div class="col-sm-12">
-				<div class="page-heading">
+				<div class= "page-heading kv-page-hero">
 					<h3 class="heading">SALE
-					<a class="v-btn v-btn-primary pull-right bg-light" href="{{ url('/menu') }}">BACK</a>
+					<a class="v-btn v-btn-primary pull-right bg-light" href="{{ url('/menu') }}"><i class="fa fa-arrow-left " style="margin-right: 5px"> </i>BACK</a>
 					<a class="v-btn v-btn-primary pull-right" href="{{ url('/dashboard') }}">DASHBOARD</a>
-                	<a class="v-btn v-btn-primary pull-right" href="{{ url('/sale/create') }}">NEW SALE</a>
+                    <a class="v-btn v-btn-primary pull-right" href="#addSettingsItemModal" data-toggle="modal">NEW SALE</a>
 					</h3>
-	                <br /> 
 				</div>
+				<br />
 			</div>
 		</div>
 
@@ -44,7 +45,7 @@
 			                                <td>
 			                                    {!! Form::open(array('route' => ['sale.destroy', $sale->id], 'method'=>'DELETE', 'class' => 'delete')) !!}
 			                                        
-			                                        {{ link_to_route('sale.edit','',[$sale->id],['class' => 'fa fa-pencil','data-toggle'=>"tooltip", 'data-placement'=>"left", 'title'=>"edit"]) }}
+	                                        <a href="#editSettingsItemModal{{ $sale->id }}" class="fa fa-pencil" data-toggle="modal" data-placement="left" title="edit"></a>
 													
 													|
 													
@@ -65,6 +66,7 @@
 			</div>
 		</div>
 	</div>
+	@include('shared.location-settings-modals')
 </section>
 
 <script type="text/javascript">

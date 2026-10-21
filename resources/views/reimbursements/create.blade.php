@@ -132,11 +132,11 @@ $(function() {
 							
 							
 							
-                            	<div class="row">
+							<div class="row kv-claim-grid-row">
 								
                             		<div class="col-md-3 {{ $errors->has('today_date') ? ' has-error' : '' }}" >
                             			<label>Today’s Date</label>
-	                                    <div><input type="text" readonly value="<?php echo date('m/d/Y');?>" name="today_date" class="form-control " style="width:180px !important;">
+                                    <div><input type="text" readonly value="<?php echo date('m/d/Y');?>" name="today_date" class="form-control ">
 										
 										
 										@if ($errors->has('today_date'))
@@ -175,9 +175,9 @@ $(function() {
 			                                        </span>
 			                                    @endif
 	                                </div>
-									<div  id="claimDetail" style="margin-left: 123px;margin-top: -22px;" class="col-md-3 {{ $errors->has('claim_detail') ? ' has-error' : '' }}">
+									<div id="claimDetail" class="col-md-3 {{ $errors->has('claim_detail') ? ' has-error' : '' }}">
 		                                    <label>Check Number</label>
-		                                    <div><input type="text" name="claim_detail" style="margin-left: 100px;margin-top: -20px;" class="form-control numbersOnly">
+		                                    <div><input type="text" name="claim_detail" class="form-control numbersOnly">
 											&nbsp;<span id="errmsg"></span>
 											@if ($errors->has('claim_detail'))
 			                                        <span class="help-block">
@@ -187,10 +187,10 @@ $(function() {
 											</div>
 		                                </div>
                                 </div>
-                                <div class="row kv-claim-fields-wide">
+                                <div class="row kv-claim-fields-wide kv-claim-grid-row">
                             		<div class="col-md-3 {{ $errors->has('claim_check_date') ? ' has-error' : '' }}">
                             			<label>Claim Check Date</label>
-	                                     <div><input type="text"  name="claim_check_date"  class="form-control datepicker" style="width:180px !important;">
+	                                     <div><input type="text"  name="claim_check_date"  class="form-control datepicker">
 										 @if ($errors->has('claim_check_date'))
 			                                        <span class="help-block">
 			                                            <strong>{{ $errors->first('claim_check_date') }}</strong>
@@ -210,7 +210,7 @@ $(function() {
 	                                </div>
 	                                <div class="col-md-4 {{ $errors->has('compensation') ? ' has-error' : '' }}">
 	                                    <label>Compensation</label>
-	                                    <div>
+	                                    <div class="kv-claim-choice-grid">
 	                                    	<label class="radio-inline">
 										      <input type="radio" id="csp" value="1" name="compensation" class="">Store Credit
 										    </label>
@@ -231,7 +231,7 @@ $(function() {
 			                                    @endif
 	                                </div>
                                 </div>
-                                <div class="row kv-claim-fields-wide">
+                                <div class="row kv-claim-fields-wide kv-claim-grid-row">
                                 	<div class="col-md-3 {{ $errors->has('first_name') ? ' has-error' : '' }}">
                                 		<label>First Name</label>
 	                                    <div><input type="text" name="first_name"  id="customer_name" class="form-control fetch_results">
@@ -252,9 +252,9 @@ $(function() {
 			                                    @endif
 										</div>
 	                                </div>
-	                                <div class="col-md-4 {{ $errors->has('item') ? ' has-error' : '' }}">
+	                                <div class="col-md-4 kv-claim-item-field {{ $errors->has('item') ? ' has-error' : '' }}">
 	                                	<label>Item was?</label>
-	                                    <div>
+	                                    <div class="kv-claim-item-options">
 	                                    	<label class="radio-inline">
 										      <input type="radio" id="csp" value="1" name="item" class="">Dry Cleaned
 										    </label>
@@ -275,7 +275,7 @@ $(function() {
 			                                    @endif
 	                                </div>
 	                            </div>
-	                            <div class="row kv-claim-fields-wide">
+	                            <div class="row kv-claim-fields-wide kv-claim-grid-row">
                             		<div class="col-md-3 {{ $errors->has('address') ? ' has-error' : '' }}">
                             			<label>Address</label>
 	                                    <div><textarea class="form-control fetch_results" name="address" id="address" rows="1" style="min-height:48px" ></textarea>
@@ -310,7 +310,7 @@ $(function() {
 	                                    </div>	
 	                                </div>
                                 </div>
-                            <div class="row kv-claim-fields-wide">
+                            <div class="row kv-claim-fields-wide kv-claim-grid-row">
                    
 	                                <div class="col-md-3 {{ $errors->has('state') ? ' has-error' : '' }}">
 	                                    <label>State</label>
@@ -496,7 +496,7 @@ $(function() {
 
 											
 
-											<td><textarea name="purchase_location[]" class="form-control animated"></textarea></td>
+											<td><input type="text" name="purchase_location[]" class="form-control"></td>
 											<td><div style="position:relative;"><span class="dolor">$</span>
 											<input type="text" name="amount_paid[]" class="form-control amount_paid currency"onkeypress="return validateFloatKeyPress(this,event);" ></div></td>
 											<!--<td><input type="text" name="total[]" class="form-control"></td>-->
@@ -518,7 +518,7 @@ $(function() {
 	                                    <label>Total</label>
 	                                    <div style="position:relative;">
 										<span class="dolor">$</span>
-										<input type="text" style="width:270px !important;" readonly name="total_desc" id="total_desc" class="form-control currency">
+										<input type="text" readonly name="total_desc" id="total_desc" class="form-control currency">
 										@if ($errors->has('total_desc'))
 			                                        <span class="help-block">
 			                                            <strong>{{ $errors->first('total_desc') }}</strong>
@@ -536,7 +536,7 @@ $(function() {
                                  </div>
                                  <div class="row_blank" style="height:5px;"></div>
                                  <div class="row kv-claim-terms"><div class="col-md-12"><p style="font-size:13px">After allowing for depreciation from age and wear, I would be willing to accept $
-								 <input type="text" name="proof_purchase" class="currency" style="border:none!important;border-bottom:2px solid #777!important;">@if ($errors->has('proof_purchase'))
+								 <input type="text" name="proof_purchase" class="currency kv-claim-proof-amount">@if ($errors->has('proof_purchase'))
 			                                        <span class="help-block">
 			                                            <strong>{{ $errors->first('proof_purchase') }}</strong>
 			                                        </span>
@@ -551,7 +551,7 @@ within ten (10) business days of final resolution. Copies of this document are n
                                  
 
                                 <div class="office-use-section">
-                                	<h5><b>FOR OFFICE USE ONLY:</b></h5>
+								<h5><i class="fa fa-lock" aria-hidden="true"></i><b>FOR OFFICE USE ONLY:</b></h5>
                                 	<div class="row">
 	                            		<div class="col-md-4 {{ $errors->has('store') ? ' has-error' : '' }}">
 	                            			<label>Store #</label>
@@ -928,7 +928,7 @@ function upBtn(){
 $(document).ready(function() {
 	  // initialize table
 	$('.add_decription').click(function() {
-		var appendTxt = '<tr><td><input type="text" name="item_desc[]" class="form-control"></td><td><input type="text" name="material[]" class="form-control"></td><td><input type="text" name="color[]" class="form-control"></td><td><input type="text"  name ="date_purchase[]" class="form-control dp"></td><td><textarea name="purchase_location[]" class="form-control animated"></textarea></td><td><div style="position:relative;"><span class="dolor">$</span><input type="text" name="amount_paid[]" class="form-control amount_paid currency" onkeypress="return validateFloatKeyPress(this,event);"></div></td><td><ul class="inline"><li><a class="v-btn v-btn-primary btn-xs" onclick="remove_this(this)"><i class="fa fa-trash"></i></a></li></ul></td></tr>';
+		var appendTxt = '<tr><td><input type="text" name="item_desc[]" class="form-control"></td><td><input type="text" name="material[]" class="form-control"></td><td><input type="text" name="color[]" class="form-control"></td><td><input type="text" name="date_purchase[]" class="form-control dp"></td><td><input type="text" name="purchase_location[]" class="form-control"></td><td><div style="position:relative;"><span class="dolor">$</span><input type="text" name="amount_paid[]" class="form-control amount_paid currency" onkeypress="return validateFloatKeyPress(this,event);"></div></td><td><ul class="inline"><li><a class="v-btn v-btn-primary btn-xs" onclick="remove_this(this)"><i class="fa fa-trash"></i></a></li></ul></td></tr>';
 		
 		$('#search_table tbody').append(appendTxt);
 		$('.currency').currencyFormat();
