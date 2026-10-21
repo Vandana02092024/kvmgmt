@@ -5,17 +5,17 @@
 <section id="dashboard-page" class="wrap kv-user-form-page">
     <div class="container-fluid">
         <div class="row">
-            <div class="col-sm-12">
-                <div class="page-heading">
-                    <h3 class="heading">
+			<div class="col-sm-12">
+				<div class= "page-heading kv-page-hero">
+					<h3 class="heading">
                         <a class="v-btn v-btn-primary pull-right" style="margin-right:8px" href="{{ url('/user') }}"><i class="fa fa-arrow-left" style="margin-right:5px"></i>BACK</a>
                         EDIT USER
                         <a class="v-btn v-btn-primary pull-right" href="{{ url('/user/create') }}">CREATE NEW USER</a>
                     </h3>
-                    <br />
-                </div>
-            </div>
-        </div>
+				</div>
+				<br />
+			</div>
+		</div>
 
         <div class="row">
             @if(Session::has('message'))

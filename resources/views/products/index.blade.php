@@ -96,7 +96,10 @@
 						<div class="form-group{{ $errors->has('price') ? ' has-error' : '' }}"><label for="add-product-price">Price</label><input id="add-product-price" type="number" step="0.01" class="form-control" name="price" value="{{ old('price') }}">@if($errors->has('price'))<span class="help-block">{{ $errors->first('price') }}</span>@endif</div>
 						<div class="form-group"><label for="add-product-rank">Rank</label><input id="add-product-rank" class="form-control" name="rank" value="{{ old('rank') }}"></div>
 					</div></div>
-					<div class="modal-footer"><button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button><button type="submit" class="v-btn v-btn-primary kv-product-submit">Add Product</button></div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+						<button type="submit" class="btn v-btn-primary kv-product-submit">Add Product</button>
+					</div>
 				</form>
 			</div>
 		</div>
@@ -135,8 +138,8 @@
 	.kv-product-modal .kv-product-submit,
 	.kv-product-modal .kv-product-submit:hover,
 	.kv-product-modal .kv-product-submit:focus,
-	.kv-product-modal .kv-product-submit:active { min-height: 38px; margin: 0; padding: 8px 18px !important; border: 1px solid #f2bd3b !important; border-radius: 7px; color: #17263b !important; background: #f2bd3b !important; box-shadow: none !important; font-size: 12px; font-weight: 700; line-height: 20px; }
-	.kv-product-modal .modal-footer .btn-default { min-height: 38px; margin: 0; padding: 8px 18px; border-radius: 7px; }
+	.kv-product-modal .kv-product-submit:active { min-height: 30px; margin: 0; padding: 8px 18px !important; border: 1px solid #f2bd3b !important; border-radius: 7px; color: #17263b !important; background: #f2bd3b !important; box-shadow: none !important; font-size: 12px; font-weight: 700; line-height: 20px; }
+	.kv-product-modal .modal-footer .btn-default { min-height: 30px; margin: 0; padding: 8px 18px; border-radius: 7px; }
 	.kv-product-modal .modal-body { padding: 20px 22px 8px; }
 	.kv-product-form-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px 18px; }
 	.kv-product-form-grid .form-group { margin: 0; }

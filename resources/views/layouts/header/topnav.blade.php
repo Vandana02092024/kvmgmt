@@ -18,8 +18,21 @@
 @php
     $currentSection = Request::segment(1);
 
-    $companyOverview = $currentSection == 'dashboard'
-        && !request()->query('location_scope');
+    $companySettingsSections = ['location', 'user', 'product', 'seller', 'vendor', 'category'];
+    $isCompanySettingsPage = in_array(Auth::user()->role, ['Owner', 'Admin'])
+        && in_array($currentSection, $companySettingsSections);
+    $showCompanySettingsTabs = in_array(Auth::user()->role, ['Owner', 'Admin'])
+        && ($isCompanySettingsPage || ($currentSection == 'dashboard' && !request()->query('location_scope')));
+    $companyOverview = ($currentSection == 'dashboard' && !request()->query('location_scope'))
+        || $isCompanySettingsPage;
+    $companySettingsNavigation = [
+        ['label' => 'Company Dashboard', 'icon' => 'fa-building-o', 'url' => url('/dashboard'), 'sections' => ['dashboard']],
+        ['label' => 'Locations', 'icon' => 'fa-map-marker', 'url' => url('/location'), 'sections' => ['location']],
+        ['label' => 'Users', 'icon' => 'fa-users', 'url' => url('/user'), 'sections' => ['user']],
+        ['label' => 'Products', 'icon' => 'fa-cube', 'url' => url('/product'), 'sections' => ['product']],
+        ['label' => 'Vendors', 'icon' => 'fa-truck', 'url' => url('/seller'), 'sections' => ['seller', 'vendor']],
+        ['label' => 'Categories', 'icon' => 'fa-tags', 'url' => url('/category'), 'sections' => ['category']],
+    ];
 
     $navigation = [
         [
@@ -112,7 +125,7 @@
                 <i class="fa fa-building-o"></i>
                 <label class="sr-only" for="kvCurrentLocation">Current location</label>
                 <span class="kv-location-label">LOCATION:</span>
-                <select class="kv-location-select" id="kvCurrentLocation" name="location" onchange="if (this.value === 'all') { window.location.href = '{{ url('/dashboard') }}'; } else { if ('{{ Request::segment(1) }}' === 'dashboard') { this.form.action = '{{ url('/setlocation') }}?dashboard=1'; } this.form.submit(); }">
+                <select class="kv-location-select" id="kvCurrentLocation" name="location" onchange="if (this.value === 'all') { window.location.href = '{{ url('/dashboard') }}'; } else { if ('{{ Request::segment(1) }}' === 'dashboard' || '{{ $isCompanySettingsPage ? '1' : '0' }}' === '1') { this.form.action = '{{ url('/setlocation') }}?dashboard=1'; } this.form.submit(); }">
                     <option value="all" {{ $companyOverview ? 'selected' : '' }}>All Locations (Company Overview)</option>
                     @foreach(session()->get('all_locations', []) as $locationId => $locationName)
                         <option value="{{ $locationId }}" {{ request()->query('location_scope') == $locationId || (!$companyOverview && (string) session()->get('location_id') === (string) $locationId) ? 'selected' : '' }}>{{ $locationName }}</option>
@@ -147,18 +160,25 @@
     </div>
 </header>
 
-@unless($companyOverview)
+@if(!$companyOverview || in_array(Auth::user()->role, ['Owner', 'Admin']))
 <nav class="kv-tabbar" aria-label="Main navigation">
     <div class="kv-tabbar-inner">
         <div class="kv-tab-links">
-        @foreach($navigation as $item)
-            <a class="kv-tab kv-tab-dashboard {{ in_array($currentSection, $item['sections']) ? 'is-active' : '' }}" href="{{ $item['url'] }}">
-                <i class="fa {{ $item['icon'] }}"></i><span>{{ $item['label'] }}</span>
-            </a>
-        @endforeach
-        @if(Auth::user()->role == 'Owner')
+        @if($showCompanySettingsTabs)
+            @foreach($companySettingsNavigation as $item)
+                <a class="kv-tab kv-tab-dashboard {{ in_array($currentSection, $item['sections']) ? 'is-active' : '' }}" href="{{ $item['url'] }}">
+                    <i class="fa {{ $item['icon'] }}"></i><span>{{ $item['label'] }}</span>
+                </a>
+            @endforeach
+        @else
+            @foreach($navigation as $item)
+                <a class="kv-tab kv-tab-dashboard {{ in_array($currentSection, $item['sections']) ? 'is-active' : '' }}" href="{{ $item['url'] }}">
+                    <i class="fa {{ $item['icon'] }}"></i><span>{{ $item['label'] }}</span>
+                </a>
+            @endforeach
+        @if(in_array(Auth::user()->role, ['Owner', 'Admin']))
             @php $settingsSections = ['location', 'user', 'menu', 'category', 'product', 'seller', 'vendor', 'sale', 'discount', 'adjustment', 'receipt', 'payrollcategory', 'payrolldepartment', 'payrollemployee', 'asign_loaction']; @endphp
-            <div class="dropdown kv-settings-nav {{ in_array($currentSection, $settingsSections) ? 'is-active' : '' }}">
+            <div class="dropdown kv-settings-nav {{ in_array($currentSection, $settingsSections) ? 'is-active' : '' }} {{ $companyOverview ? 'kv-settings-nav-company' : '' }}">
                 <button class="kv-tab dropdown-toggle {{ in_array($currentSection, $settingsSections) ? 'is-active' : '' }}" type="button" id="kvSettingsMenu" aria-haspopup="true" aria-expanded="false">
                     <i class="fa fa-cog"></i><span>Settings</span><i class="fa fa-chevron-down kv-settings-caret"></i>
                 </button>
@@ -167,11 +187,10 @@
                     <li class="{{ $currentSection == 'location' ? 'active' : '' }}"><a href="{{ url('/location') }}"><i class="fa fa-map-marker"></i> Locations</a></li>
                     <li class="{{ $currentSection == 'user' ? 'active' : '' }}"><a href="{{ url('/user') }}"><i class="fa fa-users"></i> Users</a></li>
                     <li class="{{ $currentSection == 'asign_loaction' ? 'active' : '' }}"><a href="{{ url('/asign_loaction') }}"><i class="fa fa-th-list"></i> Menu assignments</a></li>
-                    <!-- <li class="{{ $currentSection == 'menu' ? 'active' : '' }}"><a href="{{ url('/menu') }}"><i class="fa fa-th-large"></i> Settings Overview</a></li> -->
                     <li class="kv-settings-heading">Catalog</li>
-                    <li class="{{ $currentSection == 'category' ? 'active' : '' }}"><a href="{{ url('/category') }}"><i class="fa fa-tags"></i> Categories</a></li>
                     <li class="{{ $currentSection == 'product' ? 'active' : '' }}"><a href="{{ url('/product') }}"><i class="fa fa-cube"></i> Products</a></li>
                     <li class="{{ in_array($currentSection, ['seller', 'vendor']) ? 'active' : '' }}"><a href="{{ url('/seller') }}"><i class="fa fa-truck"></i> Vendors</a></li>
+                    <li class="{{ $currentSection == 'category' ? 'active' : '' }}"><a href="{{ url('/category') }}"><i class="fa fa-tags"></i> Categories</a></li>
                     <li class="kv-settings-heading">Sales setup</li>
                     <li class="{{ $currentSection == 'discount' ? 'active' : '' }}"><a href="{{ url('/discount') }}"><i class="fa fa-tags"></i> Discounts &amp; Credits</a></li>
                     <li class="{{ $currentSection == 'adjustment' ? 'active' : '' }}"><a href="{{ url('/adjustment') }}"><i class="fa fa-sliders"></i> Adjustments</a></li>
@@ -184,16 +203,17 @@
                 </ul>
             </div>
         @endif
+        @endif
         </div>
         <div class="kv-nav-context-wrap">
             <div class="kv-nav-context" aria-label="Current store">
                 <i class="fa fa-map-marker"></i>
-                <span>{{ $activeLocationName }}</span>
+                <span>{{ $companyOverview ? 'Company Overview' : $activeLocationName }}</span>
             </div>
         </div>
     </div>
 </nav>
-@endunless
+@endif
 <script>
 (function () {
     var settings = document.querySelector('.kv-settings-nav');

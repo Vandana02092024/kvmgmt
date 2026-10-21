@@ -5,12 +5,21 @@
 	<div class="container-fluid">
 		<div class="row">
 			<div class="col-sm-12">
-				<div class="page-heading">
-					<h3 class="heading"> <a class="v-btn v-btn-primary pull-right " style="margin-right:8px" href="{{ url('/seller') }}"><i class="fa fa-arrow-left " style="margin-right: 5px"> </i>BACK</a>ADD VENDOR
-					<a class="v-btn v-btn-primary pull-right " href="{{ url('/dashboard') }}">MENU</a>
+				<div class= "page-heading kv-page-hero">
+					<!-- <h3 class="heading"> <a class="v-btn v-btn-primary pull-right " style="margin-right:8px" href="{{ url('/menu') }}"><i class="fa fa-arrow-left " style="margin-right: 5px"> </i>BACK</a> USER
+						<a class="v-btn v-btn-primary pull-right" href="{{ url('/dashboard') }}">MENU</a>
+						<a class="v-btn v-btn-primary pull-right" href="{{ url('/user/create') }}">NEW USER</a>
+					</h3> -->
+					<h3 class="heading"> 
+						<a class="v-btn v-btn-primary pull-right " style="margin-right:8px" href="{{ url('/seller') }}">
+							<i class="fa fa-arrow-left " style="margin-right: 5px"> </i>
+							BACK
+						</a>
+						ADD VENDOR
+						<a class="v-btn v-btn-primary pull-right " href="{{ url('/dashboard') }}">MENU</a>
 					</h3>
-	                <br />
 				</div>
+				<br />
 			</div>
 		</div>
 		<div class="row">
