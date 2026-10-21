@@ -7,7 +7,7 @@
 			<div class="col-sm-12">
 				<div class="page-heading kv-page-hero kv-claims-hero">
 					<h3 class="heading">
-						<span class="kv-hero-title"><i class="fa fa-file-text-o"></i><span>Claim Forms<small>Review, add, and manage customer reimbursement claims.</small></span></span>
+						<span class="kv-hero-title"><i class="fa fa-file-text-o"></i><span>Claim Forms</span></span>
 						<a class="v-btn v-btn-primary kv-claim-primary-action" href="{{ url('/reimbursement/create') }}"><i class="fa fa-plus"></i> New Claim</a>
 					</h3>
 				</div>

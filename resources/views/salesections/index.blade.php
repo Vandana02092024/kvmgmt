@@ -17,7 +17,7 @@
 			<div class="col-sm-12">
 				<div class="page-heading kv-page-hero kv-sales-hero">
 					<h3 class="heading">
-						<span class="kv-hero-title"><i class="fa fa-usd"></i><span>Weekly Sales Reports<small>Review store-week revenue, net sales, labor ratios, and report history.</small></span></span>
+						<span class="kv-hero-title"><i class="fa fa-usd"></i><span>Weekly Sales Reports</span></span>
 
 					<a class="v-btn v-btn-primary pull-right" href="{{ url('/salesection/create') }}"><i class="fa fa-plus"></i> New Week Report</a>
 					</h3>

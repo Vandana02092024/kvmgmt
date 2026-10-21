@@ -30,7 +30,14 @@ class PayrollDepartmentController extends Controller
     {
         $payrolldepartments = \DB::table('payroll_departments')->select('payroll_departments.*')->orderBy('sorting_order', 'asc')->get();
 		
-        return view('payrolldepartments.index',compact('payrolldepartments'));
+        $locations = $this->locations;
+        $locationSelections = [];
+        foreach ($payrolldepartments as $department) {
+            $locationSelections[$department->id] = PayrollDepartment_location::where('payrolldep_id', '=', $department->id)->lists('location')->toArray();
+        }
+        $openAddModal = false;
+        $openEditId = null;
+        return view('payrolldepartments.index', compact('payrolldepartments', 'locations', 'locationSelections', 'openAddModal', 'openEditId'));
     }
 
     /**
@@ -40,8 +47,9 @@ class PayrollDepartmentController extends Controller
      */
     public function create()
 	{        
-        $locations = $this->locations;
-        return view('payrolldepartments.create',compact('locations'));
+        $data = $this->index()->getData();
+        $data['openAddModal'] = true;
+        return view('payrolldepartments.index', (array) $data);
     }
 
     /**
@@ -97,9 +105,9 @@ class PayrollDepartmentController extends Controller
      */
     public function edit(PayrollDepartment $payrolldepartment)
     {       
-        $locations = $this->locations;
-        $selLocations = PayrollDepartment_location::where('payrolldep_id', '=', $payrolldepartment->id)->lists('location', 'id')->toArray();		
-        return view('payrolldepartments.edit',compact(['payrolldepartment','locations','selLocations']));
+        $data = $this->index()->getData();
+        $data['openEditId'] = $payrolldepartment->id;
+        return view('payrolldepartments.index', (array) $data);
     }
 
     /**
@@ -118,26 +126,15 @@ class PayrollDepartmentController extends Controller
 			'sorting_order' => $request['sorting_order']
         ]);
 
-		$locVal = $request['location'];
-		
-		
-        if($locVal != '')
-        {
-            if(is_array($locVal))
-            {
-                foreach ($locVal as $locValue) {
-                    PayrollDepartment_location::create([
-                        'payrolldep_id' => $payrolldepartment->id,
-                        'location' => $locValue,
-                    ]);
-                }
-            }else{
-                PayrollDepartment_location::create([
-                    'payrolldep_id' => $payrolldepartment->id,
-                    'location' => $locVal,
-                ]);
-            }
-        }
+		$locVal = (array) $request->input('location', []);
+		if (count($locVal)) {
+		    PayrollDepartment_location::where('payrolldep_id', '=', $payrolldepartment->id)->whereNotIn('location', $locVal)->delete();
+		} else {
+		    PayrollDepartment_location::where('payrolldep_id', '=', $payrolldepartment->id)->delete();
+		}
+		foreach ($locVal as $locValue) {
+		    PayrollDepartment_location::firstOrCreate(['payrolldep_id' => $payrolldepartment->id, 'location' => $locValue]);
+		}
 		
 		
 		

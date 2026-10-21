@@ -1,20 +1,20 @@
 @extends('layouts.layout')
 
 @section('content')
+@php $settingsItemType = 'discount'; $settingsItemLabel = 'Discount'; $settingsItems = $discounts; @endphp
 <section id="dashboard-page" class="wrap">
 	<div class="container-fluid">
 		<div class="row">
 			<div class="col-sm-12">
-				<div class="page-heading">
-					<h3 class="heading"> <a class="v-btn v-btn-primary " style="margin-right:8px" href="{{ url('/menu') }}"><i class="fa fa-arrow-left " style="margin-right: 5px"> </i>BACK</a>VIEW DISCOUNT
-					<a class="v-btn v-btn-primary pull-right" href="{{ url('/dashboard') }}">MENU</a>
-                	<a class="v-btn v-btn-primary pull-right" href="{{ url('/discount/create') }}">CREATE NEW DISCOUNT</a>
+				<div class= "page-heading kv-page-hero">
+					<h3 class="heading"> <a class="v-btn v-btn-primary pull-right " style="margin-right:8px" href="{{ url('/menu') }}"><i class="fa fa-arrow-left " style="margin-right: 5px"> </i>BACK</a>DISCOUNT
+						<a class="v-btn v-btn-primary pull-right" href="{{ url('/dashboard') }}">MENU</a>
+						<a class="v-btn v-btn-primary pull-right" href="#addSettingsItemModal" data-toggle="modal">CREATE NEW DISCOUNT</a>
 					</h3>
-	                <br /> 
 				</div>
+				<br />
 			</div>
 		</div>
-
 		@if(Session::has('message'))
             <div class="alert alert-success">
                 {{ Session::get('message') }}
@@ -43,7 +43,7 @@
 			                                <td>
 			                                    {!! Form::open(array('route' => ['discount.destroy', $discount->id], 'method'=>'DELETE', 'class' => 'delete')) !!}
 			                                        
-			                                        {{ link_to_route('discount.edit','',[$discount->id],['class' => 'fa fa-pencil','data-toggle'=>"tooltip", 'data-placement'=>"left", 'title'=>"edit"]) }}
+	                                        <a href="#editSettingsItemModal{{ $discount->id }}" class="fa fa-pencil" data-toggle="modal" data-placement="left" title="edit"></a>
 													
 													|
 													
@@ -64,6 +64,7 @@
 			</div>
 		</div>
 	</div>
+	@include('shared.location-settings-modals')
 </section>
 
 <script type="text/javascript">

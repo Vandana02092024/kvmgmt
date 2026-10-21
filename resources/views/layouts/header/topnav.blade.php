@@ -152,12 +152,12 @@
     <div class="kv-tabbar-inner">
         <div class="kv-tab-links">
         @foreach($navigation as $item)
-            <a class="kv-tab kv-tab-{{ $item['key'] }} {{ in_array($currentSection, $item['sections']) ? 'is-active' : '' }}" href="{{ $item['url'] }}">
+            <a class="kv-tab kv-tab-dashboard {{ in_array($currentSection, $item['sections']) ? 'is-active' : '' }}" href="{{ $item['url'] }}">
                 <i class="fa {{ $item['icon'] }}"></i><span>{{ $item['label'] }}</span>
             </a>
         @endforeach
         @if(Auth::user()->role == 'Owner')
-            @php $settingsSections = ['location', 'user', 'menu', 'category', 'product', 'seller', 'vendor', 'salessetting', 'sale', 'discount', 'adjustment', 'receipt', 'payrollsetting', 'payrollcategory', 'payrolldepartment', 'asign_loaction']; @endphp
+            @php $settingsSections = ['location', 'user', 'menu', 'category', 'product', 'seller', 'vendor', 'sale', 'discount', 'adjustment', 'receipt', 'payrollcategory', 'payrolldepartment', 'payrollemployee', 'asign_loaction']; @endphp
             <div class="dropdown kv-settings-nav {{ in_array($currentSection, $settingsSections) ? 'is-active' : '' }}">
                 <button class="kv-tab dropdown-toggle {{ in_array($currentSection, $settingsSections) ? 'is-active' : '' }}" type="button" id="kvSettingsMenu" aria-haspopup="true" aria-expanded="false">
                     <i class="fa fa-cog"></i><span>Settings</span><i class="fa fa-chevron-down kv-settings-caret"></i>
@@ -167,17 +167,20 @@
                     <li class="{{ $currentSection == 'location' ? 'active' : '' }}"><a href="{{ url('/location') }}"><i class="fa fa-map-marker"></i> Locations</a></li>
                     <li class="{{ $currentSection == 'user' ? 'active' : '' }}"><a href="{{ url('/user') }}"><i class="fa fa-users"></i> Users</a></li>
                     <li class="{{ $currentSection == 'asign_loaction' ? 'active' : '' }}"><a href="{{ url('/asign_loaction') }}"><i class="fa fa-th-list"></i> Menu assignments</a></li>
-                    <li class="{{ $currentSection == 'menu' ? 'active' : '' }}"><a href="{{ url('/menu') }}"><i class="fa fa-th-large"></i> Settings Overview</a></li>
+                    <!-- <li class="{{ $currentSection == 'menu' ? 'active' : '' }}"><a href="{{ url('/menu') }}"><i class="fa fa-th-large"></i> Settings Overview</a></li> -->
                     <li class="kv-settings-heading">Catalog</li>
                     <li class="{{ $currentSection == 'category' ? 'active' : '' }}"><a href="{{ url('/category') }}"><i class="fa fa-tags"></i> Categories</a></li>
                     <li class="{{ $currentSection == 'product' ? 'active' : '' }}"><a href="{{ url('/product') }}"><i class="fa fa-cube"></i> Products</a></li>
                     <li class="{{ in_array($currentSection, ['seller', 'vendor']) ? 'active' : '' }}"><a href="{{ url('/seller') }}"><i class="fa fa-truck"></i> Vendors</a></li>
                     <li class="kv-settings-heading">Sales setup</li>
-                    <li class="{{ in_array($currentSection, ['salessetting', 'sale', 'discount', 'adjustment', 'receipt']) ? 'active' : '' }}"><a href="{{ url('/salessetting') }}"><i class="fa fa-usd"></i> Sales fields</a></li>
+                    <li class="{{ $currentSection == 'discount' ? 'active' : '' }}"><a href="{{ url('/discount') }}"><i class="fa fa-tags"></i> Discounts &amp; Credits</a></li>
+                    <li class="{{ $currentSection == 'adjustment' ? 'active' : '' }}"><a href="{{ url('/adjustment') }}"><i class="fa fa-sliders"></i> Adjustments</a></li>
+                    <li class="{{ $currentSection == 'receipt' ? 'active' : '' }}"><a href="{{ url('/receipt') }}"><i class="fa fa-credit-card"></i> Receipts</a></li>
+                    <li class="{{ $currentSection == 'sale' ? 'active' : '' }}"><a href="{{ url('/sale') }}"><i class="fa fa-usd"></i> Sales</a></li>
                     <li class="kv-settings-heading">Payroll setup</li>
-                    <li class="{{ $currentSection == 'payrollsetting' ? 'active' : '' }}"><a href="{{ url('/payrollsetting') }}"><i class="fa fa-sliders"></i> Payroll settings</a></li>
                     <li class="{{ $currentSection == 'payrollcategory' ? 'active' : '' }}"><a href="{{ url('/payrollcategory') }}"><i class="fa fa-list"></i> Payroll categories</a></li>
                     <li class="{{ $currentSection == 'payrolldepartment' ? 'active' : '' }}"><a href="{{ url('/payrolldepartment') }}"><i class="fa fa-sitemap"></i> Payroll departments</a></li>
+                    <li class="{{ $currentSection == 'payrollemployee' ? 'active' : '' }}"><a href="{{ url('/payrollemployee') }}"><i class="fa fa-users"></i> Payroll employees</a></li>
                 </ul>
             </div>
         @endif

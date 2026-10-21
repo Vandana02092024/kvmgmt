@@ -1,17 +1,18 @@
 @extends('layouts.layout')
 
 @section('content')
+@php $settingsItemType = 'adjustment'; $settingsItemLabel = 'Adjustment'; $settingsItems = $adjustments; @endphp
 <section id="dashboard-page" class="wrap">
 	<div class="container-fluid">
 		<div class="row">
 			<div class="col-sm-12">
-				<div class="page-heading">
-					<h3 class="heading"> <a class="v-btn v-btn-primary " style="margin-right:8px" href="{{ url('/menu') }}"><i class="fa fa-arrow-left " style="margin-right: 5px"> </i>BACK</a>ADJUSTMENT
+				<div class= "page-heading kv-page-hero">
+					<h3 class="heading"> <a class="v-btn v-btn-primary pull-right" style="margin-right:8px" href="{{ url('/menu') }}"><i class="fa fa-arrow-left " style="margin-right: 5px"> </i>BACK</a>ADJUSTMENT
 					<a class="v-btn v-btn-primary pull-right" href="{{ url('/dashboard') }}">MENU</a>
-                	<a class="v-btn v-btn-primary pull-right" href="{{ url('/adjustment/create') }}"> NEW ADJUSTMENT</a>
+					<a class="v-btn v-btn-primary pull-right" href="#addSettingsItemModal" data-toggle="modal"> NEW ADJUSTMENT</a>
 					</h3>
-	                <br /> 
 				</div>
+				<br />
 			</div>
 		</div>
 
@@ -43,7 +44,7 @@
 			                                <td>
 			                                    {!! Form::open(array('route' => ['adjustment.destroy', $adjustment->id], 'method'=>'DELETE', 'class' => 'delete')) !!}
 			                                        
-			                                        {{ link_to_route('adjustment.edit','',[$adjustment->id],['class' => 'fa fa-pencil','data-toggle'=>"tooltip", 'data-placement'=>"left", 'title'=>"edit"]) }}
+	                                        <a href="#editSettingsItemModal{{ $adjustment->id }}" class="fa fa-pencil" data-toggle="modal" data-placement="left" title="edit"></a>
 													
 													|
 													
@@ -64,6 +65,7 @@
 			</div>
 		</div>
 	</div>
+	@include('shared.location-settings-modals')
 </section>
 
 <script type="text/javascript">

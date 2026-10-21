@@ -3,9 +3,30 @@
 @section('content')
 <section id="dashboard-page" class="wrap">
 	<div class="container-fluid">
+    <!-- <div class="row">
+			<div class="col-sm-12">
+				<div class= "page-heading kv-page-hero">
+					<h3 class="heading kv-assign-menu-title">ASSIGN MENU</h3>
+					<div class="kv-assign-menu-actions">
+						<form class="widget ng-pristine ng-valid" method="POST" id="form" action="{{ url('/asign_loaction') }}">
+							{{ csrf_field() }}
+							<select name="location" class="form-control" aria-label="Select location" onchange="$('#form').submit()">
+								<option value="">Select location</option>
+							@foreach ($list as $value)
+								<option value="{{ $value->id }}" @if(isset($location) && $location == $value->id) selected @endif>{{ $value->location }}</option>
+							@endforeach
+							</select>
+						</form>
+						<a class="v-btn v-btn-primary kv-assign-menu" href="{{ url('/dashboard') }}">Menu</a>
+            <a class="v-btn v-btn-primary kv-assign-back" href="{{ url('/location') }}"><i class="fa fa-arrow-left"></i> Back</a>
+					</div>
+				</div>
+				<br />
+			</div>
+		</div> -->
 		<div class="row">
 			<div class="col-sm-12">
-				<div class="page-heading kv-assign-menu-heading">
+				<div class="page-heading kv-assign-menu-heading kv-page-hero">
 					<h3 class="heading kv-assign-menu-title">ASSIGN MENU</h3>
 					<div class="kv-assign-menu-actions">
 						<form class="widget ng-pristine ng-valid" method="POST" id="form" action="{{ url('/asign_loaction') }}">

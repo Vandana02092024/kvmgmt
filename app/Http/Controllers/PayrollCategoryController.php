@@ -29,8 +29,14 @@ class PayrollCategoryController extends Controller
     public function index()
     {
         $payrollcategories = \DB::table('payroll_categories')->select('payroll_categories.*')->orderBy('sorting_order', 'asc')->get();
-	
-        return view('payrollcategories.index',compact('payrollcategories'));
+	    $locations = $this->locations;
+        $locationSelections = [];
+        foreach ($payrollcategories as $category) {
+            $locationSelections[$category->id] = PayrollCategory_location::where('payrollcat_id', '=', $category->id)->lists('location')->toArray();
+        }
+        $openAddModal = false;
+        $openEditId = null;
+        return view('payrollcategories.index', compact('payrollcategories', 'locations', 'locationSelections', 'openAddModal', 'openEditId'));
     }
 
     /**
@@ -40,8 +46,9 @@ class PayrollCategoryController extends Controller
      */
     public function create()
 	{        
-        $locations = $this->locations;
-        return view('payrollcategories.create',compact('locations'));
+        $data = $this->index()->getData();
+        $data['openAddModal'] = true;
+        return view('payrollcategories.index', (array) $data);
     }
 
     /**
@@ -98,9 +105,9 @@ class PayrollCategoryController extends Controller
      */
     public function edit(PayrollCategory $payrollcategory)
     {       
-        $locations = $this->locations;
-        $selLocations = PayrollCategory_location::where('payrollcat_id', '=', $payrollcategory->id)->lists('location', 'id')->toArray();		
-        return view('payrollcategories.edit',compact(['payrollcategory','locations','selLocations']));
+        $data = $this->index()->getData();
+        $data['openEditId'] = $payrollcategory->id;
+        return view('payrollcategories.index', (array) $data);
     }
 
     /**
@@ -120,30 +127,19 @@ class PayrollCategoryController extends Controller
 			'sorting_order' => $request['sorting_order'],
         ]);
 
-		$locVal = $request['location'];
-		
-		
-        if($locVal != '')
-        {
-            if(is_array($locVal))
-            {
-                foreach ($locVal as $locValue) {
-                    PayrollCategory_location::create([
-                        'payrollcat_id' => $payrollcategory->id,
-                        'location' => $locValue,
-                    ]);
-                }
-            }else{
-                PayrollCategory_location::create([
-                    'payrollcat_id' => $payrollcategory->id,
-                    'location' => $locVal,
-                ]);
-            }
-        }
+		$locVal = (array) $request->input('location', []);
+		if (count($locVal)) {
+		    PayrollCategory_location::where('payrollcat_id', '=', $payrollcategory->id)->whereNotIn('location', $locVal)->delete();
+		} else {
+		    PayrollCategory_location::where('payrollcat_id', '=', $payrollcategory->id)->delete();
+		}
+		foreach ($locVal as $locValue) {
+		    PayrollCategory_location::firstOrCreate(['payrollcat_id' => $payrollcategory->id, 'location' => $locValue]);
+		}
 		
 		
 		
-		return redirect()->route('payrollcategory.index')->with('message','Discount has been updated successfully!');
+		return redirect()->route('payrollcategory.index')->with('message','Payroll Category has been updated successfully!');
     }
 
 	

@@ -27,15 +27,20 @@ class SaleController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index($openAddModal = false, $openEditId = null)
     {
         $sales = \DB::table('sales')->select('sales.*')->orderBy('sorting_order', 'asc')->get();
+		$locations = $this->locations;
+		$locationSelections = [];
+		foreach (\DB::table('sale_locations')->select('sale', 'location')->distinct()->get() as $link) {
+			$locationSelections[$link->sale][] = (string) $link->location;
+		}
         // $users = \DB::table('users')
         //     ->leftJoin('user_locations', 'users.id', '=', 'user_locations.user')
         //     ->leftJoin('locations', 'locations.id', '=', 'user_locations.location')
         //     ->select('users.*', 'locations.location')
         //     ->get();
-        return view('sales.index',compact('sales'));
+        return view('sales.index', compact('sales', 'locations', 'locationSelections', 'openAddModal', 'openEditId'));
     }
 
     /**
@@ -44,9 +49,8 @@ class SaleController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function create()
-	{        
-        $locations = $this->locations;
-        return view('sales.create',compact('locations'));
+	{
+        return $this->index(true);
     }
 
     /**
@@ -100,10 +104,8 @@ class SaleController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function edit(Sale $sale)
-    {       
-        $locations = $this->locations;
-        $selLocations = Sale_location::where('sale', '=', $sale->id)->lists('location', 'id')->toArray();		
-        return view('sales.edit',compact(['sale','locations','selLocations']));
+	{
+		return $this->index(false, $sale->id);
     }
 
     /**
@@ -122,26 +124,17 @@ class SaleController extends Controller
 			'sorting_order' => $request['sorting_order'],
         ]);
 
-		$locVal = $request['location'];
-		
-		
-        if($locVal != '')
-        {
-            if(is_array($locVal))
-            {
-                foreach ($locVal as $locValue) {
-                    Sale_location::create([
-                        'sale' => $sale->id,
-                        'location' => $locValue,
-                    ]);
-                }
-            }else{
-                Sale_location::create([
-                    'sale' => $sale->id,
-                    'location' => $locVal,
-                ]);
-            }
-        }
+		$locVal = $request->input('location', []);
+		if (!is_array($locVal)) $locVal = [$locVal];
+		$existingLocations = [];
+		foreach (Sale_location::where('sale', $sale->id)->get(['location']) as $link) {
+			$existingLocations[] = (string) $link->location;
+		}
+		foreach (array_unique($locVal) as $locValue) {
+			if ($locValue !== '' && !in_array((string) $locValue, $existingLocations, true)) {
+				Sale_location::create(['sale' => $sale->id, 'location' => $locValue]);
+			}
+		}
 		
 		
 		
