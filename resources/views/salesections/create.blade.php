@@ -107,6 +107,9 @@
    {{ Session::get('message') }}
 </div>
 @endif
+@if($errors->any())
+<div class="alert alert-danger">{{ $errors->first() }}</div>
+@endif
 <section id="dashboard-page" class="wrap kv-weekly-ledger">
    <div class="container-fluid">
       <div class="row">
@@ -333,6 +336,7 @@
             <span class="kv-daily-focus-date-icon"><i class="fa fa-calendar"></i></span>
             <div><h2 id="kv-daily-focus-title">Daily Ledger</h2><p>Enter and review this day’s store activity.</p></div>
             <span class="kv-daily-focus-status"><i class="fa fa-circle"></i> Daily entry</span>
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#dailyEntryPdfModal"><i class="fa fa-upload"></i> Upload PDF</button>
          </div>
          <div class="kv-daily-focus-layout">
             <div class="kv-daily-focus-sections">
@@ -348,6 +352,34 @@
             </aside>
          </div>
          <p class="kv-daily-focus-footnote"><i class="fa fa-info-circle"></i> Use Full Week Matrix to compare or edit multiple days together.</p>
+      </div>
+      <div class="modal fade kv-location-modal" id="dailyEntryPdfModal" tabindex="-1" role="dialog" aria-labelledby="dailyEntryPdfModalTitle">
+         <div class="modal-dialog" role="document">
+            <div class="modal-content">
+               <form method="POST" action="{{ url('/uploads/daily-entry-pdf') }}" enctype="multipart/form-data">
+                  {{ csrf_field() }}
+                  <div class="modal-header">
+                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                     <h4 class="modal-title" id="dailyEntryPdfModalTitle">Upload Daily Entry PDF</h4>
+                  </div>
+                  <div class="modal-body">
+                     <p>Upload a PDF for <strong id="dailyEntryPdfDateLabel">the selected day</strong>.</p>
+                     <input type="hidden" name="entry_date" id="dailyEntryPdfDate">
+                     <div class="kv-location-fields">
+                        <div class="form-group">
+                           <label for="dailyEntryPdfFile">PDF file</label>
+                           <input class="form-control" type="file" name="file" id="dailyEntryPdfFile" accept=".pdf,application/pdf" required>
+                           <small class="help-block">PDF only, up to 20 MB.</small>
+                        </div>
+                     </div>
+                  </div>
+                  <div class="modal-footer">
+                     <button type="button" class="btn kv-location-cancel" data-dismiss="modal">Cancel</button>
+                     <button type="submit" class="btn kv-location-submit">Submit Upload</button>
+                  </div>
+               </form>
+            </div>
+         </div>
       </div>
       <!--  <div class="filter-container">
          <div class="row">
@@ -2771,6 +2803,10 @@
       });
       selectedDayName = button.querySelector('.kv-ledger-day-name').textContent;
       selectedDate = button.querySelector('.kv-ledger-day-date').textContent;
+      var uploadDate = document.getElementById('dailyEntryPdfDate');
+      var uploadDateLabel = document.getElementById('dailyEntryPdfDateLabel');
+      if (uploadDate) uploadDate.value = selectedDate;
+      if (uploadDateLabel) uploadDateLabel.textContent = selectedDate;
       if (focused) renderDailyFocus();
    }
 
