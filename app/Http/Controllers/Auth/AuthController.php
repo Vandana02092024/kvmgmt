@@ -76,15 +76,18 @@ class AuthController extends Controller
 
     public function authenticated(Request $request, $user)
     {
-        // echo "shra here"; exit;
-        $email = $request->get('email');
-        $password = $request->get('password');
+        // The auth trait has already logged in this user. Clear any store context
+        // left by the previous account before loading this user's locations.
+        $request->session()->forget([
+            'location_id',
+            'all_locations',
+            'locationName',
+            'locationCode',
+            'entityName',
+            'total_new_csr',
+            'all_new_csr_data',
+        ]);
 
-        if (\Auth::attempt(['email' => $email, 'password' => $password])) {
-
-            // Authentication passed...
-            // return redirect()->intended('setlocation');
-            return redirect()->route('setlocation.index');
-        }
+        return redirect()->route('setlocation.index');
     }
 }

@@ -18,20 +18,22 @@
 @php
     $currentSection = Request::segment(1);
 
-    $companySettingsSections = ['location', 'user', 'product', 'seller', 'vendor', 'category'];
+    // Settings pages use an explicit company flag when opened from the
+    // company dashboard; store settings keep their selected location context.
     $isCompanySettingsPage = in_array(Auth::user()->role, ['Owner', 'Admin'])
-        && in_array($currentSection, $companySettingsSections);
+        && request()->query('company') == '1'
+        && in_array($currentSection, ['location', 'user', 'product', 'seller', 'vendor', 'category']);
     $showCompanySettingsTabs = in_array(Auth::user()->role, ['Owner', 'Admin'])
         && ($isCompanySettingsPage || ($currentSection == 'dashboard' && !request()->query('location_scope')));
     $companyOverview = ($currentSection == 'dashboard' && !request()->query('location_scope'))
         || $isCompanySettingsPage;
     $companySettingsNavigation = [
         ['label' => 'Company Dashboard', 'icon' => 'fa-building-o', 'url' => url('/dashboard'), 'sections' => ['dashboard']],
-        ['label' => 'Locations', 'icon' => 'fa-map-marker', 'url' => url('/location'), 'sections' => ['location']],
-        ['label' => 'Users', 'icon' => 'fa-users', 'url' => url('/user'), 'sections' => ['user']],
-        ['label' => 'Products', 'icon' => 'fa-cube', 'url' => url('/product'), 'sections' => ['product']],
-        ['label' => 'Vendors', 'icon' => 'fa-truck', 'url' => url('/seller'), 'sections' => ['seller', 'vendor']],
-        ['label' => 'Categories', 'icon' => 'fa-tags', 'url' => url('/category'), 'sections' => ['category']],
+        ['label' => 'Locations', 'icon' => 'fa-map-marker', 'url' => url('/location?company=1'), 'sections' => ['location']],
+        ['label' => 'Users', 'icon' => 'fa-users', 'url' => url('/user?company=1'), 'sections' => ['user']],
+        ['label' => 'Products', 'icon' => 'fa-cube', 'url' => url('/product?company=1'), 'sections' => ['product']],
+        ['label' => 'Vendors', 'icon' => 'fa-truck', 'url' => url('/seller?company=1'), 'sections' => ['seller', 'vendor']],
+        ['label' => 'Categories', 'icon' => 'fa-tags', 'url' => url('/category?company=1'), 'sections' => ['category']],
     ];
 
     $navigation = [
@@ -128,7 +130,7 @@
                 <select class="kv-location-select" id="kvCurrentLocation" name="location" onchange="if (this.value === 'all') { window.location.href = '{{ url('/dashboard') }}'; } else { if ('{{ Request::segment(1) }}' === 'dashboard' || '{{ $isCompanySettingsPage ? '1' : '0' }}' === '1') { this.form.action = '{{ url('/setlocation') }}?dashboard=1'; } this.form.submit(); }">
                     <option value="all" {{ $companyOverview ? 'selected' : '' }}>All Locations (Company Overview)</option>
                     @foreach(session()->get('all_locations', []) as $locationId => $locationName)
-                        <option value="{{ $locationId }}" {{ request()->query('location_scope') == $locationId || (!$companyOverview && (string) session()->get('location_id') === (string) $locationId) ? 'selected' : '' }}>{{ $locationName }}</option>
+                        <option value="{{ $locationId }}" {{ ($currentSection == 'dashboard' && request()->query('location_scope') == $locationId) || (!$companyOverview && (string) session()->get('location_id') === (string) $locationId) ? 'selected' : '' }}>{{ $locationName }}</option>
                     @endforeach
                 </select>
             </form>
@@ -184,13 +186,13 @@
                 </button>
                 <ul class="dropdown-menu dropdown-menu-right kv-settings-menu" aria-labelledby="kvSettingsMenu">
                     <li class="kv-settings-heading">Administration</li>
-                    <li class="{{ $currentSection == 'location' ? 'active' : '' }}"><a href="{{ url('/location') }}"><i class="fa fa-map-marker"></i> Locations</a></li>
-                    <li class="{{ $currentSection == 'user' ? 'active' : '' }}"><a href="{{ url('/user') }}"><i class="fa fa-users"></i> Users</a></li>
+                    <li class="{{ $currentSection == 'location' ? 'active' : '' }}"><a href="{{ url('/location?location_scope=' . session()->get('location_id')) }}"><i class="fa fa-map-marker"></i> Locations</a></li>
+                    <li class="{{ $currentSection == 'user' ? 'active' : '' }}"><a href="{{ url('/user?location_scope=' . session()->get('location_id')) }}"><i class="fa fa-users"></i> Users</a></li>
                     <li class="{{ $currentSection == 'asign_loaction' ? 'active' : '' }}"><a href="{{ url('/asign_loaction') }}"><i class="fa fa-th-list"></i> Menu assignments</a></li>
                     <li class="kv-settings-heading">Catalog</li>
-                    <li class="{{ $currentSection == 'product' ? 'active' : '' }}"><a href="{{ url('/product') }}"><i class="fa fa-cube"></i> Products</a></li>
-                    <li class="{{ in_array($currentSection, ['seller', 'vendor']) ? 'active' : '' }}"><a href="{{ url('/seller') }}"><i class="fa fa-truck"></i> Vendors</a></li>
-                    <li class="{{ $currentSection == 'category' ? 'active' : '' }}"><a href="{{ url('/category') }}"><i class="fa fa-tags"></i> Categories</a></li>
+                    <li class="{{ $currentSection == 'product' ? 'active' : '' }}"><a href="{{ url('/product?location_scope=' . session()->get('location_id')) }}"><i class="fa fa-cube"></i> Products</a></li>
+                    <li class="{{ in_array($currentSection, ['seller', 'vendor']) ? 'active' : '' }}"><a href="{{ url('/seller?location_scope=' . session()->get('location_id')) }}"><i class="fa fa-truck"></i> Vendors</a></li>
+                    <li class="{{ $currentSection == 'category' ? 'active' : '' }}"><a href="{{ url('/category?location_scope=' . session()->get('location_id')) }}"><i class="fa fa-tags"></i> Categories</a></li>
                     <li class="kv-settings-heading">Sales setup</li>
                     <li class="{{ $currentSection == 'discount' ? 'active' : '' }}"><a href="{{ url('/discount') }}"><i class="fa fa-tags"></i> Discounts &amp; Credits</a></li>
                     <li class="{{ $currentSection == 'adjustment' ? 'active' : '' }}"><a href="{{ url('/adjustment') }}"><i class="fa fa-sliders"></i> Adjustments</a></li>
