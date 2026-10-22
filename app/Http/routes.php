@@ -72,6 +72,8 @@ Route::get('/', function () {
 // });
 Route::group(['middleware' => ['auth']], function () {
 Route::get('/dashboard', 'MenuController@dashboard');
+Route::post('uploads/daily-entry-pdf', 'DocumentUploadController@dailyEntryPdf');
+Route::post('uploads/labor-report-excel', 'DocumentUploadController@laborReportExcel');
 Route::get('setlocation', 'SetlocationController@index')->name('setlocation');
 Route::resource('setlocation', 'SetlocationController');
 Route::resource('user', 'UserController');

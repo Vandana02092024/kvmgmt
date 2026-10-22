@@ -167,11 +167,21 @@
     <div class="kv-tabbar-inner">
         <div class="kv-tab-links">
         @if($showCompanySettingsTabs)
-            @foreach($companySettingsNavigation as $item)
-                <a class="kv-tab kv-tab-dashboard {{ in_array($currentSection, $item['sections']) ? 'is-active' : '' }}" href="{{ $item['url'] }}">
-                    <i class="fa {{ $item['icon'] }}"></i><span>{{ $item['label'] }}</span>
-                </a>
-            @endforeach
+            <a class="kv-tab kv-tab-dashboard {{ $currentSection == 'dashboard' ? 'is-active' : '' }}" href="{{ url('/dashboard') }}">
+                <i class="fa fa-building-o"></i><span>Company Dashboard</span>
+            </a>
+            @php $companySettingsSections = ['location', 'user', 'product', 'seller', 'vendor', 'category']; @endphp
+            <div class="dropdown kv-settings-nav {{ in_array($currentSection, $companySettingsSections) ? 'is-active' : '' }} kv-settings-nav-company">
+                <button class="kv-tab dropdown-toggle {{ in_array($currentSection, $companySettingsSections) ? 'is-active' : '' }}" type="button" id="kvSettingsMenu" aria-haspopup="true" aria-expanded="false">
+                    <i class="fa fa-cog"></i><span>Settings</span><i class="fa fa-chevron-down kv-settings-caret"></i>
+                </button>
+                <ul class="dropdown-menu dropdown-menu-right kv-settings-menu" aria-labelledby="kvSettingsMenu">
+                    <li class="kv-settings-heading">Company settings</li>
+                    @foreach(array_slice($companySettingsNavigation, 1) as $item)
+                        <li class="{{ in_array($currentSection, $item['sections']) ? 'active' : '' }}"><a href="{{ $item['url'] }}"><i class="fa {{ $item['icon'] }}"></i> {{ $item['label'] }}</a></li>
+                    @endforeach
+                </ul>
+            </div>
         @else
             @foreach($navigation as $item)
                 <a class="kv-tab kv-tab-dashboard {{ in_array($currentSection, $item['sections']) ? 'is-active' : '' }}" href="{{ $item['url'] }}">

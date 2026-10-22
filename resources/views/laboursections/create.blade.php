@@ -2,6 +2,13 @@
 
 @section('content')
 
+@if(Session::has('message'))
+   <div class="alert alert-success">{{ Session::get('message') }}</div>
+@endif
+@if($errors->any())
+   <div class="alert alert-danger">{{ $errors->first() }}</div>
+@endif
+
 <style type="text/css">
    .main-content {
       padding-bottom: 0!important;
@@ -91,30 +98,61 @@
 
 <section id="dashboard-page" class="wrap kv-labor-report">
    <div class="container-fluid">
-   <div class="row">
-      <div class="col-sm-12">
-         <h3 class="heading">
-            Bi-Weekly Labor Report
-               {!! Form::model(null, array('route' => ['laboursection.store'], 'method' => 'POST')) !!}
-               <ul class="pull-right inline quick-info">
-                  <li>
-                    <div class="input-group" id="">
-                        <input  class="form-control" id='weeklyDatePicker' name="datefilter" autocomplete="off"/>
-                      </div>
-                  </li>
-                  <li>
-                     <div class="input-group" >
-                        <input class="v-btn v-btn-primary" type="submit" name="submit" id="weekDatapick" value="FILTER" onClick= "dateData()">
+      <div class="row">
+			<div class="col-sm-12">
+				<div class="page-heading kv-page-hero kv-reports-hero">
+               <h3 class="heading">
+                  Bi-Weekly Labor Report
+                     {!! Form::model(null, array('route' => ['laboursection.store'], 'method' => 'POST')) !!}
+                     <ul class="pull-right inline quick-info">
+                        <li>
+                        <div class="input-group" id="">
+                              <input  class="form-control" id='weeklyDatePicker' name="datefilter" autocomplete="off"/>
+                           </div>
+                        </li>
+                        <li>
+                           <div class="input-group" >
+                              <input class="v-btn v-btn-primary" type="submit" name="submit" id="weekDatapick" value="FILTER" onClick= "dateData()">
+                           </div>
+                        </li>
+                        <li>
+                           <button type="button" class="v-btn v-btn-primary" data-toggle="modal" data-target="#laborExcelUploadModal"><i class="fa fa-upload"></i> UPLOAD EXCEL</button>
+                        </li>
+                        <li>
+                           <div class="input-group" >
+                              <a class="v-btn v-btn-primary pull-right bg-light" href="{{ url('/laboursection') }}">BACK</a>
+                           </div>
+                        </li>
+                     </ul>
+                  </form>
+               </h3>
+            </div>
+			</div>
+		</div>
+   <div class="modal fade kv-location-modal" id="laborExcelUploadModal" tabindex="-1" role="dialog" aria-labelledby="laborExcelUploadModalTitle">
+      <div class="modal-dialog" role="document">
+         <div class="modal-content">
+            <form method="POST" action="{{ url('/uploads/labor-report-excel') }}" enctype="multipart/form-data">
+               {{ csrf_field() }}
+               <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                  <h4 class="modal-title" id="laborExcelUploadModalTitle">Upload Labor Report Excel</h4>
+               </div>
+               <div class="modal-body">
+                  <div class="kv-location-fields">
+                     <div class="form-group">
+                        <label for="laborExcelFile">Excel file</label>
+                        <input class="form-control" type="file" name="file" id="laborExcelFile" accept=".xls,.xlsx,application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" required>
+                        <small class="help-block">Excel files (.xls or .xlsx) only, up to 20 MB.</small>
                      </div>
-                  </li>
-                  <li>
-                     <div class="input-group" >
-                        <a class="v-btn v-btn-primary pull-right bg-light" href="{{ url('/laboursection') }}">BACK</a>
-                     </div>
-                  </li>
-               </ul>
+                  </div>
+               </div>
+               <div class="modal-footer">
+                  <button type="button" class="btn kv-location-cancel" data-dismiss="modal">Cancel</button>
+                  <button type="submit" class="btn kv-location-submit">Submit Upload</button>
+               </div>
             </form>
-         </h3>
+         </div>
       </div>
    </div>
    <input type="hidden" id="startDate" value="02-03-2018">
