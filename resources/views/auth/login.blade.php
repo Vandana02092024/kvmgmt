@@ -56,7 +56,7 @@
                         <div class="kv-login-input kv-password-input"><i class="fa fa-lock" aria-hidden="true"></i><input id="password" type="password" class="form-control" name="password" placeholder="Enter your password" autocomplete="current-password" required><button type="button" class="kv-password-toggle" aria-label="Show password" aria-pressed="false"><i class="fa fa-eye" aria-hidden="true"></i></button></div>
                     </div>
                     <div class="kv-login-options">
-                        <label class="kv-remember"><input type="checkbox" name="remember" {{ old('remember') ? 'checked' : '' }}> <span>Remember me</span></label>
+                        <label class="kv-remember"><input type="checkbox" name="remember" {{ old('remember') ? 'checked' : '' }}> <span class = "remember_me">Remember me</span></label>
                         <a href="{{ url('/password/reset') }}">Forgot password?</a>
                     </div>
                     <button type="submit" class="kv-login-submit">Sign In <i class="fa fa-arrow-right" aria-hidden="true"></i></button>

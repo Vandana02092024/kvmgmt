@@ -462,8 +462,9 @@ public function index()
 				$i++;
 			}
 
+
 			$result = json_encode($result);
-			$filename = "/var/www/html/kvmgmt/reportSectionData.txt";
+			$filename = "/var/www/html/kvmgmt_new/reportSectionData.txt";
 			file_put_contents($filename, '');
 			file_put_contents($filename, $result);
 			$departmentArr = array("Sales","Discounts","Adjustments","Receipts");
