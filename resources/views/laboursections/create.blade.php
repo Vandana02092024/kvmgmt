@@ -343,7 +343,12 @@
          <div class="modal-content">
             <div class="modal-header">
                <button type="button" class="close" data-dismiss="modal">&times;</button>
-               <h4 class="modal-title">Add New Employee</h4>
+               <div class="kv-create-employee-modal-title">
+                  <span class="kv-create-employee-modal-icon"><i class="fa fa-user-plus"></i></span>
+                  <div>
+                     <h4 class="modal-title">Add New Employee</h4>
+                  </div>
+               </div>
             </div>
             <div class="modal-body">
 
@@ -416,7 +421,6 @@
                <span class="kv-employee-modal-icon"><i class="fa fa-user-plus"></i></span>
                <div>
                   <h4 class="modal-title">Add Existing Employee</h4>
-                  <small>Add a team member to this department</small>
                </div>
             </div>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">&times;</button>
