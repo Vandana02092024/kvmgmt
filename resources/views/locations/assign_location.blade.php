@@ -38,8 +38,14 @@
 							@endforeach
 							</select>
 						</form>
-						<a class="v-btn v-btn-primary kv-assign-menu" href="{{ url('/dashboard') }}">Menu</a>
-            <a class="v-btn v-btn-primary kv-assign-back" href="{{ url('/location') }}"><i class="fa fa-arrow-left"></i> Back</a>
+						<!-- <a class="v-btn v-btn-primary kv-assign-menu" href="{{ url('/dashboard') }}">Menu</a> -->
+            <a class="v-btn v-btn-primary pull-right"
+              style="margin-right:8px"
+              href="javascript:history.back();">
+                <i class="fa fa-arrow-left"></i>
+                BACK
+            </a>
+            <!-- <a class="v-btn v-btn-primary kv-assign-back" href="{{ url('/location') }}"><i class="fa fa-arrow-left"></i> Back</a> -->
 					</div>
 				</div>
 			</div>

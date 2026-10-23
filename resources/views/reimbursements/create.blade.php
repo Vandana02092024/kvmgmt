@@ -74,8 +74,8 @@ $(function() {
 
 				<div class="page-heading kv-page-hero kv-claims-hero">
 					<h3 class="heading">
-						<span class="kv-hero-title"><i class="fa fa-file-text-o"></i><span>New Claim Form<small>Enter customer details, item information, and claim resolution.</small></span></span>
-						<a class="v-btn v-btn-primary kv-claim-back" href="{{ url('/reimbursement') }}"><i class="fa fa-arrow-left"></i> Back to Claims</a>
+						<span class="kv-hero-title"><i class="fa fa-file-text-o"></i><span>New Claim Form</span></span>
+						<a class="v-btn v-btn-primary" href="{{ url('/reimbursement') }}"><i class="fa fa-arrow-left " style="margin-right: 5px"> </i>BACK</a>
 					</h3>
 				</div>
 

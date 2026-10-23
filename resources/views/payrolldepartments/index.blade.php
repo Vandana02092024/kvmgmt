@@ -6,8 +6,14 @@
 			<div class="col-sm-12">
 				<div class= "page-heading kv-page-hero">
 					 <h3 class="heading">PAYROLL DEPARTMENTS
-                        <a class="v-btn v-btn-primary pull-right bg-light" href="{{ url('/menu') }}">BACK</a>
-                        <a class="v-btn v-btn-primary pull-right" href="{{ url('/dashboard') }}">DASHBOARD</a>
+                        <a class="v-btn v-btn-primary pull-right"
+                            style="margin-right:8px"
+                            href="javascript:history.back();">
+                            <i class="fa fa-arrow-left"></i>
+                            BACK
+                        </a>
+                        <!-- <a class="v-btn v-btn-primary pull-right bg-light" href="{{ url('/menu') }}">BACK</a> -->
+                        <!-- <a class="v-btn v-btn-primary pull-right" href="{{ url('/dashboard') }}">DASHBOARD</a> -->
                         <a class="v-btn v-btn-primary payroll-add-trigger pull-right" href="{{ url('/payrolldepartment/create') }}">NEW PAYROLL DEPARTMENT</a>
                     </h3>
 				</div>

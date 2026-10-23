@@ -9,11 +9,11 @@
 				<div class= "page-heading kv-page-hero">
 					<h3 class="heading">
 						<a class="v-btn v-btn-primary pull-right" style="margin-right:8px" href="{{ url('/user') }}">
-							<i class="fa fa-arrow-left " style="margin-right: 5px"> </i>
+							<i class="fa fa-arrow-left "> </i>
 							BACK
 						</a>
 						ADD USER
-					<a class="v-btn v-btn-primary pull-right" href="{{ url('/dashboard') }}">MENU</a>
+					<!-- <a class="v-btn v-btn-primary pull-right" href="{{ url('/dashboard') }}">MENU</a> -->
 					</h3>
 				</div>
 				<br />

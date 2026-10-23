@@ -7,8 +7,19 @@
 		<div class="row">
 			<div class="col-sm-12">
 				<div class= "page-heading kv-page-hero">
-					<h3 class="heading"> <a class="v-btn v-btn-primary pull-right" style="margin-right:8px" href="{{ url('/menu') }}"><i class="fa fa-arrow-left " style="margin-right: 5px"> </i>BACK</a> CATEGORIES
-						<a class="v-btn v-btn-primary pull-right" href="{{ url('/dashboard') }}">MENU</a>
+					<h3 class="heading">
+						<!-- <a class="v-btn v-btn-primary pull-right" style="margin-right:8px" href="{{ url('/menu') }}">
+							<i class="fa fa-arrow-left " style="margin-right: 5px"> </i>
+							BACK
+						</a> -->
+						<a class="v-btn v-btn-primary pull-right"
+							style="margin-right:8px"
+							href="javascript:history.back();">
+							<i class="fa fa-arrow-left"></i>
+							BACK
+						</a>
+						 CATEGORIES
+						<!-- <a class="v-btn v-btn-primary pull-right" href="{{ url('/dashboard') }}">MENU</a> -->
 						<a class="v-btn v-btn-primary pull-right" href="#addCategoryModal" data-toggle="modal">NEW CATEGORY</a>
 					</h3>
 				</div>
@@ -77,15 +88,54 @@
 							<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 							<h4 class="modal-title" id="addCategoryTitle">Add Category</h4>
 						</div>
-						<div class="modal-body">
+						<!-- <div class="modal-body">
 							<div class="form-group{{ $errors->has('category') ? ' has-error' : '' }}">
 								<label for="new-category-name">CATEGORY</label>
-								<textarea id="new-category-name" name="category" class="form-control" rows="2" required>{{ old('category') }}</textarea>
-								@if ($errors->has('category'))<span class="help-block">{{ $errors->first('category') }}</span>@endif
+
+								<input type="text"
+									id="new-category-name"
+									name="category"
+									class="form-control"
+									value="{{ old('category') }}"
+									required>
+
+								@if ($errors->has('category'))
+									<span class="help-block">{{ $errors->first('category') }}</span>
+								@endif
 							</div>
 							<div class="form-group">
 								<label for="new-category-rank">RANK</label>
 								<input id="new-category-rank" type="number" name="rank" class="form-control" value="{{ old('rank') }}">
+							</div>
+						</div> -->
+						<div class="modal-body">
+							<div class="row">
+								<div class="col-md-6">
+									<div class="form-group{{ $errors->has('category') ? ' has-error' : '' }}">
+										<label for="new-category-name">CATEGORY</label>
+										<input type="text"
+											id="new-category-name"
+											name="category"
+											class="form-control"
+											value="{{ old('category') }}"
+											required>
+
+										@if ($errors->has('category'))
+											<span class="help-block">{{ $errors->first('category') }}</span>
+										@endif
+									</div>
+								</div>
+
+								<div class="col-md-6">
+									<div class="form-group">
+										<label for="new-category-rank">RANK</label>
+										<input id="new-category-rank"
+											type="number"
+											name="rank"
+											class="form-control"
+											value="{{ old('rank') }}">
+									</div>
+								</div>
 							</div>
 						</div>
 						<div class="modal-footer">
@@ -109,13 +159,29 @@
 								<h4 class="modal-title" id="editCategoryTitle{{ $category->id }}">Edit Category</h4>
 							</div>
 							<div class="modal-body">
-								<div class="form-group">
-									<label for="category-name-{{ $category->id }}">CATEGORY</label>
-									<textarea id="category-name-{{ $category->id }}" name="category" class="form-control" rows="2" required>{{ $category->category }}</textarea>
-								</div>
-								<div class="form-group">
-									<label for="category-rank-{{ $category->id }}">RANK</label>
-									<input id="category-rank-{{ $category->id }}" type="number" name="rank" class="form-control" value="{{ $category->rank }}">
+								<div class="row">
+									<div class="col-md-6">
+										<div class="form-group">
+											<label for="category-name-{{ $category->id }}">CATEGORY</label>
+											<input type="text"
+												id="category-name-{{ $category->id }}"
+												name="category"
+												class="form-control"
+												value="{{ $category->category }}"
+												required>
+										</div>
+									</div>
+
+									<div class="col-md-6">
+										<div class="form-group">
+											<label for="category-rank-{{ $category->id }}">RANK</label>
+											<input id="category-rank-{{ $category->id }}"
+												type="number"
+												name="rank"
+												class="form-control"
+												value="{{ $category->rank }}">
+										</div>
+									</div>
 								</div>
 							</div>
 							<div class="modal-footer">

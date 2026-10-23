@@ -115,7 +115,7 @@
       <div class="row">
          <div class="col-sm-12">
             <div class="page-heading inline" style="margin-bottom:0;margin-top: 0">
-               <h3 class="heading text-left" style="font-size: 18px;"> <a class="v-btn v-btn-primary " style="margin-right:8px" href="{{ url('/salesection') }}"><i class="fa fa-arrow-left " style="margin-right: 5px"> </i>BACK</a> {{ $entity }} <!-- {{ session()->get('entityName') }} -->  Weekly Sales Report (  <span style="margin-left: 0;"> {{ session()->get('locationCode') }} - {{ session()->get('locationName') }}</span>)
+               <h3 class="heading text-left" style="font-size: 18px;"> {{ $entity }} <!-- {{ session()->get('entityName') }} -->  Weekly Sales Report (  <span style="margin-left: 0;"> {{ session()->get('locationCode') }} - {{ session()->get('locationName') }}</span>)
                </h3>
 
             </div>
@@ -136,6 +136,7 @@
                   <input class="v-btn v-btn-primary" type="submit" name="submit" id="weekDatapick" value="FILTER">
             </form>
             <input type="button" name="" value="Labor Report" onclick="gotoLaborRep()" class="v-btn v-btn-primary pull-right bg-light">
+            <a class="v-btn v-btn-primary" href="{{ url('/salesection') }}"><i class="fa fa-arrow-left " style="margin-right: 5px"> </i>BACK</a>
 
             </ul>
          </div>
@@ -1129,7 +1130,7 @@
    .custom-table>tbody>tr:nth-child(odd){}
    .custom-table>thead>tr>th{border-left:1px solid #ababab}
    .thead-Dark{background-color: #909090; color: #fff;}
-   .thead-Light{background-color: #382f2f; color: #fff; }
+   .thead-Light{background-color: #382f2f59; color: #fff; }
    .filter-container
    {
    background: #382f2f;

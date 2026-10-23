@@ -6,8 +6,15 @@
 		<div class="row">
 			<div class="col-sm-12">
 				<div class= "page-heading kv-page-hero">
-					<h3 class="heading"> <a class="v-btn v-btn-primary pull-right " style="margin-right:8px" href="{{ url('/menu') }}"><i class="fa fa-arrow-left " style="margin-right: 5px"> </i>BACK</a> VENDOR
-						<a class="v-btn v-btn-primary pull-right" href="{{ url('/dashboard') }}">MENU</a>
+					<h3 class="heading">
+						<a class="v-btn v-btn-primary pull-right"
+							style="margin-right:8px"
+							href="javascript:history.back();">
+							<i class="fa fa-arrow-left"></i>
+							BACK
+							</a>
+						 VENDOR
+						<!-- <a class="v-btn v-btn-primary pull-right" href="{{ url('/dashboard') }}">MENU</a> -->
 						<a class="v-btn v-btn-primary pull-right" href="{{ url('/seller/create') }}">NEW VENDOR</a>
 					</h3>
 				</div>

@@ -8,8 +8,17 @@
 			<div class="col-sm-12">
 				<div class= "page-heading kv-page-hero">
 					<h3 class="heading">SALE
-					<a class="v-btn v-btn-primary pull-right bg-light" href="{{ url('/menu') }}"><i class="fa fa-arrow-left " style="margin-right: 5px"> </i>BACK</a>
-					<a class="v-btn v-btn-primary pull-right" href="{{ url('/dashboard') }}">DASHBOARD</a>
+					<!-- <a class="v-btn v-btn-primary pull-right bg-light" href="{{ url('/menu') }}">
+						<i class="fa fa-arrow-left " style="margin-right: 5px"> </i>
+						BACK
+					</a> -->
+					<a class="v-btn v-btn-primary pull-right"
+						style="margin-right:8px"
+						href="javascript:history.back();">
+						<i class="fa fa-arrow-left"></i>
+						BACK
+						</a>
+					<!-- <a class="v-btn v-btn-primary pull-right" href="{{ url('/dashboard') }}">DASHBOARD</a> -->
                     <a class="v-btn v-btn-primary pull-right" href="#addSettingsItemModal" data-toggle="modal">NEW SALE</a>
 					</h3>
 				</div>
