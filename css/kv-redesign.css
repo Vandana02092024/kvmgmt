@@ -149,9 +149,9 @@ label { margin-bottom: 5px; color: #475c75; font-size: 12px; }
 .kv-page-hero .kv-hero-title > i { display: inline-flex; align-items: center; justify-content: center; width: 35px; height: 35px; border: 1px solid rgba(255,255,255,.28); border-radius: 12px; color: #6be0bd; background: rgba(0,157,121,.22); font-size: 21px; }
 .kv-page-hero .kv-hero-title > span { display: flex; flex-direction: column; gap: 4px; color: #fff; font-size: 20px; }
 .kv-page-hero .kv-hero-title small { max-width: 620px; color: #b7d2d3; font-size: 12px; font-weight: 400; }
-.kv-page-hero .v-btn { padding: 11px 17px; border-color: var(--kv-gold); border-radius: 8px; color: #17263b; background: var(--kv-gold); font-size: 12px; font-weight: 700; text-transform: none; }
+.kv-page-hero .v-btn { padding: 11px 17px; border-color: var(--kv-gold); border-radius: 8px; color: #17263b !important; background: var(--kv-gold) !important; font-size: 12px; font-weight: 700; text-transform: none; }
 .kv-page-hero .v-btn:hover { border-color: #ffc247; background: #ffc247; }
-.kv-page-hero .v-btn i { margin-right: 5px; }
+/* .kv-page-hero .v-btn i { margin-right: 5px; } */
 .kv-sales-hero { background: linear-gradient(110deg, #005e4b, #0d263f); }
 .kv-labor-hero { background: linear-gradient(110deg, #173f7b, #102542); }
 .kv-labor-hero .kv-hero-title > i { color: #9ac4ff; background: rgba(76,132,214,.2); }
@@ -159,17 +159,17 @@ label { margin-bottom: 5px; color: #475c75; font-size: 12px; }
 .kv-dashboard .container { padding: 0; }
 .kv-dashboard-context { display: flex; align-items: center; justify-content: space-between; gap: 18px; margin: 0 0 16px; padding: 14px 17px; border: 1px solid var(--kv-line); border-radius: 10px; background: #fff; box-shadow: 0 2px 8px rgba(27,48,74,.04); }
 .kv-store-identity { display: flex; align-items: center; gap: 12px; min-width: 220px; }
-.kv-store-badge { display: inline-flex; align-items: center; justify-content: center; width: 42px; height: 42px; border: 2px solid #e3b85d; border-radius: 11px; color: #fff; background: var(--kv-navy); font-size: 13px; font-weight: 800; }
+.kv-store-badge { display: inline-flex; align-items: center; justify-content: center; width: 35px; height: 35px; border: 2px solid #e3b85d; border-radius: 11px; color: #fff; background: var(--kv-navy); font-size: 13px; font-weight: 800; }
 .kv-store-identity h1 { margin: 0; color: var(--kv-navy); font-size: 17px; font-weight: 750; }
 .kv-store-identity h1 small { display: inline-block; margin-left: 4px; padding: 3px 6px; border-radius: 4px; color: #775800; background: #fff4ce; font-size: 9px; font-weight: 700; }
 .kv-store-identity p { margin: 4px 0 0; color: #718198; font-size: 10px; }
 .kv-store-identity p span { padding: 0 4px; }
 .kv-dashboard-tools { display: flex; align-items: center; justify-content: flex-end; flex-wrap: wrap; gap: 6px; }
-.kv-period-chip { display: inline-flex; align-items: center; gap: 5px; padding: 6px 8px; border: 1px solid #e5eaf0; border-radius: 6px; color: #687a8f; background: #fafbfd; font-size: 9px; white-space: nowrap; }
+.kv-period-chip { display: inline-flex; align-items: center; gap: 5px; padding: 4px 8px; border: 1px solid #e5eaf0; border-radius: 6px; color: #687a8f; background: #fafbfd; font-size: 10px; white-space: nowrap; }
 .kv-period-chip i { color: #df8e27; }
 .kv-period-chip strong { color: #314a66; }
 .kv-period-store i { color: #149b79; }
-.kv-period-date { color: #718198; font-size: 9px; white-space: nowrap; }
+.kv-period-date { color: #fff; font-size: 11px; white-space: nowrap; }
 .kv-dashboard-location-form { display: flex; align-items: center; gap: 5px; }
 .kv-dashboard-location-form .form-control { width: 135px; min-height: 30px; padding: 4px 7px; font-size: 10px; }
 .kv-dashboard-location-form .v-btn { padding: 7px 9px; font-size: 9px; }
@@ -357,18 +357,18 @@ label { margin-bottom: 5px; color: #475c75; font-size: 12px; }
 .kv-page-hero .kv-hero-title > i { color: #f3c84a; background: rgba(242,189,59,.14); }
 .kv-page-hero .v-btn { border-color: #f2bd3b; color: #17263b; background: #f2bd3b; }
 .kv-dashboard-context {
-    min-height: 78px; padding: 14px 18px; border: 1px solid #e0e7f0; color: var(--kv-ink);
-    background: #fff; box-shadow: 0 3px 10px rgba(22,43,73,.06);
+    min-height: 50px; padding: 9px 22px; border: 1px solid #e0e7f0; color:#fff;
+    background: var(--kv-ink); box-shadow: 0 3px 10px rgba(22,43,73,.06);
 }
 .kv-store-identity { gap: 12px; min-width: 0; }
-.kv-store-badge { flex: 0 0 42px; width: 42px; height: 42px; border-radius: 9px; }
-.kv-dashboard-context .kv-store-identity h1 { color: #122b4b; font-size: 20px; line-height: 1.25; }
+.kv-store-badge { flex: 0 0 42px; width: 35px; height: 35px; border-radius: 9px; }
+.kv-dashboard-context .kv-store-identity h1 { color: #fff; font-size: 20px; line-height: 1.25; }
 .kv-dashboard-context .kv-store-identity h1 small { color: #775800; background: #fff3c9; }
-.kv-dashboard-context .kv-store-identity p { color: #74849a; font-size: 10px; }
-.kv-dashboard-context .kv-period-date { color: #718198; }
+.kv-dashboard-context .kv-store-identity p { color: #e5f0ff; font-size: 10px; }
+.kv-dashboard-context .kv-period-date { color: #fff; }
 .kv-dashboard-context .kv-period-chip { border-color: #e3e9f1; color: #62768e; background: #f8fafc; }
 .kv-dashboard-context .kv-period-chip strong { color: #273f5c; }
-.kv-dashboard-context .kv-store-badge { border-color: #d2a838; color: #f3c64d; background: #112a4a; }
+.kv-dashboard-context .kv-store-badge { border-color: #d2a838; color: #fff; background: #112a4a; }
 .kv-store-active { display: inline-flex; align-items: center; gap: 4px; margin-left: 5px; padding: 3px 7px; border-radius: 12px; color: #07815f; background: #e3f8ef; font-size: 8px; font-weight: 700; vertical-align: middle; }
 .kv-dashboard-tools { flex-wrap: nowrap; }
 .kv-dashboard .kv-kpi-card { border-top-color: #13b789; }
@@ -679,6 +679,19 @@ body .main-content .kv-page-hero.kv-claims-hero h3.heading > a.v-btn.kv-claim-pr
 .kv-weekly-ledger > .container-fluid > .row:first-child > .col-sm-12 > form { display: flex; align-items: center; float: none !important; margin: 0; }
 .kv-weekly-ledger > .container-fluid > .row:first-child .quick-info { margin: 0; }
 .kv-weekly-ledger > .container-fluid > .row:first-child .quick-info .v-btn, .kv-weekly-ledger > .container-fluid > .row:first-child > .col-sm-12 > .v-btn { margin: 0; border: 0; border-radius: 8px; padding: 4px 12px; color: #fff; background: #1d5ff0; font-weight: 500; font-size: 11px; }
+.kv-weekly-ledger > .container-fluid > .row:first-child .quick-info .v-btn, .kv-weekly-ledger > .container-fluid > .row:first-child > .col-sm-12 > .v-btn {
+    margin: 0 !important;
+    border: 0;
+    border-radius: 8px;
+    padding: 4px 12px;
+    color: #152b47 !important;
+    background-color: #f2bd3b  !important;
+    border-color: #f2bd3b !important;
+    /* background: #1d5ff0; */
+    font-size: 11px;
+    font-weight: 700;
+
+     }
 .kv-weekly-ledger > .container-fluid > .row:first-child > .col-sm-12 > .v-btn.bg-light { background: #24334a; }
 .kv-weekly-ledger .quick-info { display: flex; align-items: center; gap: 9px; margin: 9px 0 0; padding: 0; list-style: none; }
 .kv-weekly-ledger .quick-info li { color: #f4c531; font-size: 11px; font-weight: 700; }
@@ -1093,8 +1106,10 @@ html, body { overflow-x: clip; }
     padding: 7px 11px !important;
     border: 1px solid rgba(255,255,255,.22) !important;
     border-radius: 7px !important;
-    color: #fff !important;
-    background: rgba(255,255,255,.12) !important;
+    /* color: #fff !important; */
+    background: #f2bd3b;
+    color: #173a63;
+    /* background: rgba(255,255,255,.12) !important; */
     box-shadow: none !important;
     font-size: 10px;
     font-weight: 700;
@@ -1141,7 +1156,7 @@ html, body { overflow-x: clip; }
 .kv-module-screen .v-btn-primary,
 .kv-module-screen .y-btn-primary,
 .kv-module-screen button.btn-primary,
-.kv-module-screen input.btn-primary { border-color: #173a63; color: #fff; background: #173a63; }
+.kv-module-screen input.btn-primary { border-color: #173a63; color: #152b47; background: #f2bd3b; }
 .kv-module-screen .v-btn-primary:hover,
 .kv-module-screen .y-btn-primary:hover,
 .kv-module-screen button.btn-primary:hover { border-color: #24517f; background: #24517f; }
@@ -1409,7 +1424,7 @@ html, body { overflow-x: clip; }
     font-size: 13px;
 }
 .kv-labor-report h3.heading .v-btn {
-    min-height: 30px;
+    min-height: 28px;
     padding: 2px 15px;
     border: 1px solid #f2bd3b;
     border-radius: 7px;

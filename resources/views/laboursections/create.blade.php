@@ -120,7 +120,7 @@
                         </li>
                         <li>
                            <div class="input-group" >
-                              <a class="v-btn v-btn-primary pull-right bg-light" href="{{ url('/laboursection') }}">BACK</a>
+                              <a class="v-btn v-btn-primary" href="{{ url('/laboursection') }}"><i class="fa fa-arrow-left " style="margin-right: 5px"> </i>BACK</a>
                            </div>
                         </li>
                      </ul>

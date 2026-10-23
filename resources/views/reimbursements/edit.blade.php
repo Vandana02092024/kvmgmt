@@ -84,10 +84,11 @@ $(function() {
 				<div class="page-heading kv-page-hero kv-claims-hero">
 
 					<h3 class="heading">
-						<span class="kv-hero-title"><i class="fa fa-file-text-o"></i><span>Edit Claim Form<small>Update customer details, item information, and claim resolution.</small></span></span>
+						<span class="kv-hero-title"><i class="fa fa-file-text-o"></i><span>Edit Claim Form</span></span>
 						<span class="kv-claim-header-actions">
 							<a class="v-btn v-btn-secondary" target="_blank" href="{{action('ReimbursementController@rembursementPdf', $reimbursement->id)}}"><i class="fa fa-file-pdf-o"></i> PDF</a>
-							<a class="v-btn v-btn-primary kv-claim-back" href="{{ url('/reimbursement') }}"><i class="fa fa-arrow-left"></i> Back to Claims</a>
+							<!-- <a class="v-btn v-btn-primary kv-claim-back" href="{{ url('/reimbursement') }}"><i class="fa fa-arrow-left"></i> Back to Claims</a> -->
+							<a class="v-btn v-btn-primary" href="{{ url('/reimbursement') }}"><i class="fa fa-arrow-left " style="margin-right: 5px"> </i>BACK</a>
 						</span>
 					</h3>
 				</div>

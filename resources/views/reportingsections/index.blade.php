@@ -78,7 +78,7 @@ table.dataTable thead .sorting_asc, .sorting_desc, .sorting {
 						<span class="kv-hero-title"><i class="fa fa-bar-chart"></i><span>Reports &amp; Analytics</span></span>
 						<span class="kv-report-actions">
 							<a class="v-btn v-btn-primary kv-report-primary-action" id="print_data" href="{{'#'}}">PDF REPORT</a>
-							<a class="v-btn v-btn-primary kv-report-secondary-action" href="{{ url('/dashboard') }}">MENU</a>
+							<!-- <a class="v-btn v-btn-primary kv-report-secondary-action" href="{{ url('/dashboard') }}">MENU</a> -->
 						</span>
 					</h3>
 			</div>

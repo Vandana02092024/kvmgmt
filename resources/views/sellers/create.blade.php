@@ -16,7 +16,7 @@
 							BACK
 						</a>
 						ADD VENDOR
-						<a class="v-btn v-btn-primary pull-right " href="{{ url('/dashboard') }}">MENU</a>
+						<!-- <a class="v-btn v-btn-primary pull-right " href="{{ url('/dashboard') }}">MENU</a> -->
 					</h3>
 				</div>
 				<br />
