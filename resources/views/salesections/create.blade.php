@@ -260,8 +260,8 @@
                               </tr>
                            </tfoot>
                         </table>
-                     </div>
-                     <div class="col-md-2">
+                      </div>
+                      <div class="col-md-2">
                         <table class="table custom-table fixed-tbody">
                            <thead>
                               <tr>
@@ -288,8 +288,8 @@
                            </tfoot>
                         </table>
                      </div>
-                     <div class="col-md-2">
-                        <table class="table custom-table fixed-tbody">
+                      <div class="col-md-2 kv-summary-stack">
+                          <table class="table custom-table fixed-tbody kv-summary-compact">
                            <thead>
                               <tr>
                                  <th width="450" colspan="2" style="text-align:center">TOTAL SALES </th>
@@ -304,7 +304,15 @@
                                  <td width="250">Net Sales</td>
                                  <td id="netsale" style="text-align: right;">${{ number_format(($netsale-$sale_tax),2) }}  </td>
                               </tr>
-                              <tr class="kv-summary-subhead"><th colspan="2">LABOR</th></tr>
+                            </tbody>
+                         </table>
+                         <table class="table custom-table fixed-tbody kv-summary-compact kv-summary-labor">
+                            <thead>
+                               <tr>
+                                  <th colspan="2" style="text-align:center">LABOR</th>
+                               </tr>
+                            </thead>
+                            <tbody>
                              <tr>
                                 <td>Labor %</td>
                                 <?php
@@ -336,7 +344,7 @@
             <span class="kv-daily-focus-date-icon"><i class="fa fa-calendar"></i></span>
             <div><h2 id="kv-daily-focus-title">Daily Ledger</h2><p>Enter and review this day’s store activity.</p></div>
             <span class="kv-daily-focus-status"><i class="fa fa-circle"></i> Daily entry</span>
-            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#dailyEntryPdfModal"><i class="fa fa-upload"></i> Upload PDF</button>
+            <button type="button" class="btn btn-primary fs-fw" data-toggle="modal" data-target="#dailyEntryPdfModal"><i class="fa fa-upload"></i> Upload PDF</button>
          </div>
          <div class="kv-daily-focus-layout">
             <div class="kv-daily-focus-sections">
